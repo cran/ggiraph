@@ -1,0 +1,11 @@
+dependencies:
+  - name: jquery
+    version: 2.1.1
+    src: "htmlwidgets/lib"
+    script: jquery.min.js
+  - name: tooltip
+    version: 3.3.6
+    src: "htmlwidgets/lib"
+    stylesheet: bootstrap.min.css
+    script: bootstrap.min.js
+
