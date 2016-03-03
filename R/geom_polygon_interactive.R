@@ -51,19 +51,23 @@ GeomInteractivePolygon <- ggproto("GeomInteractivePolygon", Geom,
 			if( !is.null(munched$data_id) && !is.character(munched$data_id) )
 			  munched$data_id <- as.character(munched$data_id)
 
-			setGrobName("geom_polygon_interactive",
-					interactivePolygonGrob(munched$x, munched$y, default.units = "native",
-							id = munched$group,
-							tooltip = munched$tooltip,
-							onclick = munched$onclick,
-							data_id = munched$data_id,
-							gp = gpar(
-									col = first_rows$colour,
-									fill = alpha(first_rows$fill, first_rows$alpha),
-									lwd = first_rows$size * .pt,
-									lty = first_rows$linetype
-							)
-					)
+			setGrobName(
+			  "geom_polygon_interactive",
+			  interactive_polygon_grob(
+			    munched$x,
+			    munched$y,
+			    default.units = "native",
+			    id = munched$group,
+			    tooltip = munched$tooltip,
+			    onclick = munched$onclick,
+			    data_id = munched$data_id,
+			    gp = gpar(
+			      col = first_rows$colour,
+			      fill = alpha(first_rows$fill, first_rows$alpha),
+			      lwd = first_rows$size * .pt,
+			      lty = first_rows$linetype
+			    )
+			  )
 			)
 		},
 
@@ -99,7 +103,6 @@ geom_map_interactive <- function(mapping = NULL, data = NULL, map, stat = "ident
   if (!is.null(map$long)) map$x <- map$long
   if (!is.null(map$region)) map$id <- map$region
   stopifnot(all(c("x", "y", "id") %in% names(map)))
-
   layer(
     data = data,
     mapping = mapping,
@@ -163,7 +166,7 @@ GeomInteractiveMap <- ggproto(
       args$data_id <- unlist(mapply(rep, data$data_id, run_l$lengths))
 
 
-    do.call(interactivePolygonGrob, args)
+    do.call(interactive_polygon_grob, args)
   },
 
   required_aes = c("map_id")
