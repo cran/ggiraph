@@ -1,57 +1,20 @@
-library(shiny)
-
 shinyUI(fluidPage(
-  title = "ggiraph demo",
-  tags$script("var state = null;"),
-  # Application title
-  titlePanel("Crimes map"),
+  h2("Crimes map"),
+  sidebarLayout(
 
-  fluidRow(column(7,
+    sidebarPanel(
+      actionButton("reset", label = "Reset selection"),
+      tags$hr(),
+      tags$p(tags$code("data_id"), " values of the selected elements are available through ",
+             tags$code("input$ggiraphId_selected"), "."), tags$br(),
+      tags$p(tags$code("input$ggiraphId_selected"), " values can be modified with ",
+             tags$code("session$sendCustomMessage(type = 'ggiraphId_set', message = character(0))"), "."), tags$br()
+    ),
 
+    mainPanel(
       ggiraph::ggiraphOutput("plot"),
 
-      shiny::inputPanel(
-        actionButton("reset", label = "Reset selection", onclick = "{Shiny.onInputChange('state', null);}")
-      ),
       dataTableOutput("datatab")
-    ),
-    column(5,
-           wellPanel(
-           h4("Details", class = "section-title"),
-           h5("ui.R", class = "section-title"),
-           p(span("Declare a javascript variable"),
-             tags$code("state"), span(":") ),
-           p(tags$code("tags$script('var state = null;')")),
-           h5("server.R", class = "section-title"),
-           p(span("Make that variable reactive:")),
-           p(tags$code("state <- reactive({input$state})")),
-           h5("ggplot commands", class = "section-title"),
-           p(span("use data_id and onclick arguments with ggplot:")),
-           tags$li(
-              tags$ul(
-                  tags$strong("onclick"),
-                  tags$i("the javascript function to execute on click"),
-                        tags$code("{var dataid = d3.select(this).attr(\"data-id\");Shiny.onInputChange(\"state\", dataid);}") ),
-              tags$ul(
-                tags$strong("data_id"),
-                tags$i("assign data id to elements."), tags$span("Elements with a data id attribute will be animated when mouse will be over.") )
-                   )
-    ))
-  ),
-  fluidRow(
-    column(12,h3("code"))
-    ),
-  fluidRow(
-    column(1), column(10,
-      tabsetPanel(
-        tabPanel(title = "File ui.R",
-          includeMarkdown("ui.md") ),
-        tabPanel(title = "ggplot code",
-          includeMarkdown("ggplot.md") ),
-        tabPanel(title = "File server.R",
-          includeMarkdown("server.md") )
-      )
-    ), column(1)
-  ))
-)
-
+    )
+  )
+))

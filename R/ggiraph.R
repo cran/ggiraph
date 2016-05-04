@@ -15,8 +15,8 @@
 #'
 #' @param code Plotting code to execute
 #' @param pointsize the default pointsize of plotted text in pixels, default to 12.
-#' @param width widget width
-#' @param height widget height
+#' @param width,height widget width and height in css unit
+#' @param width_svg,height_svg svg viewbox width and height in inches
 #' @param tooltip_extra_css extra css (added to \code{position: absolute;pointer-events: none;})
 #' used to customize tooltip area.
 #' @param hover_css css to apply when mouse is hover and element with a data-id attribute.
@@ -24,6 +24,9 @@
 #' @param tooltip_offx tooltip x offset
 #' @param tooltip_offy tooltip y offset
 #' @param zoom_max maximum zoom factor
+#' @param selection_type row selection mode ("single", "multiple", "none")
+#'  when widget is in a Shiny application.
+#' @param selected_css css to apply when element is selected (shiny only).
 #' @param ... arguments passed on to \code{\link[rvg]{dsvg}}
 #' @seealso \code{\link{geom_path_interactive}},
 #' \code{\link{geom_point_interactive}},
@@ -35,34 +38,48 @@
 #' @example examples/geom_point_interactive.R
 #' @export
 ggiraph <- function(code,
-	pointsize = 12, width = 6, height = 6,
+	pointsize = 12,
+	width = "70%", height = "400px",
+	width_svg = 6, height_svg = 6,
 	tooltip_extra_css,
 	hover_css,
 	tooltip_opacity = .9,
 	tooltip_offx = 10,
 	tooltip_offy = 0,
-	zoom_max = 6,
+	zoom_max = 1,
+	selection_type = "multiple",
+	selected_css,
 	...) {
 
   if( missing( tooltip_extra_css ))
     tooltip_extra_css <- "padding:5px;background:black;color:white;border-radius:2px 2px 2px 2px;"
   if( missing( hover_css ))
     hover_css <- "fill:orange;"
+  if( missing( selected_css ))
+    selected_css = "fill:orange;"
 
+
+
+  stopifnot(selection_type %in% c("single", "multiple", "none"))
   stopifnot(is.numeric(tooltip_offx))
   stopifnot(is.numeric(tooltip_offy))
   stopifnot(is.numeric(tooltip_opacity))
   stopifnot(tooltip_opacity > 0 && tooltip_opacity <= 1)
   stopifnot(tooltip_opacity > 0 && tooltip_opacity <= 1)
   stopifnot(is.numeric(zoom_max))
-  stopifnot( zoom_max > 1 )
+
+  if( zoom_max < 1 )
+    stop("zoom_max should be >= 1")
+  if( zoom_max == 1 )
+    zoompan = FALSE
+  else zoompan = TRUE
 
 	ggiwid.options = getOption("ggiwid")
 	tmpdir = tempdir()
 	path = tempfile()
 	canvas_id <- ggiwid.options$svgid
 	dsvg(file = path, pointsize = pointsize, standalone = TRUE,
-			width = width, height = height,
+			width = width_svg, height = height_svg,
 			canvas_id = canvas_id, ...
 		)
 	tryCatch(code, finally = dev.off() )
@@ -71,7 +88,6 @@ ggiraph <- function(code,
 	options("ggiwid"=ggiwid.options)
 
 	svg_container <- paste( scan(path, what = "character", sep = "\n", quiet = TRUE), collapse = "")
-
 	data <- read_xml( path )
 	scr <- xml_find_all(data, "//*[@type='text/javascript']", ns = xml_ns(data) )
 	js <- paste( sapply( scr, xml_text ), collapse = ";")
@@ -92,17 +108,21 @@ ggiraph <- function(code,
 	          tooltip_opacity = tooltip_opacity,
 	          tooltip_offx = tooltip_offx,
 	          tooltip_offy = tooltip_offy,
-	          zoom_max = zoom_max
+	          zoom_max = zoom_max,
+	          zoompan = zoompan,
+	          selection_type = selection_type,
+	          selected_css = selected_css
 	          )
 
 	# create widget
 	htmlwidgets::createWidget(
 			name = 'ggiraph',
 			x,
-			width = NULL,
-			height = NULL,
+			width = width,
+			height = height,
 			package = 'ggiraph',
-			sizingPolicy = sizingPolicy(padding = 0, browser.fill = TRUE )
+			sizingPolicy = sizingPolicy(defaultWidth = 600, defaultHeight = 400, padding = 5,
+			             browser.fill = TRUE, knitr.figure = FALSE)
 	)
 }
 
