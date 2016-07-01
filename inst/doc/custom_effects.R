@@ -22,6 +22,3 @@ ggiraph(code = {print(gg_point_1)}, tooltip_extra_css = tooltip_css, tooltip_opa
 ## ------------------------------------------------------------------------
 ggiraph(code = {print(gg_point_1)}, hover_css = "fill:red;" )
 
-## ------------------------------------------------------------------------
-ggiraph(code = {print(gg_point_1)}, hover_css = "fill:red;r:6pt" )
-

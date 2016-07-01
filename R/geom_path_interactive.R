@@ -1,8 +1,8 @@
-#' @title draw paths with tooltips or click actions or double click actions
+#' @title draw interactive paths
 #'
 #' @description
 #' The path_interactive geom is used to create interactive lines, tooltips
-#' can be displayed when mouse is over lines, on click actions and double click actions can be
+#' can be displayed when mouse is over lines, on click actions can be
 #' set with javascript instructions.
 #' @inheritParams geom_point_interactive
 #' @param lineend Line end style (round, butt, square)
@@ -153,3 +153,35 @@ GeomPathInteractive <- ggproto("GeomPath", Geom,
 
 		draw_key = draw_key_path
 )
+
+
+
+
+
+#' @export
+#' @rdname geom_path_interactive
+geom_line_interactive <- function(mapping = NULL, data = NULL, stat = "identity",
+                                  position = "identity", na.rm = FALSE,
+                                  show.legend = NA, inherit.aes = TRUE, ...) {
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomInteractiveLine,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
+  )
+}
+
+GeomInteractiveLine <- ggproto("GeomInteractiveLine", GeomPathInteractive,
+                               setup_data = function(data, params) {
+                                 data[order(data$PANEL, data$group, data$x), ]
+                               }
+)
+
+

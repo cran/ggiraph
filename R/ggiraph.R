@@ -15,7 +15,7 @@
 #'
 #' @param code Plotting code to execute
 #' @param pointsize the default pointsize of plotted text in pixels, default to 12.
-#' @param width,height widget width and height in css unit
+#' @param width widget width ratio (0 > width >= 1)
 #' @param width_svg,height_svg svg viewbox width and height in inches
 #' @param tooltip_extra_css extra css (added to \code{position: absolute;pointer-events: none;})
 #' used to customize tooltip area.
@@ -39,7 +39,7 @@
 #' @export
 ggiraph <- function(code,
 	pointsize = 12,
-	width = "70%", height = "400px",
+	width = 0.7,
 	width_svg = 6, height_svg = 6,
 	tooltip_extra_css,
 	hover_css,
@@ -67,6 +67,8 @@ ggiraph <- function(code,
   stopifnot(tooltip_opacity > 0 && tooltip_opacity <= 1)
   stopifnot(tooltip_opacity > 0 && tooltip_opacity <= 1)
   stopifnot(is.numeric(zoom_max))
+  stopifnot(is.numeric(width))
+  stopifnot( 0 < width && width <= 1.0)
 
   if( zoom_max < 1 )
     stop("zoom_max should be >= 1")
@@ -101,6 +103,10 @@ ggiraph <- function(code,
 	if( grepl(x = tooltip_extra_css, pattern = "pointer-events[ ]*:") )
 	  stop("please, do not specify pointer-events in tooltip_extra_css, this parameter is managed by ggiraph.")
 
+
+	padding_bottom <- width * (height_svg / width_svg)
+	width <- sprintf("%.0f%%", width * 100 )
+	padding_bottom <- sprintf("%.0f%%", padding_bottom * 100 )
 	x = list( html = HTML( svg_container ), code = js, canvas_id = ggiwid.options$svgid,
 	          data_id_class = data_id_class,
 	          tooltip_extra_css = tooltip_extra_css,
@@ -111,18 +117,18 @@ ggiraph <- function(code,
 	          zoom_max = zoom_max,
 	          zoompan = zoompan,
 	          selection_type = selection_type,
-	          selected_css = selected_css
+	          selected_css = selected_css,
+	          width = width,
+	          padding_bottom = padding_bottom
 	          )
-
 	# create widget
 	htmlwidgets::createWidget(
 			name = 'ggiraph',
 			x,
-			width = width,
-			height = height,
+			width = NULL,
+			height = NULL,
 			package = 'ggiraph',
-			sizingPolicy = sizingPolicy(defaultWidth = 600, defaultHeight = 400, padding = 5,
-			             browser.fill = TRUE, knitr.figure = FALSE)
+			sizingPolicy = sizingPolicy(knitr.figure = FALSE)
 	)
 }
 
@@ -139,7 +145,17 @@ ggiraph <- function(code,
 #' }
 #' @export
 ggiraphOutput <- function(outputId, width = "100%", height = "500px"){
-	shinyWidgetOutput(outputId, 'ggiraph', package = 'ggiraph', width = width, height = height)
+
+  msger <- sprintf(
+    "Shiny.addCustomMessageHandler('%s',function(message) {var varname = '%s';d3.selectAll(window['%s'] + ' *[data-id]').classed('selected_', false);d3.selectAll(message).each(function(d, i) {d3.selectAll(window['%s'] + ' *[data-id=\"'+ message[i] + '\"]').classed('selected_', true);});window[varname] = message;Shiny.onInputChange(varname, window[varname]);});",
+    paste0(outputId, "_set"),
+    paste0(outputId, "_selected"),
+    paste0(outputId, "_canvas"), paste0(outputId, "_canvas") )
+
+  div(
+    singleton( tags$head(tags$script(msger)) ),
+	  shinyWidgetOutput(outputId, 'ggiraph', package = 'ggiraph', width = width, height = height)
+  )
 }
 
 #' @title Reactive version of ggiraph object
