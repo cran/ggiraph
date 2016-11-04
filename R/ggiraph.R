@@ -10,12 +10,23 @@
 
 #' @title ggiraph
 #'
-#' @description Create an interactive graphic
-#' to be used in a web browser.
+#' @description Create an interactive graphic to be used in a web browser.
+#'
+#' Use \code{geom_zzz_interactive} to create interactive graphical elements.
+#'
+#' Difference from original functions is that the following
+#' aesthetics are understood: \code{tooltip}, \code{onclick}
+#' and \code{data_id}.
+#'
+#' Tooltips can be displayed when mouse is over graphical elements. On click
+#' actions can be set with javascript instructions. If id are associated with points,
+#' they get animated when mouse is over and can be selected when used in shiny apps.
 #'
 #' @param code Plotting code to execute
+#' @param ggobj ggplot objet to print. argument \code{code} will
+#' be ignored if this argument is supplied.
 #' @param pointsize the default pointsize of plotted text in pixels, default to 12.
-#' @param width widget width ratio (0 > width >= 1)
+#' @param width widget width ratio (0 < width <= 1)
 #' @param width_svg,height_svg svg viewbox width and height in inches
 #' @param tooltip_extra_css extra css (added to \code{position: absolute;pointer-events: none;})
 #' used to customize tooltip area.
@@ -28,16 +39,11 @@
 #'  when widget is in a Shiny application.
 #' @param selected_css css to apply when element is selected (shiny only).
 #' @param ... arguments passed on to \code{\link[rvg]{dsvg}}
-#' @seealso \code{\link{geom_path_interactive}},
-#' \code{\link{geom_point_interactive}},
-#' \code{\link{geom_polygon_interactive}},
-#' \code{\link{geom_rect_interactive}},
-#' \code{\link{geom_segment_interactive}}
 #' @examples
 #' # ggiraph simple example -------
 #' @example examples/geom_point_interactive.R
 #' @export
-ggiraph <- function(code,
+ggiraph <- function(code, ggobj = NULL,
 	pointsize = 12,
 	width = 0.7,
 	width_svg = 6, height_svg = 6,
@@ -84,7 +90,13 @@ ggiraph <- function(code,
 			width = width_svg, height = height_svg,
 			canvas_id = canvas_id, ...
 		)
-	tryCatch(code, finally = dev.off() )
+	tryCatch({
+	  if( !is.null(ggobj) ){
+	    stopifnot(inherits(ggobj, "ggplot"))
+	    print(ggobj)
+	  } else
+	    code
+	  }, finally = dev.off() )
 
 	ggiwid.options$svgid = 1 + ggiwid.options$svgid
 	options("ggiwid"=ggiwid.options)
@@ -96,7 +108,7 @@ ggiraph <- function(code,
 
 	unlink(path)
 
-	data_id_class <- basename(tempfile(tmpdir = "", fileext = "", pattern = "cl"))
+	data_id_class <- paste0("cl_data_id_", ggiwid.options$svgid)
 
 	if( grepl(x = tooltip_extra_css, pattern = "position[ ]*:") )
 	  stop("please, do not specify position in tooltip_extra_css, this parameter is managed by ggiraph.")
@@ -139,9 +151,15 @@ ggiraph <- function(code,
 #' @param width widget width
 #' @param height widget height
 #' @examples
+#' \dontrun{
 #' if( require(shiny) && interactive() ){
-#'   app_dir <- file.path( system.file(package = "ggiraph"), "shiny" )
+#'   app_dir <- file.path( system.file(package = "ggiraph"), "shiny/cars" )
 #'   shinyAppDir(appDir = app_dir )
+#'  }
+#' if( require(shiny) && interactive() ){
+#'   app_dir <- file.path( system.file(package = "ggiraph"), "shiny/crimes" )
+#'   shinyAppDir(appDir = app_dir )
+#' }
 #' }
 #' @export
 ggiraphOutput <- function(outputId, width = "100%", height = "500px"){
@@ -166,9 +184,11 @@ ggiraphOutput <- function(outputId, width = "100%", height = "500px"){
 #' @param env The environment in which to evaluate expr.
 #' @param quoted Is \code{expr} a quoted expression
 #' @examples
+#' \dontrun{
 #' if( require(shiny) && interactive() ){
 #'   app_dir <- file.path( system.file(package = "ggiraph"), "shiny" )
 #'   shinyAppDir(appDir = app_dir )
+#' }
 #' }
 #' @export
 renderggiraph <- function(expr, env = parent.frame(), quoted = FALSE) {

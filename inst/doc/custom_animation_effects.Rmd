@@ -1,10 +1,8 @@
 ---
-title: "Custom effects"
-author: "David Gohel"
-date: "`r Sys.Date()`"
+title: "Custom animation effects"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Custom effects}
+  %\VignetteIndexEntry{Custom animation effects}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -84,6 +82,15 @@ css here is relative to SVG elements. SVG attributes are listed [here](https://d
 To fill elements in red:
 
 ```{r}
-ggiraph(code = {print(gg_point_1)}, hover_css = "fill:red;" )
+ggiraph(code = {print(gg_point_1)}, hover_css = "fill:red;r:10pt;" )
 ```
+
+## Zoom
+
+You can activate zoom; set zoom_max (maximum zoom factor) to a value greater than 1.
+
+```{r}
+ggiraph(code = print(gg_point_1 + theme_linedraw()), zoom_max = 5)
+```
+
 

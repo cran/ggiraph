@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom_boxplot_interactive.R
 \name{geom_boxplot_interactive}
 \alias{geom_boxplot_interactive}
-\title{add boxplot with tooltips or click actions}
+\title{interactive boxplot}
 \usage{
 geom_boxplot_interactive(mapping = NULL, data = NULL, stat = "boxplot",
   position = "dodge", ..., outlier.colour = NULL, outlier.color = NULL,
@@ -44,8 +44,8 @@ geom_boxplot_interactive(mapping = NULL, data = NULL, stat = "boxplot",
 \item{inherit.aes}{See \code{\link[ggplot2]{geom_point}}.}
 }
 \description{
-tooltips can be displayed when mouse is over boxplot, on click actions
-can be set with javascript instructions.
+The geometry is based on \code{\link[ggplot2]{geom_boxplot}}.
+See the documentation for those functions for more details.
 }
 \examples{
 # add interactive boxplot -------

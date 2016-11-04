@@ -1,6 +1,4 @@
 library(ggiraph)
-library(maps)
-
 
 shinyServer(function(input, output, session) {
 
@@ -11,7 +9,7 @@ shinyServer(function(input, output, session) {
   })
 
   output$plot <- renderggiraph({
-    p <- ggplot(aes(x=wt,y=mpg, data_id = row.names(mtcars) ),data=mtcars) +
+    p <- ggplot(aes(x=Sepal.Length,y=Petal.Length, data_id = Species ),data=iris) +
       geom_point_interactive(size = 3) + theme_minimal()
     ggiraph(code = print(p),
             hover_css = "fill:red;cursor:pointer;",

@@ -20,5 +20,8 @@ tooltip_css <- "background-color:white;font-style:italic;padding:10px;border-rad
 ggiraph(code = {print(gg_point_1)}, tooltip_extra_css = tooltip_css, tooltip_opacity = .75 )
 
 ## ------------------------------------------------------------------------
-ggiraph(code = {print(gg_point_1)}, hover_css = "fill:red;" )
+ggiraph(code = {print(gg_point_1)}, hover_css = "fill:red;r:10pt;" )
+
+## ------------------------------------------------------------------------
+ggiraph(code = print(gg_point_1 + theme_linedraw()), zoom_max = 5)
 

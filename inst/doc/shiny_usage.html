@@ -10,11 +10,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<meta name="author" content="David Gohel" />
 
-<meta name="date" content="2016-07-01" />
 
-<title>ggiraph and Shiny</title>
+<title>ggiraph in shiny</title>
 
 
 
@@ -68,15 +66,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<h1 class="title toc-ignore">ggiraph and Shiny</h1>
-<h4 class="author"><em>David Gohel</em></h4>
-<h4 class="date"><em>2016-07-01</em></h4>
+<h1 class="title toc-ignore">ggiraph in shiny</h1>
 
 
 
-<p><code>ggiraph</code> is an htmlwidget. It can be used within a Shiny application. The package contains two Shiny examples. You can run them and see the code by running:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">shiny::<span class="kw">runApp</span>(<span class="dt">appDir =</span> <span class="kw">system.file</span>(<span class="st">&quot;shiny/crimes&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggiraph&quot;</span>), <span class="dt">display.mode =</span> <span class="st">&quot;showcase&quot;</span>)
-shiny::<span class="kw">runApp</span>(<span class="dt">appDir =</span> <span class="kw">system.file</span>(<span class="st">&quot;shiny/cars&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggiraph&quot;</span>), <span class="dt">display.mode =</span> <span class="st">&quot;showcase&quot;</span>)</code></pre></div>
+<p><code>ggiraph</code> is an htmlwidget. It can be used within a Shiny application. In shiny, elements associated with <code>data_id</code> can be selected and the selection (the <code>data_id</code> value) is available in the client and the server side of the application.</p>
 <div id="the-client-ui.r" class="section level2">
 <h2>The client <code>ui.R</code></h2>
 <p>Instead of a <code>plotOutput</code>, use function <code>ggiraphOutput</code>.</p>
@@ -101,6 +95,17 @@ shiny::<span class="kw">runApp</span>(<span class="dt">appDir =</span> <span cla
 <p>You can also modify theses values by using the <code>session$sendCustomMessage</code> method with type <code>myplot_set</code> (name of the input id of the reactive output value + <code>_set</code>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># delete selection</span>
 session$<span class="kw">sendCustomMessage</span>(<span class="dt">type =</span> <span class="st">'myplot_set'</span>, <span class="dt">message =</span> <span class="kw">character</span>(<span class="dv">0</span>))</code></pre></div>
+</div>
+<div id="examples" class="section level2">
+<h2>Examples</h2>
+<p>The package contains Shiny examples available in the <code>shiny</code> directory of the package (<code>system.file(&quot;shiny&quot;, package = &quot;ggiraph&quot;)</code>).</p>
+<p><code>crimes</code> and <code>cars</code> applications demonstrate multiple and single selections usage.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">shiny::<span class="kw">runApp</span>(<span class="dt">appDir =</span> <span class="kw">system.file</span>(<span class="st">&quot;shiny/crimes&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggiraph&quot;</span>), <span class="dt">display.mode =</span> <span class="st">&quot;showcase&quot;</span>)
+shiny::<span class="kw">runApp</span>(<span class="dt">appDir =</span> <span class="kw">system.file</span>(<span class="st">&quot;shiny/cars&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggiraph&quot;</span>), <span class="dt">display.mode =</span> <span class="st">&quot;showcase&quot;</span>)</code></pre></div>
+<p><code>DT</code> demonstrates how to use <code>onclick</code> actions on the client side.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">shiny::<span class="kw">runApp</span>(<span class="dt">appDir =</span> <span class="kw">system.file</span>(<span class="st">&quot;shiny/DT&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggiraph&quot;</span>), <span class="dt">display.mode =</span> <span class="st">&quot;showcase&quot;</span>)</code></pre></div>
+<p><code>iris</code> demonstrates behavior of selections when some <code>data_id</code> are duplicated.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">shiny::<span class="kw">runApp</span>(<span class="dt">appDir =</span> <span class="kw">system.file</span>(<span class="st">&quot;shiny/iris&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggiraph&quot;</span>), <span class="dt">display.mode =</span> <span class="st">&quot;showcase&quot;</span>)</code></pre></div>
 </div>
 
 

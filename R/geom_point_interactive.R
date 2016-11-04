@@ -1,10 +1,11 @@
-#' @title add points with tooltips or click actions
-#' for a scatterplot
+#' @title interactive points
 #'
 #' @description
-#' The point_interactive geom is used to create interactive scatterplots, tooltips
-#' can be displayed when mouse is over points, on click actions can be
-#' set with javascript instructions.
+#' The geometry is based on \code{\link[ggplot2]{geom_point}}.
+#' See the documentation for those functions for more details.
+#'
+#' @note
+#' The following shapes id 3, 4 and 7 to 14 are composite symbols and should not be used.
 #'
 #' @param mapping The aesthetic mapping, see \code{\link[ggplot2]{geom_point}}.
 #' @param data A data frame, see \code{\link[ggplot2]{geom_point}}.
@@ -42,12 +43,8 @@ geom_point_interactive <- function(mapping = NULL, data = NULL, stat = "identity
 
 #' @importFrom ggplot2 remove_missing
 GeomInteractivePoint <- ggproto("GeomInteractivePoint", Geom,
-		draw_panel = function(data, panel_scales, coord, na.rm = FALSE) {
-			data <- remove_missing(data, na.rm, c("x", "y", "size", "shape", "tooltip", "onclick", "data_id"),
-					name = "geom_point_interactive")
-			if (nrow(data) < 1 || ncol(data) < 1 ) return(zeroGrob())
-
-			coords <- coord$transform(data, panel_scales)
+    draw_panel = function(data, panel_scales, coord, na.rm = FALSE) {
+      coords <- coord$transform(data, panel_scales)
 
 			if( !is.null(coords$tooltip) && !is.character(coords$tooltip) )
 			  coords$tooltip <- as.character(coords$tooltip)
@@ -76,10 +73,11 @@ GeomInteractivePoint <- ggproto("GeomInteractivePoint", Geom,
 		},
 
 		draw_key = draw_key_point,
-
 		required_aes = c("x", "y"),
-		non_missing_aes = c("size", "shape"),
-		default_aes = aes(shape = 19, colour = "black", size = 1.5, fill = NA,
-				alpha = NA, stroke = 0.5)
+		non_missing_aes = c("size", "shape", "colour"),
+		default_aes = aes(
+		  shape = 19, colour = "black", size = 1.5, fill = NA,
+		  alpha = NA, stroke = 0.5, tooltip = NULL, onclick = NULL, data_id = NULL
+		)
 )
 

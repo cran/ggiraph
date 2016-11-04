@@ -14,11 +14,15 @@ ggiraph(code = {print(gg_point_1)}, width = .6,
         hover_css = "fill:#1279BF;stroke:#1279BF;cursor:pointer;")
 
 
+## ----echo=FALSE, results='asis'------------------------------------------
+geoms_ <- objects(envir = as.environment("package:ggiraph"), pattern = "^geom_([a-zA-Z0-9]*)_interactive$")
+htmltools::tags$ul( lapply( geoms_, htmltools::tags$li ) )
+
 ## ------------------------------------------------------------------------
 library(ggiraph)
 
 head(mpg)
-g <- ggplot(mpg, aes( x = displ, y = cty, color = drv) ) + theme_minimal()
+g <- ggplot(mpg, aes( x = displ, y = cty, color = hwy) ) + theme_minimal()
 
 ## ----message=FALSE-------------------------------------------------------
 my_gg <- g + geom_point_interactive(aes(tooltip = model), size = 2) 
@@ -27,7 +31,7 @@ ggiraph(code = print(my_gg), width = .7)
 ## ----message=FALSE-------------------------------------------------------
 my_gg <- g + geom_point_interactive(
     aes(tooltip = model, data_id = model), size = 2) 
-ggiraph(code = print(my_gg), width = .7)
+ggiraph(code = print(my_gg), width = .7, hover_css = "cursor:pointer;fill:red;stroke:red;")
 
 ## ----message=FALSE, warning=FALSE----------------------------------------
 crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
@@ -45,7 +49,4 @@ gg_crime <- ggplot(crimes, aes(x = Murder, y = Assault, color = UrbanPop )) +
 
 ggiraph(code = print(gg_crime),
         hover_css = "fill-opacity:.3;cursor:pointer;")
-
-## ------------------------------------------------------------------------
-ggiraph(code = print(my_gg + theme_linedraw()), zoom_max = 5)
 
