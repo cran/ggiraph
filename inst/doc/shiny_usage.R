@@ -21,10 +21,10 @@
 ## ----eval=FALSE----------------------------------------------------------
 #  shiny::runApp(appDir = system.file("shiny/crimes", package = "ggiraph"), display.mode = "showcase")
 #  shiny::runApp(appDir = system.file("shiny/cars", package = "ggiraph"), display.mode = "showcase")
+#  
+#  # *group* selection
+#  shiny::runApp(appDir = system.file("shiny/iris", package = "ggiraph"), display.mode = "showcase")
 
 ## ----eval=FALSE----------------------------------------------------------
 #  shiny::runApp(appDir = system.file("shiny/DT", package = "ggiraph"), display.mode = "showcase")
-
-## ----eval=FALSE----------------------------------------------------------
-#  shiny::runApp(appDir = system.file("shiny/iris", package = "ggiraph"), display.mode = "showcase")
 

@@ -69,6 +69,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1 class="title toc-ignore">ggiraph in shiny</h1>
 
 
+<div id="TOC">
+<ul>
+<li><a href="#the-client-ui.r">The client <code>ui.R</code></a></li>
+<li><a href="#the-server-server.r">The server <code>server.R</code></a></li>
+<li><a href="#selections">Selections</a></li>
+<li><a href="#examples">Examples</a></li>
+</ul>
+</div>
 
 <p><code>ggiraph</code> is an htmlwidget. It can be used within a Shiny application. In shiny, elements associated with <code>data_id</code> can be selected and the selection (the <code>data_id</code> value) is available in the client and the server side of the application.</p>
 <div id="the-client-ui.r" class="section level2">
@@ -99,13 +107,18 @@ session$<span class="kw">sendCustomMessage</span>(<span class="dt">type =</span>
 <div id="examples" class="section level2">
 <h2>Examples</h2>
 <p>The package contains Shiny examples available in the <code>shiny</code> directory of the package (<code>system.file(&quot;shiny&quot;, package = &quot;ggiraph&quot;)</code>).</p>
-<p><code>crimes</code> and <code>cars</code> applications demonstrate multiple and single selections usage.</p>
+<div id="selections-usage-server-side" class="section level3">
+<h3>selections usage (server side)</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">shiny::<span class="kw">runApp</span>(<span class="dt">appDir =</span> <span class="kw">system.file</span>(<span class="st">&quot;shiny/crimes&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggiraph&quot;</span>), <span class="dt">display.mode =</span> <span class="st">&quot;showcase&quot;</span>)
-shiny::<span class="kw">runApp</span>(<span class="dt">appDir =</span> <span class="kw">system.file</span>(<span class="st">&quot;shiny/cars&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggiraph&quot;</span>), <span class="dt">display.mode =</span> <span class="st">&quot;showcase&quot;</span>)</code></pre></div>
-<p><code>DT</code> demonstrates how to use <code>onclick</code> actions on the client side.</p>
+shiny::<span class="kw">runApp</span>(<span class="dt">appDir =</span> <span class="kw">system.file</span>(<span class="st">&quot;shiny/cars&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggiraph&quot;</span>), <span class="dt">display.mode =</span> <span class="st">&quot;showcase&quot;</span>)
+
+<span class="co"># *group* selection</span>
+shiny::<span class="kw">runApp</span>(<span class="dt">appDir =</span> <span class="kw">system.file</span>(<span class="st">&quot;shiny/iris&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggiraph&quot;</span>), <span class="dt">display.mode =</span> <span class="st">&quot;showcase&quot;</span>)</code></pre></div>
+</div>
+<div id="onclick-actions-client-side." class="section level3">
+<h3>onclick actions (client side).</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">shiny::<span class="kw">runApp</span>(<span class="dt">appDir =</span> <span class="kw">system.file</span>(<span class="st">&quot;shiny/DT&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggiraph&quot;</span>), <span class="dt">display.mode =</span> <span class="st">&quot;showcase&quot;</span>)</code></pre></div>
-<p><code>iris</code> demonstrates behavior of selections when some <code>data_id</code> are duplicated.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">shiny::<span class="kw">runApp</span>(<span class="dt">appDir =</span> <span class="kw">system.file</span>(<span class="st">&quot;shiny/iris&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggiraph&quot;</span>), <span class="dt">display.mode =</span> <span class="st">&quot;showcase&quot;</span>)</code></pre></div>
+</div>
 </div>
 
 

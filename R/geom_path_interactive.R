@@ -49,8 +49,7 @@ GeomPathInteractive <- ggproto("GeomPath", Geom,
 				lineend = "butt", linejoin = "round", linemitre = 1,
 				na.rm = FALSE) {
 			if (!anyDuplicated(data$group)) {
-				message_wrap("geom_path_interactive: Each group consists of only one observation. ",
-						"Do you need to adjust the group aesthetic?")
+				message("geom_path_interactive: Each group consists of only one observation. Do you need to adjust the group aesthetic?")
 			}
 
 			keep <- function(x) {
@@ -150,7 +149,8 @@ GeomPathInteractive <- ggproto("GeomPath", Geom,
 
 		required_aes = c("x", "y"),
 
-		default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+		default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA,
+		                  tooltip = NULL, onclick = NULL, data_id = NULL),
 
 		draw_key = draw_key_path
 )
