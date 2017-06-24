@@ -1,5 +1,7 @@
 ## ----message=FALSE-------------------------------------------------------
 library(ggiraph)
+theme_set(theme_minimal())
+
 dataset <- mtcars
 dataset$carname <- row.names(dataset)
 gg_point_1 <- ggplot(dataset, aes(x = disp, y = qsec, tooltip = carname, data_id = carname, color= wt) ) + 
@@ -15,7 +17,7 @@ tooltip_css <- "background-color:transparent;font-style:italic;"
 ggiraph(code = {print(gg_point_1)}, tooltip_extra_css = tooltip_css )
 
 ## ------------------------------------------------------------------------
-tooltip_css <- "background-color:white;font-style:italic;padding:10px;border-radius:10px 20px 10px 20px;"
+tooltip_css <- "background-color:gray;color:white;font-style:italic;padding:10px;border-radius:10px 20px 10px 20px;"
 
 ggiraph(code = {print(gg_point_1)}, tooltip_extra_css = tooltip_css, tooltip_opacity = .75 )
 

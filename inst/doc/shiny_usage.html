@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -87,7 +87,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="the-server-server.r" class="section level2">
 <h2>The server <code>server.R</code></h2>
 <p>Use function <code>ggiraphOutput</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">output$plot &lt;-<span class="st"> </span><span class="kw">renderggiraph</span>({
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">output<span class="op">$</span>plot &lt;-<span class="st"> </span><span class="kw">renderggiraph</span>({
     <span class="kw">ggiraph</span>(<span class="dt">code =</span> <span class="kw">print</span>(gg_blahblah) )
   })</code></pre></div>
 </div>
@@ -95,29 +95,29 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2>Selections</h2>
 <p>It is possible to work with selecteds point on a <em>ggiraph</em> plot within a Shiny application.</p>
 <p>Selection can be of two types: <code>single</code> or <code>multiple</code>. The ggiraph’s parameter <code>selection_type</code> will let you specify that.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">output$myplot &lt;-<span class="st"> </span><span class="kw">renderggiraph</span>({
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">output<span class="op">$</span>myplot &lt;-<span class="st"> </span><span class="kw">renderggiraph</span>({
     <span class="kw">ggiraph</span>(<span class="dt">code =</span> <span class="kw">print</span>(gg_blahblah), <span class="dt">selection_type =</span> <span class="st">&quot;multiple&quot;</span> )
   })</code></pre></div>
 <p>The selected points will be captured in the input reactive value <code>myplot_selected</code> (name of the input id of the reactive output value + <code>_selected</code>):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">input$myplot_selected</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">input<span class="op">$</span>myplot_selected</code></pre></div>
 <p>You can also modify theses values by using the <code>session$sendCustomMessage</code> method with type <code>myplot_set</code> (name of the input id of the reactive output value + <code>_set</code>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># delete selection</span>
-session$<span class="kw">sendCustomMessage</span>(<span class="dt">type =</span> <span class="st">'myplot_set'</span>, <span class="dt">message =</span> <span class="kw">character</span>(<span class="dv">0</span>))</code></pre></div>
+session<span class="op">$</span><span class="kw">sendCustomMessage</span>(<span class="dt">type =</span> <span class="st">'myplot_set'</span>, <span class="dt">message =</span> <span class="kw">character</span>(<span class="dv">0</span>))</code></pre></div>
 </div>
 <div id="examples" class="section level2">
 <h2>Examples</h2>
 <p>The package contains Shiny examples available in the <code>shiny</code> directory of the package (<code>system.file(&quot;shiny&quot;, package = &quot;ggiraph&quot;)</code>).</p>
 <div id="selections-usage-server-side" class="section level3">
 <h3>selections usage (server side)</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">shiny::<span class="kw">runApp</span>(<span class="dt">appDir =</span> <span class="kw">system.file</span>(<span class="st">&quot;shiny/crimes&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggiraph&quot;</span>), <span class="dt">display.mode =</span> <span class="st">&quot;showcase&quot;</span>)
-shiny::<span class="kw">runApp</span>(<span class="dt">appDir =</span> <span class="kw">system.file</span>(<span class="st">&quot;shiny/cars&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggiraph&quot;</span>), <span class="dt">display.mode =</span> <span class="st">&quot;showcase&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">shiny<span class="op">::</span><span class="kw">runApp</span>(<span class="dt">appDir =</span> <span class="kw">system.file</span>(<span class="st">&quot;shiny/crimes&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggiraph&quot;</span>), <span class="dt">display.mode =</span> <span class="st">&quot;showcase&quot;</span>)
+shiny<span class="op">::</span><span class="kw">runApp</span>(<span class="dt">appDir =</span> <span class="kw">system.file</span>(<span class="st">&quot;shiny/cars&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggiraph&quot;</span>), <span class="dt">display.mode =</span> <span class="st">&quot;showcase&quot;</span>)
 
 <span class="co"># *group* selection</span>
-shiny::<span class="kw">runApp</span>(<span class="dt">appDir =</span> <span class="kw">system.file</span>(<span class="st">&quot;shiny/iris&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggiraph&quot;</span>), <span class="dt">display.mode =</span> <span class="st">&quot;showcase&quot;</span>)</code></pre></div>
+shiny<span class="op">::</span><span class="kw">runApp</span>(<span class="dt">appDir =</span> <span class="kw">system.file</span>(<span class="st">&quot;shiny/iris&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggiraph&quot;</span>), <span class="dt">display.mode =</span> <span class="st">&quot;showcase&quot;</span>)</code></pre></div>
 </div>
 <div id="onclick-actions-client-side." class="section level3">
 <h3>onclick actions (client side).</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">shiny::<span class="kw">runApp</span>(<span class="dt">appDir =</span> <span class="kw">system.file</span>(<span class="st">&quot;shiny/DT&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggiraph&quot;</span>), <span class="dt">display.mode =</span> <span class="st">&quot;showcase&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">shiny<span class="op">::</span><span class="kw">runApp</span>(<span class="dt">appDir =</span> <span class="kw">system.file</span>(<span class="st">&quot;shiny/DT&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggiraph&quot;</span>), <span class="dt">display.mode =</span> <span class="st">&quot;showcase&quot;</span>)</code></pre></div>
 </div>
 </div>
 
@@ -128,7 +128,7 @@ shiny::<span class="kw">runApp</span>(<span class="dt">appDir =</span> <span cla
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
