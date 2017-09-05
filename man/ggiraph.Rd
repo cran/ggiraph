@@ -4,10 +4,11 @@
 \alias{ggiraph}
 \title{create a ggiraph object}
 \usage{
-ggiraph(code, ggobj = NULL, pointsize = 12, width = NULL, width_svg = 6,
+ggiraph(code, ggobj = NULL, pointsize = 12, width = 0.8, width_svg = 6,
   height_svg = 6, tooltip_extra_css, hover_css, tooltip_opacity = 0.9,
-  tooltip_offx = 10, tooltip_offy = 0, zoom_max = 1,
-  selection_type = "multiple", selected_css, flexdashboard = NULL, ...)
+  tooltip_offx = 10, tooltip_offy = 0, tooltip_zindex = 999,
+  zoom_max = 1, use_widget_size = FALSE, selection_type = "multiple",
+  selected_css, flexdashboard = FALSE, ...)
 }
 \arguments{
 \item{code}{Plotting code to execute}
@@ -17,7 +18,7 @@ be ignored if this argument is supplied.}
 
 \item{pointsize}{the default pointsize of plotted text in pixels, default to 12.}
 
-\item{width, flexdashboard}{deprecated}
+\item{width}{widget width ratio (0 < width <= 1)}
 
 \item{width_svg, height_svg}{svg viewbox width and height in inches}
 
@@ -32,12 +33,19 @@ used to customize tooltip area.}
 
 \item{tooltip_offy}{tooltip y offset}
 
+\item{tooltip_zindex}{tooltip css z-index, default to 999.}
+
 \item{zoom_max}{maximum zoom factor}
+
+\item{use_widget_size}{use htmlwidget width and height}
 
 \item{selection_type}{row selection mode ("single", "multiple", "none")
 when widget is in a Shiny application.}
 
 \item{selected_css}{css to apply when element is selected (shiny only).}
+
+\item{flexdashboard}{should be TRUE when used within a flexdashboard to
+ensure svg will fit in boxes.}
 
 \item{...}{arguments passed on to \code{\link[rvg]{dsvg}}}
 }

@@ -93,7 +93,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="selections" class="section level2">
 <h2>Selections</h2>
-<p>It is possible to work with selecteds point on a <em>ggiraph</em> plot within a Shiny application.</p>
+<p>It is possible to work with selected points on a <em>ggiraph</em> plot within a Shiny application.</p>
 <p>Selection can be of two types: <code>single</code> or <code>multiple</code>. The ggiraph’s parameter <code>selection_type</code> will let you specify that.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">output<span class="op">$</span>myplot &lt;-<span class="st"> </span><span class="kw">renderggiraph</span>({
     <span class="kw">ggiraph</span>(<span class="dt">code =</span> <span class="kw">print</span>(gg_blahblah), <span class="dt">selection_type =</span> <span class="st">&quot;multiple&quot;</span> )
