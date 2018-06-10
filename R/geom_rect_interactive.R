@@ -35,6 +35,10 @@ geom_rect_interactive <- function(mapping = NULL, data = NULL, stat = "identity"
 	)
 }
 
+#' @rdname ggiraph-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomInteractiveRect <- ggproto("GeomInteractiveRect", Geom,
 		default_aes = aes(colour = NA, fill = "grey20",
 		                  size = 0.5, linetype = 1, alpha = NA,
@@ -47,7 +51,7 @@ GeomInteractiveRect <- ggproto("GeomInteractiveRect", Geom,
 				aesthetics <- setdiff(
 						names(data), c("x", "y", "xmin", "xmax", "ymin", "ymax")
 				)
-        # browser()
+
         polys <- lapply(split(data, seq_len(nrow(data)) ), function(row) {
           poly <- rect_to_poly(row$xmin, row$xmax, row$ymin, row$ymax)
           aes <- as.data.frame(row[aesthetics],
@@ -160,6 +164,10 @@ geom_tile_interactive <- function(mapping = NULL, data = NULL,
   )
 }
 
+#' @rdname ggiraph-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomInteractiveTile <- ggproto(
   "GeomInteractiveTile", GeomInteractiveRect,
   extra_params = c("na.rm", "width", "height"),

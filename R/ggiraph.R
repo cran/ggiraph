@@ -56,6 +56,10 @@
 #'  the current path for temporary files is used.
 #' @param use_widget_size deprecated
 #' @param flexdashboard deprecated
+#' @param xml_reader_options read_xml additional arguments to be used
+#' when parsing the svg result. This feature can be used to parse
+#' huge svg files by using \code{list(options = "HUGE")} but this
+#' is not recommanded.
 #' @param ... arguments passed on to \code{\link[rvg]{dsvg}}
 #' @examples
 #' # ggiraph simple example -------
@@ -98,6 +102,7 @@ ggiraph <- function(code, ggobj = NULL,
                     selected_css,
                     dep_dir = NULL,
                     use_widget_size, flexdashboard,
+                    xml_reader_options = list(),
                     ...) {
 
   if( !missing(flexdashboard) ) warning("argument `flexdashboard` has been deprecated.")
@@ -142,7 +147,8 @@ ggiraph <- function(code, ggobj = NULL,
   ggiwid.options$svgid = 1 + ggiwid.options$svgid
   options("ggiwid"=ggiwid.options)
 
-  data <- read_xml( path )
+  xml_reader_options$x <- path
+  data <- do.call(read_xml, xml_reader_options )
   scr <- xml_find_all(data, "//*[@type='text/javascript']", ns = xml_ns(data) )
   js <- paste( sapply( scr, xml_text ), collapse = ";")
 
@@ -171,6 +177,7 @@ ggiraph <- function(code, ggobj = NULL,
   zoom_name <- paste0("zoom_", svg_id)
   lasso_name <- paste0("lasso_", svg_id)
   class_selected_name <- paste0("clicked_", svg_id)
+  class_hover_id <- paste0("hover_", svg_id)
   js <- paste0("function ", init_prop_name, "(){", js, "};")
   js <- paste0(js, paste0("var ", array_selected_name, " = [];") )
   js <- paste0(js, sprintf("var %s = d3.zoom().scaleExtent([%.02f, %.02f]);", zoom_name, 1, zoom_max) )
@@ -182,7 +189,7 @@ ggiraph <- function(code, ggobj = NULL,
   css <- paste0(".tooltip_", svg_id,
                 sprintf( " {position:absolute;pointer-events:none;z-index:%.0f;", tooltip_zindex),
                 tooltip_extra_css, "}\n",
-                ".cl_data_id_", svg_id, ":{}.cl_data_id_", svg_id, ":hover{", hover_css, "}\n",
+                ".", class_hover_id, "{", hover_css, "}\n",
                 ".", class_selected_name, "{", selected_css, "}"
   )
 
