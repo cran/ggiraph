@@ -170,7 +170,7 @@ geom_tile_interactive <- function(mapping = NULL, data = NULL,
 #' @export
 GeomInteractiveTile <- ggproto(
   "GeomInteractiveTile", GeomInteractiveRect,
-  extra_params = c("na.rm", "width", "height"),
+  extra_params = c("na.rm"),
 
   setup_data = function(data, params) {
      data$width <- data$width %||% params$width %||% resolution(data$x, FALSE)
@@ -183,7 +183,8 @@ GeomInteractiveTile <- ggproto(
    },
 
    default_aes = aes(fill = "grey20", colour = NA, size = 0.1, linetype = 1,
-                     alpha = NA, tooltip = NULL, onclick = NULL, data_id = NULL),
+                     alpha = NA, width = NA, height = NA,
+                     tooltip = NULL, onclick = NULL, data_id = NULL),
 
    required_aes = c("x", "y"),
 

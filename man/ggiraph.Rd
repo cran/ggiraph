@@ -4,11 +4,12 @@
 \alias{ggiraph}
 \title{create a ggiraph object}
 \usage{
-ggiraph(code, ggobj = NULL, pointsize = 12, width = 0.75, width_svg = 6,
-  height_svg = 5, tooltip_extra_css, hover_css, tooltip_opacity = 0.9,
-  tooltip_offx = 10, tooltip_offy = 0, tooltip_zindex = 999,
-  zoom_max = 1, selection_type = "multiple", selected_css, dep_dir = NULL,
-  use_widget_size, flexdashboard, xml_reader_options = list(), ...)
+ggiraph(code, ggobj = NULL, pointsize = 12, width = 0.75,
+  width_svg = 6, height_svg = 5, tooltip_extra_css = NULL,
+  hover_css = NULL, tooltip_opacity = 0.9, tooltip_offx = 10,
+  tooltip_offy = 0, tooltip_zindex = 999, zoom_max = 1,
+  selection_type = "multiple", selected_css = NULL, dep_dir = NULL,
+  xml_reader_options = list(), ...)
 }
 \arguments{
 \item{code}{Plotting code to execute}
@@ -18,10 +19,13 @@ be ignored if this argument is supplied.}
 
 \item{pointsize}{the default pointsize of plotted text in pixels, default to 12.}
 
-\item{width}{widget width ratio (0 < width <= 1). Unused within shiny
-applications or flexdashboard documents. See below.}
+\item{width}{widget width ratio (0 < width <= 1). See below in section .}
 
-\item{width_svg, height_svg}{The width and height of the graphics region in inches.
+\item{width_svg}{The width and height of the graphics region in inches.
+The default values are 6 and 5 inches. This will define the aspect ratio of the
+graphic as it will be used to define viewbox attribute of the SVG result.}
+
+\item{height_svg}{The width and height of the graphics region in inches.
 The default values are 6 and 5 inches. This will define the aspect ratio of the
 graphic as it will be used to define viewbox attribute of the SVG result.}
 
@@ -45,12 +49,8 @@ when widget is in a Shiny application.}
 
 \item{selected_css}{css to apply when element is selected (shiny only).}
 
-\item{dep_dir}{the path where the output files are stored. If \code{NULL},
+\item{dep_dir}{Deprecated; the path where the output files are stored. If \code{NULL},
 the current path for temporary files is used.}
-
-\item{use_widget_size}{deprecated}
-
-\item{flexdashboard}{deprecated}
 
 \item{xml_reader_options}{read_xml additional arguments to be used
 when parsing the svg result. This feature can be used to parse
@@ -62,59 +62,20 @@ is not recommanded.}
 \description{
 Create an interactive graphic to be used in a web browser.
 
-Use \code{geom_zzz_interactive} to create interactive graphical elements.
-
-Difference from original functions is that the following
-aesthetics are understood: \code{tooltip}, \code{onclick}
-and \code{data_id}.
-
-Tooltips can be displayed when mouse is over graphical elements.
-
-If id are associated with points, they get animated when mouse is
-over and can be selected when used in shiny apps.
-
-On click actions can be set with javascript instructions. This option
-should not be used simultaneously with selections in Shiny
-applications as both features are "on click" features.
-
-When \code{zoom_max} is set, "zoom activate", "zoom desactivate" and
-"zoom init" buttons are available in a toolbar.
-
-When \code{selection} is set to multiple (in Shiny applications), lasso
-selection and lasso anti-selections buttons are available in a toolbar.
+This function is maintained for backward compatibility reasons, user shoud
+now use function \code{\link{girafe}} and \code{\link{girafe_options}}.
 }
-\section{Widget sizing}{
-
-ggiraph graphics are responsive, which mean, they will be resized
-according to their container. There are two responsive behavior
-implementation: one for Shiny applications and flexdashboard documents
-and one for other documents (i.e. R markdown and \code{saveWidget}).
-
-When a ggiraph graphic is in a Shiny application or in a flexdashboard
-graphic will be resized according to the arguments \code{width} and
-\code{height} of the function \code{ggiraphOutput}. Default
-values are '100%' and '500px'. These arguments determine the
-outer bounding box (and \code{width_svg} and \code{height_svg}
-determines the proportions.
-
-When a ggiraph graphic is in an R markdown document (producing an HTML
-document), the graphic will be resized according to the argument \code{width} of the
-function \code{ggiraph}. Its value is beeing used to define a relative
-width of the graphic within its HTML container. Its height is automatically
-adjusted regarding to the argument \code{width} and the ratio between
-\code{width_svg} and \code{height_svg}.
-
-If this behavior does not fit with your need, I recommand you to use
-package widgetframe that wraps htmlwidgets inside a responsive iframe.
-}
-
 \examples{
 # ggiraph simple example -------
 library(ggplot2)
 
-# create dataset
-dataset = mtcars
-dataset$carname = row.names(mtcars)
+dataset <- structure(list(qsec = c(16.46, 17.02, 18.61, 19.44, 17.02, 20.22
+), disp = c(160, 160, 108, 258, 360, 225), carname = c("Mazda RX4",
+"Mazda RX4 Wag", "Datsun 710", "Hornet 4 Drive", "Hornet Sportabout",
+"Valiant"), wt = c(2.62, 2.875, 2.32, 3.215, 3.44, 3.46)), row.names = c("Mazda RX4",
+"Mazda RX4 Wag", "Datsun 710", "Hornet 4 Drive", "Hornet Sportabout",
+"Valiant"), class = "data.frame")
+dataset
 
 # plots
 gg_point = ggplot(
@@ -123,5 +84,5 @@ gg_point = ggplot(
                 tooltip = carname, data_id = carname) ) +
 	geom_point_interactive() + theme_minimal()
 
-ggiraph(ggobj = gg_point, width = .7 )
+girafe(ggobj = gg_point, width = .7)
 }
