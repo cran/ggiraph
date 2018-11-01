@@ -4,7 +4,8 @@
 #' @param css extra css (added to \code{position: absolute;pointer-events: none;})
 #' used to customize tooltip area.
 #' @param use_cursor_pos should the cursor position be used to
-#' position tooltip (in addition to offx and offy).
+#' position tooltip (in addition to offx and offy). Setting to
+#' TRUE will have no effect in the RStudio browser windows.
 #' @param opacity tooltip background opacity
 #' @param delay_mouseover The duration in milliseconds of the
 #' transition associated with tooltip display.
@@ -201,6 +202,10 @@ opts_zoom <- function(min = 1, max = 1){
 #' @description Allows customization of the toolbar
 #' @param position one of 'top', 'bottom', 'topleft', 'topright', 'bottomleft', 'bottomright'
 #' @param saveaspng set to TRUE to propose the 'save as png' button.
+#' @note
+#' \code{saveaspng} relies on JavaScript promises, so any browsers that don't natively
+#' support the standard Promise object will need to have a polyfill (e.g.
+#' Internet Explorer with version less than 11 will need it).
 #' @examples
 #' library(ggplot2)
 #'
@@ -265,7 +270,8 @@ opts_toolbar <- function(position = "topright", saveaspng = TRUE){
 #' }
 #' @export
 #' @seealso \code{\link{opts_tooltip}}, \code{\link{opts_hover}},
-#' \code{\link{opts_selection}}, \code{\link{opts_zoom}}, \code{\link[htmlwidgets]{sizingPolicy}}
+#' \code{\link{opts_selection}}, \code{\link{opts_zoom}},
+#' \code{\link{opts_toolbar}}, \code{\link[htmlwidgets]{sizingPolicy}}
 girafe_options <- function(x, ...){
   stopifnot(inherits(x, "girafe"))
 
