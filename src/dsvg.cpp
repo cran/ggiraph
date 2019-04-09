@@ -1,19 +1,7 @@
 /*
- * This file is part of rvg.
- * Copyright (c) 2018, David Gohel All rights reserved.
+ * This file is part of ggiraph.
+ * Copyright (c) 2019, David Gohel All rights reserved.
  *
- * rvg is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * rvg is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with rvg. If not, see <http://www.gnu.org/licenses/>.
  **/
 
 #include "Rcpp.h"
@@ -22,6 +10,7 @@
 #include "fonts.h"
 #include "R_ext/GraphicsEngine.h"
 #include "a_color.h"
+#include <locale>
 
 
 std::string line_style(double width, int col, int type, int join, int end)
@@ -370,6 +359,7 @@ static void dsvg_rect(double x0, double y0, double x1, double y1,
 static void dsvg_circle(double x, double y, double r, const pGEcontext gc,
                        pDevDesc dd) {
   DSVG_dev *svgd = (DSVG_dev*) dd->deviceSpecific;
+
   int idx = svgd->new_id();
   svgd->register_element();
 
@@ -606,6 +596,8 @@ bool DSVG_(std::string file, double width, double height, std::string bg,
   R_GE_checkVersionOrDie(R_GE_version);
   R_CheckDeviceAvailable();
   BEGIN_SUSPEND_INTERRUPTS {
+    setlocale(LC_NUMERIC, "C");
+
     pDevDesc dev = dsvg_driver_new(file, bg_, width, height, pointsize, standalone, canvas_id, clip_id_root,
                                    aliases);
     if (dev == NULL)

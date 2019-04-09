@@ -239,6 +239,46 @@ opts_toolbar <- function(position = "topright", saveaspng = TRUE){
   x
 }
 
+
+#' @title girafe sizing settings
+#' @description Allows customization of the svg style sizing
+#' @param rescale if FALSE, graphic will not be resized
+#' and the dimensions are exactly those of the container.
+#' @param width widget width ratio (0 < width <= 1).
+#' @family girafe sizing options
+#' @seealso set options with \code{\link{girafe_options}}
+#' @examples
+#' library(ggplot2)
+#'
+#' dataset <- mtcars
+#' dataset$carname = row.names(mtcars)
+#'
+#' gg <- ggplot(
+#'   data = dataset,
+#'   mapping = aes(x = wt, y = qsec, color = disp,
+#'                 tooltip = carname, data_id = carname) ) +
+#'   geom_point_interactive() + theme_minimal()
+#'
+#' x <- girafe(ggobj = gg)
+#' x <- girafe_options(x,
+#'   opts_sizing(rescale = FALSE) )
+#' if( interactive() ) print(x)
+#' @export
+opts_sizing <- function(rescale = TRUE, width = 1){
+  if( !is.logical(rescale) || length(rescale) != 1L ){
+    stop("parameter rescale should be a scalar logical")
+  } else rescale <- as.logical(rescale)
+  if( !is.numeric(width) || length(width) != 1L ){
+    stop("parameter width should be a scalar double")
+  } else width <- as.double(width)
+
+  stopifnot(width > 0, width <= 1 )
+
+  x <- list(rescale = rescale, width = width)
+  class(x) <- "opts_sizing"
+  x
+}
+
 #' @title set girafe options
 #' @description Defines the animation options related to
 #' a \code{\link{girafe}} object.
@@ -270,25 +310,26 @@ opts_toolbar <- function(position = "topright", saveaspng = TRUE){
 #' }
 #' @export
 #' @seealso \code{\link{opts_tooltip}}, \code{\link{opts_hover}},
-#' \code{\link{opts_selection}}, \code{\link{opts_zoom}},
+#' \code{\link{opts_selection}}, \code{\link{opts_zoom}}, \code{\link{opts_sizing}},
 #' \code{\link{opts_toolbar}}, \code{\link[htmlwidgets]{sizingPolicy}}
 girafe_options <- function(x, ...){
   stopifnot(inherits(x, "girafe"))
 
   args <- list(...)
-  for( arg in args ){
-    if( inherits(arg, "opts_zoom")){
+  for (arg in args) {
+    if (inherits(arg, "opts_zoom")) {
       x$x$settings$zoom <- arg
-    } else if( inherits(arg, "opts_selection")){
+    } else if (inherits(arg, "opts_selection")) {
       x$x$settings$capture <- arg
-    } else if( inherits(arg, "opts_tooltip")){
+    } else if (inherits(arg, "opts_tooltip")) {
       x$x$settings$tooltip <- arg
-    } else if( inherits(arg, "opts_hover")){
+    } else if (inherits(arg, "opts_hover")) {
       x$x$settings$hover <- arg
-    } else if( inherits(arg, "opts_toolbar")){
+    } else if (inherits(arg, "opts_toolbar")) {
       x$x$settings$toolbar <- arg
-    } else if( all( names( arg ) %in% c("defaultWidth", "defaultHeight", "padding", "viewer", "browser",
-                                  "knitr") ) ){
+    } else if (inherits(arg, "opts_sizing")) {
+      x$x$settings$sizing <- arg
+    } else if (all(names(arg) %in% c("defaultWidth", "defaultHeight", "padding", "viewer", "browser", "knitr"))) {
       x$sizingPolicy <- arg
     }
   }

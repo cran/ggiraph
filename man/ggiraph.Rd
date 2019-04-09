@@ -19,7 +19,7 @@ be ignored if this argument is supplied.}
 
 \item{pointsize}{the default pointsize of plotted text in pixels, default to 12.}
 
-\item{width}{widget width ratio (0 < width <= 1). See below in section .}
+\item{width}{widget width ratio (0 < width <= 1).}
 
 \item{width_svg}{The width and height of the graphics region in inches.
 The default values are 6 and 5 inches. This will define the aspect ratio of the
@@ -57,7 +57,7 @@ when parsing the svg result. This feature can be used to parse
 huge svg files by using \code{list(options = "HUGE")} but this
 is not recommanded.}
 
-\item{...}{arguments passed on to \code{\link[rvg]{dsvg}}}
+\item{...}{arguments passed on to \code{\link{dsvg}}}
 }
 \description{
 Create an interactive graphic to be used in a web browser.
@@ -84,5 +84,5 @@ gg_point = ggplot(
                 tooltip = carname, data_id = carname) ) +
 	geom_point_interactive() + theme_minimal()
 
-girafe(ggobj = gg_point, width = .7)
+girafe(ggobj = gg_point)
 }
