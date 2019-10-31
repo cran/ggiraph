@@ -2,10 +2,10 @@
 % Please edit documentation in R/girafe.R
 \name{girafe}
 \alias{girafe}
-\title{create a girafe object}
+\title{Create a girafe object}
 \usage{
 girafe(code, ggobj = NULL, pointsize = 12, width_svg = 6,
-  height_svg = 5, xml_reader_options = list(), ...)
+  height_svg = 5, xml_reader_options = list(), options = list(), ...)
 }
 \arguments{
 \item{code}{Plotting code to execute}
@@ -24,6 +24,9 @@ when parsing the svg result. This feature can be used to parse
 huge svg files by using \code{list(options = "HUGE")} but this
 is not recommanded.}
 
+\item{options}{a list of options for girafe rendering, see
+\code{\link{opts_tooltip}}, \code{\link{opts_hover}}, \code{\link{opts_selection}}, ...}
+
 \item{...}{arguments passed on to \code{\link{dsvg}}}
 }
 \description{
@@ -34,9 +37,8 @@ to be used in a web browser. The function should replace function
 \details{
 Use \code{geom_zzz_interactive} to create interactive graphical elements.
 
-Difference from original functions is that the following
-aesthetics are understood: \code{tooltip}, \code{onclick}
-and \code{data_id}.
+Difference from original functions is that some extra aesthetics are understood:
+the \code{\link{interactive_parameters}}.
 
 Tooltips can be displayed when mouse is over graphical elements.
 

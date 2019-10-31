@@ -2,7 +2,7 @@
 % Please edit documentation in R/girafe_options.R
 \name{opts_tooltip}
 \alias{opts_tooltip}
-\title{tooltip settings}
+\title{Tooltip settings}
 \usage{
 opts_tooltip(css = NULL, offx = 10, offy = 0,
   use_cursor_pos = TRUE, opacity = 0.9, use_fill = FALSE,
@@ -57,10 +57,9 @@ x <- girafe_options(x,
 if( interactive() ) print(x)
 }
 \seealso{
-set options with \code{\link{girafe_options}}
-
-Other girafe animation options: \code{\link{opts_hover}},
-  \code{\link{opts_selection}}, \code{\link{opts_toolbar}},
+Other girafe animation options: \code{\link{girafe_options}},
+  \code{\link{opts_hover}}, \code{\link{opts_selection}},
+  \code{\link{opts_sizing}}, \code{\link{opts_toolbar}},
   \code{\link{opts_zoom}}
 }
 \concept{girafe animation options}

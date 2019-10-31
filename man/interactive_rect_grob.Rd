@@ -2,57 +2,27 @@
 % Please edit documentation in R/interactive_rect_grob.R
 \name{interactive_rect_grob}
 \alias{interactive_rect_grob}
-\title{Generate interactive grob rectangles}
+\title{Create interactive rectangle grob}
 \usage{
-interactive_rect_grob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
-  width = unit(1, "npc"), height = unit(1, "npc"), tooltip = NULL,
-  onclick = NULL, data_id = NULL, just = "centre", hjust = NULL,
-  vjust = NULL, default.units = "npc", name = NULL, gp = gpar(),
-  vp = NULL)
+interactive_rect_grob(...)
 }
 \arguments{
-\item{x}{A numeric vector or unit object specifying x-location.}
-
-\item{y}{A numeric vector or unit object specifying y-location.}
-
-\item{width}{A numeric vector or unit object specifying width.}
-
-\item{height}{A numeric vector or unit object specifying height.}
-
-\item{tooltip}{tooltip associated with rectangles}
-
-\item{onclick}{javascript action to execute when rectangle is clicked}
-
-\item{data_id}{identifiers to associate with rectangles}
-
-\item{just}{The justification of the rectangle
-    relative to its (x, y) location.  If there are two values, the first
-    value specifies horizontal justification and the second value specifies
-    vertical justification.  Possible string values are: \code{"left"},
-    \code{"right"}, \code{"centre"}, \code{"center"}, \code{"bottom"},
-    and \code{"top"}.  For numeric values, 0 means left alignment
-    and 1 means right alignment.
-  }
-
-\item{hjust}{A numeric vector specifying horizontal justification.
-    If specified, overrides the \code{just} setting.}
-
-\item{vjust}{A numeric vector specifying vertical justification.
-    If specified, overrides the \code{just} setting.}
-
-\item{default.units}{A string indicating the default units to use
-    if \code{x}, \code{y}, \code{width}, or \code{height}
-    are only given as numeric vectors.}
-
-\item{name}{ A character identifier. }
-
-\item{gp}{An object of class \code{gpar}, typically the output
-    from a call to the function \code{gpar}.  This is basically
-    a list of graphical parameter settings.}
-
-\item{vp}{A Grid viewport object (or NULL).}
+\item{...}{arguments passed to base function,
+plus any of the \code{\link{interactive_parameters}}.}
+}
+\value{
+An interactive grob object.
 }
 \description{
-This function can be used to generate interactive grob
-rectangles.
+The grob is based on \code{\link[grid]{rectGrob}}.
+See the documentation for that function for more details.
+}
+\section{Details for interactive_*_grob functions}{
+
+The interactive parameters can be supplied as arguments in the relevant function
+and they can be scalar values or vectors depending on params on base function.
+}
+
+\seealso{
+\code{\link{girafe}}
 }

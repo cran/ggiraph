@@ -2,17 +2,27 @@
 % Please edit documentation in R/girafe_options.R
 \name{opts_hover}
 \alias{opts_hover}
-\title{hover effect settings}
+\alias{opts_hover_key}
+\alias{opts_hover_theme}
+\title{Hover effect settings}
 \usage{
 opts_hover(css = NULL)
+
+opts_hover_key(css = NULL)
+
+opts_hover_theme(css = NULL)
 }
 \arguments{
-\item{css}{css to associate with elements to be animated
-when mouse is hover them.}
+\item{css}{css to associate with elements when they are hovered.
+It must be a scalar character. It can also be constructed with
+\code{\link{girafe_css}}, to give more control over the css for different element types.}
 }
 \description{
-Allows customization of the animation
-of graphic elements on which the mouse is positioned.
+Allows customization of the rendering
+of graphic elements when the user hovers over them with the cursor (mouse pointer).
+Use \code{opts_hover} for interactive geometries in panels,
+\code{opts_hover_key} for interactive scales/guides and
+\code{opts_hover_theme} for interactive theme elements.
 }
 \examples{
 library(ggplot2)
@@ -32,9 +42,8 @@ x <- girafe_options(x,
 if( interactive() ) print(x)
 }
 \seealso{
-set options with \code{\link{girafe_options}}
-
-Other girafe animation options: \code{\link{opts_selection}},
+Other girafe animation options: \code{\link{girafe_options}},
+  \code{\link{opts_selection}}, \code{\link{opts_sizing}},
   \code{\link{opts_toolbar}}, \code{\link{opts_tooltip}},
   \code{\link{opts_zoom}}
 }

@@ -2,45 +2,27 @@
 % Please edit documentation in R/interactive_polygon_grob.R
 \name{interactive_polygon_grob}
 \alias{interactive_polygon_grob}
-\title{Generate interactive grob polygons}
+\title{Create interactive polygon grob}
 \usage{
-interactive_polygon_grob(x = unit(c(0, 1), "npc"), y = unit(c(0, 1),
-  "npc"), id = NULL, id.lengths = NULL, tooltip = NULL,
-  onclick = NULL, data_id = NULL, default.units = "npc",
-  name = NULL, gp = gpar(), vp = NULL)
+interactive_polygon_grob(...)
 }
 \arguments{
-\item{x}{A numeric vector or unit object specifying x-locations.}
-
-\item{y}{A numeric vector or unit object specifying y-locations.}
-
-\item{id}{A numeric vector used to separate locations in \code{x} and
-    \code{y} into multiple polygons.  All locations with the same
-    \code{id} belong to the same polygon.}
-
-\item{id.lengths}{A numeric vector used to separate locations in \code{x} and
-    \code{y} into multiple polygons.  Specifies consecutive blocks of
-    locations which make up separate polygons.}
-
-\item{tooltip}{tooltip associated with polygons}
-
-\item{onclick}{javascript action to execute when polygon is clicked}
-
-\item{data_id}{identifiers to associate with polygons}
-
-\item{default.units}{A string indicating the default units to use
-    if \code{x}, \code{y}, \code{width}, or \code{height}
-    are only given as numeric vectors.}
-
-\item{name}{ A character identifier. }
-
-\item{gp}{An object of class \code{gpar}, typically the output
-    from a call to the function \code{gpar}.  This is basically
-    a list of graphical parameter settings.}
-
-\item{vp}{A Grid viewport object (or NULL).}
+\item{...}{arguments passed to base function,
+plus any of the \code{\link{interactive_parameters}}.}
+}
+\value{
+An interactive grob object.
 }
 \description{
-This function can be used to generate interactive grob
-polygons.
+The grob is based on \code{\link[grid]{polygonGrob}}.
+See the documentation for that function for more details.
+}
+\section{Details for interactive_*_grob functions}{
+
+The interactive parameters can be supplied as arguments in the relevant function
+and they can be scalar values or vectors depending on params on base function.
+}
+
+\seealso{
+\code{\link{girafe}}
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/girafe_options.R
 \name{opts_toolbar}
 \alias{opts_toolbar}
-\title{toolbar settings}
+\title{Toolbar settings}
 \usage{
 opts_toolbar(position = "topright", saveaspng = TRUE)
 }
@@ -37,10 +37,9 @@ x <- girafe_options(x,
 if( interactive() ) print(x)
 }
 \seealso{
-set options with \code{\link{girafe_options}}
-
-Other girafe animation options: \code{\link{opts_hover}},
-  \code{\link{opts_selection}}, \code{\link{opts_tooltip}},
+Other girafe animation options: \code{\link{girafe_options}},
+  \code{\link{opts_hover}}, \code{\link{opts_selection}},
+  \code{\link{opts_sizing}}, \code{\link{opts_tooltip}},
   \code{\link{opts_zoom}}
 }
 \concept{girafe animation options}

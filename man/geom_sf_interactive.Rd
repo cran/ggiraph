@@ -2,45 +2,51 @@
 % Please edit documentation in R/geom_sf_interactive.R
 \name{geom_sf_interactive}
 \alias{geom_sf_interactive}
-\title{interactive sf objects}
+\alias{geom_sf_label_interactive}
+\alias{geom_sf_text_interactive}
+\title{Create interactive sf objects}
 \usage{
-geom_sf_interactive(mapping = aes(), data = NULL, stat = "sf",
-  position = "identity", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+geom_sf_interactive(...)
+
+geom_sf_label_interactive(...)
+
+geom_sf_text_interactive(...)
 }
 \arguments{
-\item{mapping}{The aesthetic mapping, see \code{\link[ggplot2]{geom_point}}.}
-
-\item{data}{A data frame, see \code{\link[ggplot2]{geom_point}}.}
-
-\item{stat}{The statistical transformation to use on the data for this
-layer, as a string, see \code{\link[ggplot2]{geom_point}}.}
-
-\item{position}{Postion adjustment, see \code{\link[ggplot2]{geom_point}}.}
-
-\item{na.rm}{See \code{\link[ggplot2]{geom_point}}.}
-
-\item{show.legend}{See \code{\link[ggplot2]{geom_point}}.}
-
-\item{inherit.aes}{See \code{\link[ggplot2]{geom_point}}.}
-
-\item{...}{other arguments passed on to layer. See \code{\link[ggplot2]{geom_point}}.}
+\item{...}{arguments passed to base function,
+plus any of the \code{\link{interactive_parameters}}.}
 }
 \description{
-The geometry is based on \code{\link[ggplot2]{ggsf}}.
+These geometries are based on \code{\link[ggplot2]{geom_sf}},
+\code{\link[ggplot2]{geom_sf_label}} and \code{\link[ggplot2]{geom_sf_text}}.
 See the documentation for those functions for more details.
 }
+\section{Details for geom_*_interactive functions}{
+
+The interactive parameters can be supplied with two ways:
+\itemize{
+  \item As aesthetics with the mapping argument (via \code{\link[ggplot2]{aes}}).
+  In this way they can be mapped to data columns and apply to a set of geometries.
+
+  \item As plain arguments into the geom_*_interactive function (see
+  \code{\link[ggplot2]{layer}}). In this way they can be set to a scalar value.
+}
+}
+
 \examples{
 # add interactive sf objects to a ggplot -------
 library(ggplot2)
 library(ggiraph)
 
 ## original code: see section examples of ggplot2::geom_sf help file
-if (requireNamespace("sf", quietly = TRUE)) {
+if (requireNamespace("sf",
+                     quietly = TRUE,
+                     versionCheck = c(op = ">=", version = "0.7-3"))) {
   nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
   gg <- ggplot(nc) +
     geom_sf_interactive(aes(fill = AREA, tooltip = NAME, data_id = NAME))
-  ggiraph( ggobj = gg)
+  x <- girafe(ggobj = gg)
+  if( interactive() ) print(x)
 
   nc_3857 <- sf::st_transform(nc, "+init=epsg:3857")
 
@@ -52,11 +58,24 @@ if (requireNamespace("sf", quietly = TRUE)) {
     geom_sf_interactive(aes(geometry = mid,
         size = AREA, tooltip = NAME, data_id = NAME),
       show.legend = "point")
-  girafe( ggobj = gg)
+  x <- girafe( ggobj = gg)
+  if( interactive() ) print(x)
 
+  # Example with texts.
+  gg <- ggplot(nc_3857[1:3, ]) +
+    geom_sf(aes(fill = AREA)) +
+    geom_sf_text_interactive(aes(label = NAME, tooltip = NAME), color="white")
+  x <- girafe( ggobj = gg)
+  if( interactive() ) print(x)
+
+  # Example with labels.
+  gg <- ggplot(nc_3857[1:3, ]) +
+    geom_sf(aes(fill = AREA)) +
+    geom_sf_label_interactive(aes(label = NAME, tooltip = NAME))
+  x <- girafe( ggobj = gg)
+  if( interactive() ) print(x)
 }
-
 }
 \seealso{
-\code{\link{ggiraph}}
+\code{\link{girafe}}
 }

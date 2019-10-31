@@ -2,42 +2,34 @@
 % Please edit documentation in R/geom_segment_interactive.R
 \name{geom_segment_interactive}
 \alias{geom_segment_interactive}
-\title{Line interactive segments}
+\title{Create interactive line segments}
 \usage{
-geom_segment_interactive(mapping = NULL, data = NULL,
-  stat = "identity", position = "identity", arrow = NULL,
-  lineend = "butt", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+geom_segment_interactive(...)
 }
 \arguments{
-\item{mapping}{The aesthetic mapping, see \code{\link[ggplot2]{geom_point}}.}
-
-\item{data}{A data frame, see \code{\link[ggplot2]{geom_point}}.}
-
-\item{stat}{The statistical transformation to use on the data for this
-layer, as a string, see \code{\link[ggplot2]{geom_point}}.}
-
-\item{position}{Postion adjustment, see \code{\link[ggplot2]{geom_point}}.}
-
-\item{arrow}{Arrow specification, as created by ?grid::arrow}
-
-\item{lineend}{Line end style (round, butt, square)}
-
-\item{na.rm}{See \code{\link[ggplot2]{geom_point}}.}
-
-\item{show.legend}{See \code{\link[ggplot2]{geom_point}}.}
-
-\item{inherit.aes}{See \code{\link[ggplot2]{geom_point}}.}
-
-\item{...}{other arguments passed on to layer. See \code{\link[ggplot2]{geom_point}}.}
+\item{...}{arguments passed to base function,
+plus any of the \code{\link{interactive_parameters}}.}
 }
 \description{
 The geometry is based on \code{\link[ggplot2]{geom_segment}}.
 See the documentation for those functions for more details.
 }
+\section{Details for geom_*_interactive functions}{
+
+The interactive parameters can be supplied with two ways:
+\itemize{
+  \item As aesthetics with the mapping argument (via \code{\link[ggplot2]{aes}}).
+  In this way they can be mapped to data columns and apply to a set of geometries.
+
+  \item As plain arguments into the geom_*_interactive function (see
+  \code{\link[ggplot2]{layer}}). In this way they can be set to a scalar value.
+}
+}
+
 \examples{
 # add interactive segments to a ggplot -------
 library(ggplot2)
+library(ggiraph)
 
 counts <- as.data.frame(table(x = rpois(100,5)))
 counts$x <- as.numeric( as.character(counts$x) )
@@ -46,6 +38,8 @@ counts$xlab <- paste0("bar",as.character(counts$x) )
 gg_segment_1 <- ggplot(data = counts, aes(x = x, y = Freq,
 			yend = 0, xend = x, tooltip = xlab ) ) +
 	geom_segment_interactive( size = I(10))
+x <- girafe(ggobj = gg_segment_1)
+if( interactive() ) print(x)
 
 dataset = data.frame(x=c(1,2,5,6,8),
 		y=c(3,6,2,8,7),
@@ -62,9 +56,9 @@ gg_segment_2 = ggplot() +
 	geom_point(data=dataset, mapping=aes(x=x, y=y),
 		size=4, shape=21, fill="white")
 
-ggiraph(code = {print(gg_segment_1)})
-ggiraph(code = {print(gg_segment_2)})
+x <- girafe(ggobj = gg_segment_2)
+if( interactive() ) print(x)
 }
 \seealso{
-\code{\link{ggiraph}}
+\code{\link{girafe}}
 }

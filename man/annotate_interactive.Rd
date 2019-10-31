@@ -2,51 +2,26 @@
 % Please edit documentation in R/annotate_interactive.R
 \name{annotate_interactive}
 \alias{annotate_interactive}
-\title{interactive annotations}
+\title{Create interactive annotations}
 \usage{
-annotate_interactive(geom, x = NULL, y = NULL, xmin = NULL,
-  xmax = NULL, ymin = NULL, ymax = NULL, xend = NULL,
-  yend = NULL, ..., na.rm = FALSE)
+annotate_interactive(...)
 }
 \arguments{
-\item{geom}{name of geom to use for annotation}
-
-\item{x}{positioning aesthetics -
-you must specify at least one of these.}
-
-\item{y}{positioning aesthetics -
-you must specify at least one of these.}
-
-\item{xmin}{positioning aesthetics -
-you must specify at least one of these.}
-
-\item{xmax}{positioning aesthetics -
-you must specify at least one of these.}
-
-\item{ymin}{positioning aesthetics -
-you must specify at least one of these.}
-
-\item{ymax}{positioning aesthetics -
-you must specify at least one of these.}
-
-\item{xend}{positioning aesthetics -
-you must specify at least one of these.}
-
-\item{yend}{positioning aesthetics -
-you must specify at least one of these.}
-
-\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
-often aesthetics, used to set an aesthetic to a fixed value, like
-\code{colour = "red"} or \code{size = 3}. They may also be parameters
-to the paired geom/stat.}
-
-\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
-a warning. If \code{TRUE}, missing values are silently removed.}
+\item{...}{arguments passed to base function,
+plus any of the \code{\link{interactive_parameters}}.}
 }
 \description{
-Create interactive annotations, similar to ggplot2 \code{\link[ggplot2]{annotate}}.
+The layer is based on \code{\link[ggplot2]{annotate}}.
+See the documentation for that function for more details.
 }
+\section{Details for annotate_*_interactive functions}{
+
+The interactive parameters can be supplied as arguments in the relevant function
+and they can be scalar values or vectors depending on params on base function.
+}
+
 \examples{
+# add interactive annotation to a ggplot -------
 library(ggplot2)
 library(ggiraph)
 
@@ -61,5 +36,5 @@ x <- girafe(ggobj = gg, width_svg = 5, height_svg = 4)
 if( interactive() ) print(x)
 }
 \seealso{
-\code{\link{ggiraph}}
+\code{\link{girafe}}
 }

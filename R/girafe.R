@@ -1,4 +1,4 @@
-#' @title create a girafe object
+#' @title Create a girafe object
 #'
 #' @description Create an interactive graphic with a ggplot object
 #' to be used in a web browser. The function should replace function
@@ -7,9 +7,8 @@
 #' @details
 #' Use \code{geom_zzz_interactive} to create interactive graphical elements.
 #'
-#' Difference from original functions is that the following
-#' aesthetics are understood: \code{tooltip}, \code{onclick}
-#' and \code{data_id}.
+#' Difference from original functions is that some extra aesthetics are understood:
+#' the \code{\link{interactive_parameters}}.
 #'
 #' Tooltips can be displayed when mouse is over graphical elements.
 #'
@@ -37,6 +36,8 @@
 #' when parsing the svg result. This feature can be used to parse
 #' huge svg files by using \code{list(options = "HUGE")} but this
 #' is not recommanded.
+#' @param options a list of options for girafe rendering, see
+#' \code{\link{opts_tooltip}}, \code{\link{opts_hover}}, \code{\link{opts_selection}}, ...
 #' @param ... arguments passed on to \code{\link{dsvg}}
 #' @examples
 #' library(ggplot2)
@@ -87,11 +88,13 @@
 #' package widgetframe that wraps htmlwidgets inside a responsive iframe.
 #' @seealso \code{\link{girafe_options}}
 #' @export
+#' @importFrom uuid UUIDgenerate
 girafe <- function(
   code, ggobj = NULL,  pointsize = 12,
-  width_svg = 6, height_svg = 5, xml_reader_options = list(), ...) {
+  width_svg = 6, height_svg = 5, xml_reader_options = list(),
+  options = list(), ...) {
 
-  canvas_id <- basename( tempfile(pattern = "svg_", fileext = format(Sys.time(), "%Y%m%d%H%M%S") ) )
+  canvas_id <- paste("svg", UUIDgenerate(), sep = "_")
   path = tempfile()
   dsvg(file = path, pointsize = pointsize, standalone = TRUE,
        width = width_svg, height = height_svg,
@@ -107,32 +110,16 @@ girafe <- function(
 
   xml_reader_options$x <- path
   data <- do.call(read_xml, xml_reader_options )
-  scr <- xml_find_all(data, "//*[@type='text/javascript']", ns = xml_ns(data) )
-  js <- paste( sapply( scr, xml_text ), collapse = ";")
-  js <- paste0("function zzz(){", js, "};")
-  xml_remove(scr)
+  set_svg_attributes(data, canvas_id)
   xml_attr(data, "width") <- NULL
   xml_attr(data, "height") <- NULL
   unlink(path)
 
-  tooltip_set <- opts_tooltip()
-  hover_set <- opts_hover()
-  zoom_set <- opts_zoom()
-  selection_set <- opts_selection()
-  toolbar_set <- opts_toolbar()
-  sizing_set <- opts_sizing()
-
-  x = list( html = as.character(data), js = js,
+  settings <- merge_options(default_opts(), options)
+  x = list( html = as.character(data), js = NULL,
             uid = canvas_id,
             ratio = width_svg / height_svg,
-            settings = list(
-              tooltip = tooltip_set,
-              hover = hover_set,
-              zoom = zoom_set,
-              capture = selection_set,
-              toolbar = toolbar_set,
-              sizing = sizing_set
-              )
+            settings = settings
             )
 
   createWidget(
@@ -147,7 +134,8 @@ girafe <- function(
 #' @title Create a girafe output element
 #' @description Render a girafe within an application page.
 #'
-#' @param outputId output variable to read the girafe from.
+#' @param outputId output variable to read the girafe from. Do not use special JavaScript
+#' characters such as a period \code{.} in the id, this would create a JavaScript error.
 #' @param width widget width
 #' @param height widget height
 #' @export
@@ -173,4 +161,87 @@ renderGirafe <- function(expr, env = parent.frame(), quoted = FALSE) {
 	if (!quoted) { expr <- substitute(expr) } # force quoted
 	shinyRenderWidget(expr, girafeOutput, env, quoted = TRUE)
 }
+
+default_opts <- function(){
+  settings <- list(
+    tooltip = opts_tooltip(),
+    hover = opts_hover(),
+    hoverkey = opts_hover_key(),
+    hovertheme = opts_hover_theme(),
+    zoom = opts_zoom(),
+    capture = opts_selection(),
+    capturekey = opts_selection_key(),
+    capturetheme = opts_selection_theme(),
+    toolbar = opts_toolbar(),
+    sizing = opts_sizing()
+  )
+  settings
+}
+
+merge_options <- function(options, args){
+  for (arg in args) {
+    if (inherits(arg, "opts_zoom")) {
+      options$zoom <- arg
+    } else if (inherits(arg, "opts_selection")) {
+      options$capture <- arg
+    } else if (inherits(arg, "opts_selection_key")) {
+      options$capturekey <- arg
+    } else if (inherits(arg, "opts_selection_theme")) {
+      options$capturetheme <- arg
+    } else if (inherits(arg, "opts_tooltip")) {
+      options$tooltip <- arg
+    } else if (inherits(arg, "opts_hover")) {
+      options$hover <- arg
+    } else if (inherits(arg, "opts_hover_key")) {
+      options$hoverkey <- arg
+    } else if (inherits(arg, "opts_hover_theme")) {
+      options$hovertheme <- arg
+    } else if (inherits(arg, "opts_toolbar")) {
+      options$toolbar <- arg
+    } else if (inherits(arg, "opts_sizing")) {
+      options$sizing <- arg
+    }
+  }
+  options
+}
+
+
+
+
+
+
+
+girafe_app_paths <- function(){
+  example_dir <- system.file(package = "ggiraph", "examples", "shiny")
+  list.files(example_dir, full.names = TRUE)
+}
+
+#' Run shiny examples and see corresponding code
+#'
+#' @param name an application name, one of
+#' cars, click_scale, crimes, DT, dynamic_ui,
+#' iris, maps and modal.
+#'
+#' @export
+run_girafe_example <- function(name = "crimes"){
+  example_dir <- system.file(package = "ggiraph", "examples", "shiny")
+  apps <- girafe_app_paths()
+  if( !name %in% basename(apps) ){
+    stop("could not find app named ", shQuote(name), " in the following list: ",
+         paste0(shQuote(basename(apps)), collapse = ", ")
+    )
+  }
+  if(requireNamespace("shiny"))
+    shiny::runApp(
+      appDir = file.path(example_dir, name),
+      display.mode = "showcase")
+  else warning("package shiny is required to be able to use the function")
+}
+
+
+
+
+
+
+
 

@@ -2,37 +2,34 @@
 % Please edit documentation in R/geom_polygon_interactive.R
 \name{geom_polygon_interactive}
 \alias{geom_polygon_interactive}
-\title{interactive polygons}
+\title{Create interactive polygons}
 \usage{
-geom_polygon_interactive(mapping = NULL, data = NULL,
-  stat = "identity", position = "identity", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, ...)
+geom_polygon_interactive(...)
 }
 \arguments{
-\item{mapping}{The aesthetic mapping, see \code{\link[ggplot2]{geom_point}}.}
-
-\item{data}{A data frame, see \code{\link[ggplot2]{geom_point}}.}
-
-\item{stat}{The statistical transformation to use on the data for this
-layer, as a string, see \code{\link[ggplot2]{geom_point}}.}
-
-\item{position}{Postion adjustment, see \code{\link[ggplot2]{geom_point}}.}
-
-\item{na.rm}{See \code{\link[ggplot2]{geom_point}}.}
-
-\item{show.legend}{See \code{\link[ggplot2]{geom_point}}.}
-
-\item{inherit.aes}{See \code{\link[ggplot2]{geom_point}}.}
-
-\item{...}{other arguments passed on to layer. See \code{\link[ggplot2]{geom_point}}.}
+\item{...}{arguments passed to base function,
+plus any of the \code{\link{interactive_parameters}}.}
 }
 \description{
 The geometry is based on \code{\link[ggplot2]{geom_polygon}}.
 See the documentation for those functions for more details.
 }
+\section{Details for geom_*_interactive functions}{
+
+The interactive parameters can be supplied with two ways:
+\itemize{
+  \item As aesthetics with the mapping argument (via \code{\link[ggplot2]{aes}}).
+  In this way they can be mapped to data columns and apply to a set of geometries.
+
+  \item As plain arguments into the geom_*_interactive function (see
+  \code{\link[ggplot2]{layer}}). In this way they can be set to a scalar value.
+}
+}
+
 \examples{
 # add interactive polygons to a ggplot -------
 library(ggplot2)
+library(ggiraph)
 
 # create data
 ids <- factor(c("1.1", "2.1", "1.2", "2.2", "1.3", "2.3"))
@@ -57,9 +54,29 @@ gg_poly_1 <- ggplot(datapoly, aes( x = x, y = y ) ) +
 		tooltip = value, data_id = value, onclick = oc))
 
 # display ------
-ggiraph(code = {print(gg_poly_1)})
+x <- girafe(ggobj = gg_poly_1)
+if( interactive() ) print(x)
+
+if (packageVersion("grid") >= "3.6") {
+  # As of R version 3.6 geom_polygon() supports polygons with holes
+  # Use the subgroup aesthetic to differentiate holes from the main polygon
+
+  holes <- do.call(rbind, lapply(split(datapoly, datapoly$id), function(df) {
+    df$x <- df$x + 0.5 * (mean(df$x) - df$x)
+    df$y <- df$y + 0.5 * (mean(df$y) - df$y)
+    df
+  }))
+  datapoly$subid <- 1L
+  holes$subid <- 2L
+  datapoly <- rbind(datapoly, holes)
+  p <- ggplot(datapoly, aes(x = x, y = y)) +
+    geom_polygon_interactive(aes(fill = value, group = id, subgroup = subid,
+                                 tooltip = value, data_id = value, onclick = oc))
+  x <- girafe(ggobj = p)
+  if( interactive() ) print(x)
+}
 
 }
 \seealso{
-\code{\link{ggiraph}}
+\code{\link{girafe}}
 }

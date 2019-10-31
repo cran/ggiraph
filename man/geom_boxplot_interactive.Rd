@@ -2,69 +2,49 @@
 % Please edit documentation in R/geom_boxplot_interactive.R
 \name{geom_boxplot_interactive}
 \alias{geom_boxplot_interactive}
-\title{interactive boxplot}
+\title{Create interactive boxplot}
 \usage{
-geom_boxplot_interactive(mapping = NULL, data = NULL,
-  stat = "boxplot", position = "dodge", ..., outlier.colour = NULL,
-  outlier.color = NULL, outlier.shape = 19, outlier.size = 1.5,
-  outlier.stroke = 0.5, notch = FALSE, notchwidth = 0.5,
-  varwidth = FALSE, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_boxplot_interactive(...)
 }
 \arguments{
-\item{mapping}{The aesthetic mapping, see \code{\link[ggplot2]{geom_point}}.}
-
-\item{data}{A data frame, see \code{\link[ggplot2]{geom_point}}.}
-
-\item{stat}{see \code{geom_boxplot}.}
-
-\item{position}{Postion adjustment, see \code{\link[ggplot2]{geom_point}}.}
-
-\item{...}{other arguments passed on to layer. See \code{\link[ggplot2]{geom_point}}.}
-
-\item{outlier.colour}{see \code{geom_boxplot}.}
-
-\item{outlier.color}{see \code{geom_boxplot}.}
-
-\item{outlier.shape}{see \code{geom_boxplot}.}
-
-\item{outlier.size}{see \code{geom_boxplot}.}
-
-\item{outlier.stroke}{see \code{geom_boxplot}.}
-
-\item{notch}{see \code{geom_boxplot}.}
-
-\item{notchwidth}{see \code{geom_boxplot}.}
-
-\item{varwidth}{see \code{geom_boxplot}.}
-
-\item{na.rm}{See \code{\link[ggplot2]{geom_point}}.}
-
-\item{show.legend}{See \code{\link[ggplot2]{geom_point}}.}
-
-\item{inherit.aes}{See \code{\link[ggplot2]{geom_point}}.}
+\item{...}{arguments passed to base function,
+plus any of the \code{\link{interactive_parameters}}.}
 }
 \description{
 The geometry is based on \code{\link[ggplot2]{geom_boxplot}}.
 See the documentation for those functions for more details.
 }
+\section{Details for geom_*_interactive functions}{
+
+The interactive parameters can be supplied with two ways:
+\itemize{
+  \item As aesthetics with the mapping argument (via \code{\link[ggplot2]{aes}}).
+  In this way they can be mapped to data columns and apply to a set of geometries.
+
+  \item As plain arguments into the geom_*_interactive function (see
+  \code{\link[ggplot2]{layer}}). In this way they can be set to a scalar value.
+}
+}
+
 \examples{
 # add interactive boxplot -------
 library(ggplot2)
+library(ggiraph)
 
 p <- ggplot(mpg,
   aes(x = class, y = hwy, tooltip = class)) +
   geom_boxplot_interactive()
 
-ggiraph(code = print(p))
+x <- girafe(ggobj = p)
+if( interactive() ) print(x)
 
-
-p <- ggplot(mpg, aes(x = drv, y = hwy, tooltip = class, fill = class)) +
+p <- ggplot(mpg, aes(x = drv, y = hwy, tooltip = class, fill = class, data_id=class)) +
   geom_boxplot_interactive(outlier.colour = "red") +
   guides(fill = "none") + theme_minimal()
 
-girafe(ggobj = p)
+x <- girafe(ggobj = p)
+if( interactive() ) print(x)
 }
 \seealso{
-\code{\link{ggiraph}}
+\code{\link{girafe}}
 }

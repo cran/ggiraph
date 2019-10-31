@@ -1,39 +1,21 @@
-#' @title interactive boxplot
+#' @title Create interactive histograms and frequency polygons
 #'
 #' @description
-#' The geometry is based on \code{\link[ggplot2]{geom_histogram}}.
+#' The geometries are based on \code{\link[ggplot2]{geom_histogram}}
+#' and \code{\link[ggplot2]{geom_freqpoly}}.
 #' See the documentation for those functions for more details.
 #'
 #' This interactive version is only providing a single tooltip per
 #' group of data (same for \code{data_id}). It means it is only possible
 #' to associate a single tooltip to a set of bins.
 #'
-#' @seealso \code{\link{ggiraph}}
-#' @inheritParams ggplot2::geom_histogram
+#' @param ... arguments passed to base function,
+#' plus any of the \code{\link{interactive_parameters}}.
+#' @inheritSection interactive_parameters Details for geom_*_interactive functions
+#' @examples
+#' # add interactive histogram -------
+#' @example examples/geom_histogram_interactive.R
+#' @seealso \code{\link{girafe}}
 #' @export
-geom_histogram_interactive <- function(mapping = NULL, data = NULL,
-                           stat = "bin", position = "stack",
-                           ...,
-                           binwidth = NULL,
-                           bins = NULL,
-                           na.rm = FALSE,
-                           show.legend = NA,
-                           inherit.aes = TRUE) {
-
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomInteractiveBar,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list(
-      binwidth = binwidth,
-      bins = bins,
-      na.rm = na.rm,
-      pad = FALSE,
-      ...
-    )
-  )
-}
+geom_histogram_interactive <- function(...)
+  layer_interactive(geom_histogram, ...)
