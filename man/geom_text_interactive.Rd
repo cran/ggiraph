@@ -12,21 +12,22 @@ geom_text_interactive(...)
 }
 \arguments{
 \item{...}{arguments passed to base function,
-plus any of the \code{\link[=interactive_parameters]{interactive_parameters()}}.}
+plus any of the \code{\link{interactive_parameters}}.}
 }
 \description{
-The geometries are based on \code{\link[=geom_text]{geom_text()}} and \code{\link[=geom_label]{geom_label()}}.
+The geometries are based on \code{\link[ggplot2]{geom_text}}
+and \code{\link[ggplot2]{geom_label}}.
 See the documentation for those functions for more details.
 }
 \section{Details for geom_*_interactive functions}{
 
 The interactive parameters can be supplied with two ways:
 \itemize{
-\item As aesthetics with the mapping argument (via \code{\link[=aes]{aes()}}).
-In this way they can be mapped to data columns and apply to a set of geometries.
+  \item As aesthetics with the mapping argument (via \code{\link[ggplot2]{aes}}).
+  In this way they can be mapped to data columns and apply to a set of geometries.
 
-\item As plain arguments into the geom_*_interactive function.
-In this way they can be set to a scalar value.
+  \item As plain arguments into the geom_*_interactive function (see
+  \code{\link[ggplot2]{layer}}). In this way they can be set to a scalar value.
 }
 }
 
@@ -37,14 +38,14 @@ library(ggiraph)
 
 
 p <- ggplot(mtcars, aes(wt, mpg, label = rownames(mtcars))) +
-  geom_label_interactive(aes(tooltip = paste(rownames(mtcars), mpg, sep = "\n")))
+  geom_label_interactive(aes(tooltip = paste(rownames(mtcars), mpg, sep = "\\n")))
 x <- girafe(ggobj = p)
 if( interactive() ) print(x)
 
 
 p <- ggplot(mtcars, aes(wt, mpg, label = rownames(mtcars))) +
   geom_label_interactive(aes(fill = factor(cyl),
-                             tooltip = paste(rownames(mtcars), mpg, sep = "\n")),
+                             tooltip = paste(rownames(mtcars), mpg, sep = "\\n")),
                          colour = "white",
                          fontface = "bold")
 x <- girafe(ggobj = p)
@@ -77,5 +78,5 @@ x <- girafe_options(x = x,
 if( interactive() ) print(x)
 }
 \seealso{
-\code{\link[=girafe]{girafe()}}
+\code{\link{girafe}}
 }

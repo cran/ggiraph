@@ -4,18 +4,10 @@
 \alias{opts_tooltip}
 \title{Tooltip settings}
 \usage{
-opts_tooltip(
-  css = NULL,
-  offx = 10,
-  offy = 0,
-  use_cursor_pos = TRUE,
-  opacity = 0.9,
-  use_fill = FALSE,
-  use_stroke = FALSE,
-  delay_mouseover = 200,
-  delay_mouseout = 500,
-  zindex = 999
-)
+opts_tooltip(css = NULL, offx = 10, offy = 0,
+  use_cursor_pos = TRUE, opacity = 0.9, use_fill = FALSE,
+  use_stroke = FALSE, delay_mouseover = 200, delay_mouseout = 500,
+  zindex = 999)
 }
 \arguments{
 \item{css}{extra css (added to \code{position: absolute;pointer-events: none;})
@@ -41,7 +33,7 @@ transition associated with tooltip end of display.}
 \item{zindex}{tooltip css z-index, default to 999.}
 }
 \description{
-Settings to be used with \code{\link[=girafe]{girafe()}}
+Settings to be used with \code{\link{girafe}}
 for tooltip customisation.
 }
 \examples{
@@ -65,12 +57,9 @@ x <- girafe_options(x,
 if( interactive() ) print(x)
 }
 \seealso{
-Other girafe animation options: 
-\code{\link{girafe_options}()},
-\code{\link{opts_hover}()},
-\code{\link{opts_selection}()},
-\code{\link{opts_sizing}()},
-\code{\link{opts_toolbar}()},
-\code{\link{opts_zoom}()}
+Other girafe animation options: \code{\link{girafe_options}},
+  \code{\link{opts_hover}}, \code{\link{opts_selection}},
+  \code{\link{opts_sizing}}, \code{\link{opts_toolbar}},
+  \code{\link{opts_zoom}}
 }
 \concept{girafe animation options}

@@ -13,10 +13,10 @@ guide_legend_interactive(...)
 An interactive guide object.
 }
 \description{
-The guide is based on \code{\link[=guide_legend]{guide_legend()}}.
+The guide is based on \code{\link[ggplot2]{guide_legend}}.
 See the documentation for that function for more details.
 }
-\section{Details for scale_\emph{\emph{interactive and guide}}_interactive functions}{
+\section{Details for scale_*_interactive and guide_*_interactive functions}{
 
 For scales, the interactive parameters can be supplied as arguments in the relevant function
 and they can be scalar values or vectors, depending on the number of breaks (levels) and
@@ -24,28 +24,26 @@ the type of the guide used.
 The guides do not accept any interactive parameter directly, they receive them from the scales.
 
 \itemize{
-\item When guide of type \code{legend} or \code{bins} is used, it will be converted to a
-\code{\link[=guide_legend_interactive]{guide_legend_interactive()}} or \code{\link[=guide_bins_interactive]{guide_bins_interactive()}} respectively,
-if it's not already.
+  \item When guide of type `legend` is used, it will be converted to a
+  \code{\link{guide_legend_interactive}} if it's not already.
 
-The length of each scale interactive parameter vector should match the length of the breaks.
-It can also be a named vector, where each name should correspond to the same break name.
-It can also be defined as function that takes the breaks as input and returns a named or
-unnamed vector of values as output.
+  The length of each scale interactive parameter vector should match the length of the breaks.
+  It can also be a named vector, where each name should correspond to the same break name.
+  It can also be defined as function that takes the breaks as input and returns a named or
+  unnamed vector of values as output.
 
-The interactive parameters here, give interactivity only to the key elements of the guide.
+  The interactive parameters here, give interactivity only to the key elements of the guide.
 
-\item When guide of type \code{colourbar} or \code{coloursteps} is used, it will be converted to a
-\code{\link[=guide_colourbar_interactive]{guide_colourbar_interactive()}} or \code{\link[=guide_coloursteps_interactive]{guide_coloursteps_interactive()}}
-respectively, if it's not already.
+  \item When guide of type `colourbar` is used, it will be converted to a
+  \code{\link{guide_colourbar_interactive}} if it's not already.
 
-The scale interactive parameters in this case should be scalar values and give interactivity
-to the colorbar only.
+  The scale interactive parameters in this case should be scalar values and give interactivity
+  to the colorbar only.
 }
 
 To provide interactivity to the rest of the elements of a guide, (title, labels, background, etc),
 the relevant theme elements or relevant guide arguments can be used.
-The \code{guide} arguments \code{title.theme} and \code{label.theme} can be defined as
+The \code{guide} arguments `title.theme` and `label.theme` can be defined as
 \code{element_text_interactive} (in fact, they will be converted to that if they are not
 already), either directly or via the theme.
 See the element_*_interactive section for more details.
@@ -53,6 +51,7 @@ See the element_*_interactive section for more details.
 
 \examples{
 # add interactive discrete legend guide to a ggplot -------
+# add interactive continuous legend guide to a ggplot -------
 library(ggplot2)
 library(ggiraph)
 
@@ -94,7 +93,7 @@ p3 <- p +
     values = c(Male = "#0072B2", Female = "#009E73"),
     data_id = function(breaks) { as.character(breaks)},
     tooltip = function(breaks) { as.character(breaks)},
-    onclick = function(breaks) { paste0("alert(\"", as.character(breaks), "\")") }
+    onclick = function(breaks) { paste0("alert(\\"", as.character(breaks), "\\")") }
   )
 x <- girafe(ggobj = p3)
 x <- girafe_options(x,
@@ -106,12 +105,12 @@ p4 <- p + scale_fill_manual_interactive(
   values = c(Male = "#0072B2", Female = "#009E73"),
   data_id = function(breaks) { as.character(breaks)},
   tooltip = function(breaks) { as.character(breaks)},
-  onclick = function(breaks) { paste0("alert(\"", as.character(breaks), "\")") },
+  onclick = function(breaks) { paste0("alert(\\"", as.character(breaks), "\\")") },
   guide = guide_legend_interactive(
     title.theme = element_text_interactive(
       size = 8,
       data_id = "legend.title",
-      onclick = "alert(\"Gender levels\")",
+      onclick = "alert(\\"Gender levels\\")",
       tooltip = "Gender levels"
     ),
     label.theme = element_text_interactive(
@@ -131,13 +130,13 @@ p5 <- p +
     values = c(Male = "#0072B2", Female = "#009E73"),
     data_id = function(breaks) { as.character(breaks)},
     tooltip = function(breaks) { as.character(breaks)},
-    onclick = function(breaks) { paste0("alert(\"", as.character(breaks), "\")") },
+    onclick = function(breaks) { paste0("alert(\\"", as.character(breaks), "\\")") },
     labels = function(breaks) {
       lapply(breaks, function(br) {
         label_interactive(
           as.character(br),
           data_id = as.character(br),
-          onclick = paste0("alert(\"", as.character(br), "\")"),
+          onclick = paste0("alert(\\"", as.character(br), "\\")"),
           tooltip = as.character(br)
         )
       })
@@ -147,7 +146,6 @@ x <- girafe(ggobj = p5)
 x <- girafe_options(x,
                     opts_hover_key(girafe_css("stroke:red", text="stroke:none;fill:red")))
 if (interactive()) print(x)
-# add interactive continuous legend guide to a ggplot -------
 library(ggplot2)
 library(ggiraph)
 
@@ -204,7 +202,7 @@ p4 <- p + scale_fill_viridis_c_interactive(
       label_interactive(
         as.character(br),
         data_id = as.character(br),
-        onclick = paste0("alert(\"", as.character(br), "\")"),
+        onclick = paste0("alert(\\"", as.character(br), "\\")"),
         tooltip = as.character(br)
       )
     })
@@ -218,5 +216,7 @@ if (interactive()) print(x)
 
 }
 \seealso{
-\code{\link[=interactive_parameters]{interactive_parameters()}}, \code{\link[=girafe]{girafe()}}
+\code{\link{interactive_parameters}}
+
+\code{\link{girafe}}
 }

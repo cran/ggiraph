@@ -8,12 +8,6 @@
 \alias{scale_colour_viridis_c_interactive}
 \alias{scale_color_viridis_c_interactive}
 \alias{scale_fill_viridis_c_interactive}
-\alias{scale_colour_viridis_b_interactive}
-\alias{scale_color_viridis_b_interactive}
-\alias{scale_fill_viridis_b_interactive}
-\alias{scale_colour_ordinal_interactive}
-\alias{scale_color_ordinal_interactive}
-\alias{scale_fill_ordinal_interactive}
 \title{Create interactive viridis colour scales}
 \usage{
 scale_colour_viridis_d_interactive(...)
@@ -27,39 +21,23 @@ scale_colour_viridis_c_interactive(...)
 scale_color_viridis_c_interactive(...)
 
 scale_fill_viridis_c_interactive(...)
-
-scale_colour_viridis_b_interactive(...)
-
-scale_color_viridis_b_interactive(...)
-
-scale_fill_viridis_b_interactive(...)
-
-scale_colour_ordinal_interactive(...)
-
-scale_color_ordinal_interactive(...)
-
-scale_fill_ordinal_interactive(...)
 }
 \arguments{
 \item{...}{arguments passed to base function,
-plus any of the \code{\link[=interactive_parameters]{interactive_parameters()}}.}
+plus any of the \code{\link{interactive_parameters}}.}
 }
 \value{
 An interactive scale object.
 }
 \description{
 These scales are based on
-\code{\link[=scale_colour_viridis_d]{scale_colour_viridis_d()}},
-\code{\link[=scale_fill_viridis_d]{scale_fill_viridis_d()}},
-\code{\link[=scale_colour_viridis_c]{scale_colour_viridis_c()}},
-\code{\link[=scale_fill_viridis_c]{scale_fill_viridis_c()}},
-\code{\link[=scale_colour_viridis_b]{scale_colour_viridis_b()}},
-\code{\link[=scale_fill_viridis_b]{scale_fill_viridis_b()}},
-\code{\link[=scale_colour_ordinal]{scale_colour_ordinal()}},
-\code{\link[=scale_fill_ordinal]{scale_fill_ordinal()}}.
+\code{\link[ggplot2]{scale_colour_viridis_d}},
+\code{\link[ggplot2]{scale_fill_viridis_d}},
+\code{\link[ggplot2]{scale_colour_viridis_c}} and
+\code{\link[ggplot2]{scale_fill_viridis_c}}.
 See the documentation for those functions for more details.
 }
-\section{Details for scale_\emph{\emph{interactive and guide}}_interactive functions}{
+\section{Details for scale_*_interactive and guide_*_interactive functions}{
 
 For scales, the interactive parameters can be supplied as arguments in the relevant function
 and they can be scalar values or vectors, depending on the number of breaks (levels) and
@@ -67,28 +45,26 @@ the type of the guide used.
 The guides do not accept any interactive parameter directly, they receive them from the scales.
 
 \itemize{
-\item When guide of type \code{legend} or \code{bins} is used, it will be converted to a
-\code{\link[=guide_legend_interactive]{guide_legend_interactive()}} or \code{\link[=guide_bins_interactive]{guide_bins_interactive()}} respectively,
-if it's not already.
+  \item When guide of type `legend` is used, it will be converted to a
+  \code{\link{guide_legend_interactive}} if it's not already.
 
-The length of each scale interactive parameter vector should match the length of the breaks.
-It can also be a named vector, where each name should correspond to the same break name.
-It can also be defined as function that takes the breaks as input and returns a named or
-unnamed vector of values as output.
+  The length of each scale interactive parameter vector should match the length of the breaks.
+  It can also be a named vector, where each name should correspond to the same break name.
+  It can also be defined as function that takes the breaks as input and returns a named or
+  unnamed vector of values as output.
 
-The interactive parameters here, give interactivity only to the key elements of the guide.
+  The interactive parameters here, give interactivity only to the key elements of the guide.
 
-\item When guide of type \code{colourbar} or \code{coloursteps} is used, it will be converted to a
-\code{\link[=guide_colourbar_interactive]{guide_colourbar_interactive()}} or \code{\link[=guide_coloursteps_interactive]{guide_coloursteps_interactive()}}
-respectively, if it's not already.
+  \item When guide of type `colourbar` is used, it will be converted to a
+  \code{\link{guide_colourbar_interactive}} if it's not already.
 
-The scale interactive parameters in this case should be scalar values and give interactivity
-to the colorbar only.
+  The scale interactive parameters in this case should be scalar values and give interactivity
+  to the colorbar only.
 }
 
 To provide interactivity to the rest of the elements of a guide, (title, labels, background, etc),
 the relevant theme elements or relevant guide arguments can be used.
-The \code{guide} arguments \code{title.theme} and \code{label.theme} can be defined as
+The \code{guide} arguments `title.theme` and `label.theme` can be defined as
 \code{element_text_interactive} (in fact, they will be converted to that if they are not
 already), either directly or via the theme.
 See the element_*_interactive section for more details.
@@ -152,7 +128,7 @@ p4 <- p + scale_fill_viridis_c_interactive(
       label_interactive(
         as.character(br),
         data_id = as.character(br),
-        onclick = paste0("alert(\"", as.character(br), "\")"),
+        onclick = paste0("alert(\\"", as.character(br), "\\")"),
         tooltip = as.character(br)
       )
     })
@@ -166,17 +142,15 @@ if (interactive()) print(x)
 
 }
 \seealso{
-\code{\link[=girafe]{girafe()}}
+\code{\link{girafe}}
 
-Other interactive scale: 
-\code{\link{scale_alpha_interactive}()},
-\code{\link{scale_colour_brewer_interactive}()},
-\code{\link{scale_colour_interactive}},
-\code{\link{scale_colour_steps_interactive}()},
-\code{\link{scale_gradient_interactive}},
-\code{\link{scale_linetype_interactive}()},
-\code{\link{scale_manual_interactive}},
-\code{\link{scale_shape_interactive}()},
-\code{\link{scale_size_interactive}()}
+Other interactive scale: \code{\link{scale_alpha_interactive}},
+  \code{\link{scale_colour_brewer_interactive}},
+  \code{\link{scale_colour_interactive}},
+  \code{\link{scale_gradient_interactive}},
+  \code{\link{scale_linetype_interactive}},
+  \code{\link{scale_manual_interactive}},
+  \code{\link{scale_shape_interactive}},
+  \code{\link{scale_size_interactive}}
 }
 \concept{interactive scale}

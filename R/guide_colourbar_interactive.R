@@ -1,6 +1,6 @@
 #' @title Create interactive continuous colour bar guide
 #' @description
-#' The guide is based on [guide_colourbar()].
+#' The guide is based on \code{\link[ggplot2]{guide_colourbar}}.
 #' See the documentation for that function for more details.
 #'
 #' @param ... arguments passed to base function.
@@ -9,7 +9,8 @@
 #' @examples
 #' # add interactive colourbar guide to a ggplot -------
 #' @example examples/scale_gradient_guide_colourbar_interactive.R
-#' @seealso [interactive_parameters()], [girafe()]
+#' @seealso \code{\link{interactive_parameters}}
+#' @seealso \code{\link{girafe}}
 #' @export
 guide_colourbar_interactive <- function(...)
   guide_interactive(guide_colourbar, "interactive_colourbar", ...)

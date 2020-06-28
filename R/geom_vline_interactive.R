@@ -2,7 +2,7 @@
 #' @examples
 #' # add vertical interactive reference lines to a ggplot -------
 #' @example examples/geom_vline_interactive.R
-#' @seealso [girafe()]
+#' @seealso \code{\link{girafe}}
 #' @export
 geom_vline_interactive <- function(...)
   layer_interactive(geom_vline, ...)

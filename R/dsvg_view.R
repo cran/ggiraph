@@ -11,6 +11,7 @@
 #' dsvg_view(plot(1:10))
 #' dsvg_view(hist(rnorm(100)))
 #' }
+#' @importFrom xml2 read_xml
 #' @importFrom htmltools browsable HTML
 dsvg_view <- function(code, ...) {
   path <- tempfile()
@@ -19,7 +20,7 @@ dsvg_view <- function(code, ...) {
            finally = dev.off()
   )
   if( interactive() ){
-    doc <- paste0(readLines(path, encoding = "UTF-8"), collapse = "\n")
+    doc <- read_xml(path)
     browsable(HTML(as.character(doc)) )
   }
   else invisible()

@@ -28,7 +28,8 @@ shinyServer(function(input, output, session) {
     selected_cut <-  input$fixedplot_selected
     data <- filter(data, agegp %in% selected_cut) %>%
       group_by(alcgp, cancer) %>%
-      summarise(count = sum(count), .groups = "drop")
+      summarise(count = sum(count)) %>%
+      ungroup()
     data$transparent = "no"
     data$transparent[!data$cancer %in% key_selected()] <- "yes"
     data
@@ -50,7 +51,6 @@ shinyServer(function(input, output, session) {
 
 
   observeEvent(input$fixedplot_selected,{
-
     showModal(modalDialog(
       tags$caption("click a legend key to display corresponding counts"),
       girafeOutput("modalplot")

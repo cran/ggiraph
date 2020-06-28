@@ -8,7 +8,7 @@
 #' Use \code{geom_zzz_interactive} to create interactive graphical elements.
 #'
 #' Difference from original functions is that some extra aesthetics are understood:
-#' the [interactive_parameters()].
+#' the \code{\link{interactive_parameters}}.
 #'
 #' Tooltips can be displayed when mouse is over graphical elements.
 #'
@@ -32,6 +32,10 @@
 #' The default values are 6 and 5 inches. This will define the aspect ratio of the
 #' graphic as it will be used to define viewbox attribute of the SVG result.
 #' @param pointsize the default pointsize of plotted text in pixels, default to 12.
+#' @param xml_reader_options read_xml additional arguments to be used
+#' when parsing the svg result. This feature can be used to parse
+#' huge svg files by using \code{list(options = "HUGE")} but this
+#' is not recommanded.
 #' @param options a list of options for girafe rendering, see
 #' \code{\link{opts_tooltip}}, \code{\link{opts_hover}}, \code{\link{opts_selection}}, ...
 #' @param ... arguments passed on to \code{\link{dsvg}}
@@ -87,21 +91,15 @@
 #' @importFrom uuid UUIDgenerate
 girafe <- function(
   code, ggobj = NULL,  pointsize = 12,
-  width_svg = 6, height_svg = 5,
+  width_svg = 6, height_svg = 5, xml_reader_options = list(),
   options = list(), ...) {
 
+  canvas_id <- paste("svg", UUIDgenerate(), sep = "_")
   path = tempfile()
-
-  args <- list(...)
-  args$canvas_id <- args$canvas_id %||% paste("svg", UUIDgenerate(), sep = "_")
-  args$file <- path
-  args$width <- width_svg
-  args$height <- height_svg
-  args$pointsize <- pointsize
-  args$standalone <- TRUE
-  args$setdims <- FALSE
-
-  do.call(dsvg, args)
+  dsvg(file = path, pointsize = pointsize, standalone = TRUE,
+       width = width_svg, height = height_svg,
+       canvas_id = canvas_id, ...
+  )
   tryCatch({
     if( !is.null(ggobj) ){
       stopifnot(inherits(ggobj, "ggplot"))
@@ -110,15 +108,19 @@ girafe <- function(
       code
   }, finally = dev.off() )
 
+  xml_reader_options$x <- path
+  data <- do.call(read_xml, xml_reader_options )
+  set_svg_attributes(data, canvas_id)
+  xml_attr(data, "width") <- NULL
+  xml_attr(data, "height") <- NULL
+  unlink(path)
+
   settings <- merge_options(default_opts(), options)
-  x = list( html = paste0(readLines(path, encoding = "UTF-8"), collapse = "\n"),
-            js = NULL,
-            uid = args$canvas_id,
+  x = list( html = as.character(data), js = NULL,
+            uid = canvas_id,
             ratio = width_svg / height_svg,
             settings = settings
             )
-
-  unlink(path)
 
   createWidget(
     name = 'girafe', x = x, package = 'ggiraph',
@@ -151,7 +153,7 @@ girafeOutput <- function(outputId, width = "100%", height = "500px"){
 #' @description Makes a reactive version of girafe
 #' object for use in Shiny.
 #'
-#' @param expr An expression that returns a [girafe()] object.
+#' @param expr An expression that returns a \code{\link{girafe}} object.
 #' @param env The environment in which to evaluate expr.
 #' @param quoted Is \code{expr} a quoted expression
 #' @export
@@ -166,7 +168,6 @@ default_opts <- function(){
     hover = opts_hover(),
     hoverkey = opts_hover_key(),
     hovertheme = opts_hover_theme(),
-    hoverinv = opts_hover_inv(),
     zoom = opts_zoom(),
     capture = opts_selection(),
     capturekey = opts_selection_key(),
@@ -195,8 +196,6 @@ merge_options <- function(options, args){
       options$hoverkey <- arg
     } else if (inherits(arg, "opts_hover_theme")) {
       options$hovertheme <- arg
-    } else if (inherits(arg, "opts_hover_inv")) {
-      options$hoverinv <- arg
     } else if (inherits(arg, "opts_toolbar")) {
       options$toolbar <- arg
     } else if (inherits(arg, "opts_sizing")) {
@@ -206,12 +205,16 @@ merge_options <- function(options, args){
   options
 }
 
+
+
+
+
+
+
 girafe_app_paths <- function(){
   example_dir <- system.file(package = "ggiraph", "examples", "shiny")
   list.files(example_dir, full.names = TRUE)
 }
-
-
 
 #' Run shiny examples and see corresponding code
 #'
@@ -234,4 +237,11 @@ run_girafe_example <- function(name = "crimes"){
       display.mode = "showcase")
   else warning("package shiny is required to be able to use the function")
 }
+
+
+
+
+
+
+
 

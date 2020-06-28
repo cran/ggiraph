@@ -56,11 +56,11 @@ ggproto classes for ggiraph
 \section{Geoms}{
 
 
-All \verb{geom_*_interactive} functions (like \code{geom_point_interactive}) return a layer that
-contains a \verb{GeomInteractive*} object (like \code{GeomInteractivePoint}). The \verb{Geom*}
+All `geom_*_interactive` functions (like `geom_point_interactive`) return a layer that
+contains a `GeomInteractive*` object (like `GeomInteractivePoint`). The `Geom*`
 object is responsible for rendering the data in the plot.
 
-See \code{\link{Geom}} for more information.
+See \code{\link[ggplot2]{Geom}} for more information.
 }
 
 \keyword{datasets}

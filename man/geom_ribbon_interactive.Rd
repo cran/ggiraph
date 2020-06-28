@@ -11,21 +11,22 @@ geom_area_interactive(...)
 }
 \arguments{
 \item{...}{arguments passed to base function,
-plus any of the \code{\link[=interactive_parameters]{interactive_parameters()}}.}
+plus any of the \code{\link{interactive_parameters}}.}
 }
 \description{
-The geometries are based on \code{\link[=geom_ribbon]{geom_ribbon()}} and \code{\link[=geom_area]{geom_area()}}.
+The geometries are based on \code{\link[ggplot2]{geom_ribbon}}
+and \code{\link[ggplot2]{geom_area}}.
 See the documentation for those functions for more details.
 }
 \section{Details for geom_*_interactive functions}{
 
 The interactive parameters can be supplied with two ways:
 \itemize{
-\item As aesthetics with the mapping argument (via \code{\link[=aes]{aes()}}).
-In this way they can be mapped to data columns and apply to a set of geometries.
+  \item As aesthetics with the mapping argument (via \code{\link[ggplot2]{aes}}).
+  In this way they can be mapped to data columns and apply to a set of geometries.
 
-\item As plain arguments into the geom_*_interactive function.
-In this way they can be set to a scalar value.
+  \item As plain arguments into the geom_*_interactive function (see
+  \code{\link[ggplot2]{layer}}). In this way they can be set to a scalar value.
 }
 }
 
@@ -41,16 +42,12 @@ h <- ggplot(huron, aes(year))
 g <- h +
   geom_ribbon_interactive(aes(ymin = level - 1, ymax = level + 1),
                           fill = "grey70", tooltip = "ribbon1", data_id="ribbon1",
-                          outline.type = "both",
                           hover_css = "stroke:red;stroke-width:inherit;") +
   geom_line_interactive(aes(y = level), tooltip = "level", data_id="line1",
                         hover_css = "stroke:orange;fill:none;")
 x <- girafe(ggobj = g)
 x <- girafe_options(x = x,
-                    opts_hover(css = girafe_css(
-                      css = "stroke:orange;stroke-width:3px;",
-                      area = "fill:blue;"
-                    )))
+                    opts_hover(css = "fill:blue;stroke:orange;stroke-width:3px;") )
 if( interactive() ) print(x)
 
 
@@ -59,5 +56,5 @@ x <- girafe(ggobj = g)
 if( interactive() ) print(x)
 }
 \seealso{
-\code{\link[=girafe]{girafe()}}
+\code{\link{girafe}}
 }

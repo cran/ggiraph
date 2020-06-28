@@ -1,18 +1,14 @@
 # Fast data.frame constructor and indexing
 # No checking, recycling etc. unless asked for
 new_data_frame <- function(x = list(), n = NULL) {
-  if (length(x) != 0 && is.null(names(x))) {
-    abort("Elements must be named")
-  }
+  if (length(x) != 0 && is.null(names(x))) stop("Elements must be named", call. = FALSE)
   lengths <- vapply(x, length, integer(1))
   if (is.null(n)) {
     n <- if (length(x) == 0 || min(lengths) == 0) 0 else max(lengths)
   }
   for (i in seq_along(x)) {
     if (lengths[i] == n) next
-    if (lengths[i] != 1) {
-      abort("Elements must equal the number of rows or 1")
-    }
+    if (lengths[i] != 1) stop("Elements must equal the number of rows or 1", call. = FALSE)
     x[[i]] <- rep(x[[i]], n)
   }
 
@@ -27,10 +23,7 @@ data_frame <- function(...) {
 }
 
 data.frame <- function(...) {
-  abort("
-    Please use `data_frame()` or `new_data_frame()` instead of `data.frame()` for better performance.
-    See the vignette 'ggplot2 internal programming guidelines' for details.
-  ")
+  stop('Please use `data_frame()` or `new_data_frame()` instead of `data.frame()` for better performance. See the vignette "ggplot2 internal programming guidelines" for details.', call. = FALSE)
 }
 
 split_matrix <- function(x, col_names = colnames(x)) {
@@ -56,8 +49,5 @@ modify_list <- function(old, new) {
   old
 }
 modifyList <- function(...) {
-  abort("
-    Please use `modify_list()` instead of `modifyList()` for better performance.
-    See the vignette 'ggplot2 internal programming guidelines' for details.
-  ")
+  stop('Please use `modify_list()` instead of `modifyList()` for better performance. See the vignette "ggplot2 internal programming guidelines" for details.', call. = FALSE)
 }

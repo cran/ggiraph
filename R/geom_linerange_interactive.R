@@ -15,13 +15,11 @@ GeomInteractiveLinerange <- ggproto(
     gr <- GeomLinerange$draw_key(data, params, size)
     add_interactive_attrs(gr, data, data_attr = "key-id")
   },
-  draw_panel = function(data, panel_params, coord, flipped_aes = FALSE) {
-    data <- flip_data(data, flipped_aes)
+  draw_panel = function(data, panel_params, coord) {
     data <- transform(data,
                       xend = x,
                       y = ymin,
                       yend = ymax)
-    data <- flip_data(data, flipped_aes)
     ggname(
       "geom_linerange_interactive",
       GeomInteractiveSegment$draw_panel(data, panel_params, coord)

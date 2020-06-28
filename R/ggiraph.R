@@ -3,13 +3,15 @@
 #' @import grid
 #' @import ggplot2
 #' @importFrom grDevices dev.off
+#' @importFrom xml2 read_xml xml_find_all xml_text xml_ns
+#' @importFrom xml2 xml_remove xml_attr xml_attr<-
 
 #' @title Create a ggiraph object
 #'
 #' @description Create an interactive graphic to be used in a web browser.
 #'
 #' This function is maintained for backward compatibility reasons, user shoud
-#' now use function [girafe()] and \code{\link{girafe_options}}.
+#' now use function \code{\link{girafe}} and \code{\link{girafe_options}}.
 #'
 #' @inheritParams girafe
 #' @param width widget width ratio (0 < width <= 1).
@@ -44,6 +46,7 @@ ggiraph <- function(code, ggobj = NULL,
                     selection_type = "multiple",
                     selected_css = NULL,
                     dep_dir = NULL,
+                    xml_reader_options = list(),
                     ...) {
 
   if( !missing(dep_dir) ){
@@ -51,7 +54,7 @@ ggiraph <- function(code, ggobj = NULL,
   }
 
   x <- girafe(code = code, ggobj = ggobj, pointsize = pointsize,
-         width_svg = width_svg, height_svg = height_svg, ...)
+         width_svg = width_svg, height_svg = height_svg, xml_reader_options = xml_reader_options, ...)
   x <- girafe_options(
     x = x,
     opts_tooltip(css = tooltip_extra_css,

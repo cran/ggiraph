@@ -1,17 +1,17 @@
 #' @title Create interactive observations connections
 #'
 #' @description
-#' These geometries are based on [geom_path()],
-#' [geom_line()] and [geom_step()].
+#' These geometries are based on \code{\link[ggplot2]{geom_path}},
+#' \code{\link[ggplot2]{geom_line}} and \code{\link[ggplot2]{geom_step}}.
 #' See the documentation for those functions for more details.
 #'
 #' @param ... arguments passed to base function,
-#' plus any of the [interactive_parameters()].
+#' plus any of the \code{\link{interactive_parameters}}.
 #' @inheritSection interactive_parameters Details for geom_*_interactive functions
 #' @examples
 #' # add interactive paths to a ggplot -------
 #' @example examples/geom_path_interactive.R
-#' @seealso [girafe()]
+#' @seealso \code{\link{girafe}}
 #' @export
 geom_path_interactive <- function(...)
   layer_interactive(geom_path, ...)
@@ -68,7 +68,7 @@ GeomInteractivePath <- ggproto(
     solid_lines <- all(attr$solid)
     constant <- all(attr$constant)
     if (!solid_lines && !constant) {
-      abort(
+      stop(
         "geom_path_interactive: If you are using dotted or dashed lines",
         ", colour, size and linetype must be constant over the line",
         call. = FALSE
@@ -164,7 +164,7 @@ GeomInteractiveStep <-
 
 # Calculate stairsteps
 stairstep <- function(data, direction = "hv") {
-  direction <- match.arg(direction, c("hv", "vh", "mid"))
+  direction <- match.arg(direction, c("hv", "vh"))
   data <- as.data.frame(data)[order(data$x), ]
   n <- nrow(data)
 
@@ -176,27 +176,12 @@ stairstep <- function(data, direction = "hv") {
   if (direction == "vh") {
     xs <- rep(1:n, each = 2)[-2 * n]
     ys <- c(1, rep(2:n, each = 2))
-  } else if (direction == "hv") {
+  } else {
     ys <- rep(1:n, each = 2)[-2 * n]
     xs <- c(1, rep(2:n, each = 2))
-  } else if (direction == "mid") {
-    xs <- rep(1:(n-1), each = 2)
-    ys <- rep(1:n, each = 2)
-  } else {
-    abort("Parameter `direction` is invalid.")
   }
 
-  if (direction == "mid") {
-    gaps <- data$x[-1] - data$x[-n]
-    mid_x <- data$x[-n] + gaps/2 # map the mid-point between adjacent x-values
-    x <- c(data$x[1], mid_x[xs], data$x[n])
-    y <- c(data$y[ys])
-    data_attr <- data[c(1,xs,n), setdiff(names(data), c("x", "y"))]
-  } else {
-    x <- data$x[xs]
-    y <- data$y[ys]
-    data_attr <- data[xs, setdiff(names(data), c("x", "y"))]
-  }
-
-  new_data_frame(c(list(x = x, y = y), data_attr))
+  new_data_frame(c(list(x = data$x[xs],
+                        y = data$y[ys]),
+                   data[xs, setdiff(names(data), c("x", "y"))]))
 }

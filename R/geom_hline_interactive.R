@@ -2,7 +2,7 @@
 #' @examples
 #' # add horizontal interactive reference lines to a ggplot -------
 #' @example examples/geom_hline_interactive.R
-#' @seealso [girafe()]
+#' @seealso \code{\link{girafe}}
 #' @export
 geom_hline_interactive <- function(...)
   layer_interactive(geom_hline, ...)

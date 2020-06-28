@@ -1,7 +1,8 @@
 #' @title Create interactive rectangles
 #'
 #' @description
-#' These geometries are based on [geom_rect()] and [geom_tile()].
+#' These geometries are based on \code{\link[ggplot2]{geom_rect}} and
+#' \code{\link[ggplot2]{geom_tile}}.
 #' See the documentation for those functions for more details.
 #'
 #' @note
@@ -11,12 +12,12 @@
 #' rectangles should be small.
 #'
 #' @param ... arguments passed to base function,
-#' plus any of the [interactive_parameters()].
+#' plus any of the \code{\link{interactive_parameters}}.
 #' @inheritSection interactive_parameters Details for geom_*_interactive functions
 #' @examples
 #' # add interactive polygons to a ggplot -------
 #' @example examples/geom_rect_interactive.R
-#' @seealso [girafe()]
+#' @seealso \code{\link{girafe}}
 #' @export
 geom_rect_interactive <- function(...)
   layer_interactive(geom_rect, ...)

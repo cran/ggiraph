@@ -8,13 +8,13 @@ interactive_path_grob(...)
 }
 \arguments{
 \item{...}{arguments passed to base function,
-plus any of the \code{\link[=interactive_parameters]{interactive_parameters()}}.}
+plus any of the \code{\link{interactive_parameters}}.}
 }
 \value{
 An interactive grob object.
 }
 \description{
-The grob is based on \code{\link[=pathGrob]{pathGrob()}}.
+The grob is based on \code{\link[grid]{pathGrob}}.
 See the documentation for that function for more details.
 }
 \section{Details for interactive_*_grob functions}{
@@ -24,5 +24,5 @@ and they can be scalar values or vectors depending on params on base function.
 }
 
 \seealso{
-\code{\link[=girafe]{girafe()}}
+\code{\link{girafe}}
 }

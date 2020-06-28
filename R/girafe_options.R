@@ -1,5 +1,5 @@
 #' @title Tooltip settings
-#' @description Settings to be used with [girafe()]
+#' @description Settings to be used with \code{\link{girafe}}
 #' for tooltip customisation.
 #' @param css extra css (added to \code{position: absolute;pointer-events: none;})
 #' used to customize tooltip area.
@@ -92,12 +92,9 @@ opts_tooltip <- function(css = NULL,
 #' Use \code{opts_hover} for interactive geometries in panels,
 #' \code{opts_hover_key} for interactive scales/guides and
 #' \code{opts_hover_theme} for interactive theme elements.
-#' Use \code{opts_hover_inv} for the effect on the rest of the geometries,
-#' while one is hovered (inverted operation).
 #' @param css css to associate with elements when they are hovered.
 #' It must be a scalar character. It can also be constructed with
 #' \code{\link{girafe_css}}, to give more control over the css for different element types.
-#' @param reactive if TRUE, in Shiny context, hovering will set Shiny input values.
 #' @examples
 #' library(ggplot2)
 #'
@@ -116,48 +113,34 @@ opts_tooltip <- function(css = NULL,
 #' if( interactive() ) print(x)
 #' @export
 #' @family girafe animation options
-opts_hover <- function(css = NULL,
-                       reactive = FALSE) {
+opts_hover <- function(css = NULL) {
   css <- check_css(css,
                    default = "fill:orange;stroke:gray;",
                    cls_prefix = "hover_",
                    name = "opts_hover")
-  structure(list(css = css, reactive = reactive),
+  structure(list(css = css),
             class = "opts_hover")
 }
 
 #' @export
 #' @rdname opts_hover
-opts_hover_inv <- function(css = NULL) {
-  css <- check_css(css,
-                   default = "",
-                   cls_prefix = "hover_inv_",
-                   name = "opts_hover_inv")
-  structure(list(css = css),
-            class = "opts_hover_inv")
-}
-
-#' @export
-#' @rdname opts_hover
-opts_hover_key <- function(css = NULL,
-                           reactive = FALSE) {
+opts_hover_key <- function(css = NULL) {
   css <- check_css(css,
                    default = "stroke:red;",
                    cls_prefix = "hover_key_",
                    name = "opts_hover")
-  structure(list(css = css, reactive = reactive),
+  structure(list(css = css),
             class = "opts_hover_key")
 }
 
 #' @export
 #' @rdname opts_hover
-opts_hover_theme <- function(css = NULL,
-                             reactive = FALSE) {
+opts_hover_theme <- function(css = NULL) {
   css <- check_css(css,
                    default = "fill:green;",
                    cls_prefix = "hover_theme_",
                    name = "opts_hover_theme")
-  structure(list(css = css, reactive = reactive),
+  structure(list(css = css),
             class = "opts_hover_theme")
 }
 
@@ -298,7 +281,6 @@ opts_zoom <- function(min = 1, max = 1){
 #' @description Allows customization of the toolbar
 #' @param position one of 'top', 'bottom', 'topleft', 'topright', 'bottomleft', 'bottomright'
 #' @param saveaspng set to TRUE to propose the 'save as png' button.
-#' @param pngname the default basename (without .png extension) to use for the png file.
 #' @note
 #' \code{saveaspng} relies on JavaScript promises, so any browsers that don't natively
 #' support the standard Promise object will need to have a polyfill (e.g.
@@ -321,16 +303,15 @@ opts_zoom <- function(min = 1, max = 1){
 #' if( interactive() ) print(x)
 #' @export
 #' @family girafe animation options
-opts_toolbar <- function(position = "topright", saveaspng = TRUE, pngname = "diagram"){
+opts_toolbar <- function(position = "topright", saveaspng = TRUE){
 
   stopifnot(position %in% c("top", "bottom",
                             "topleft", "topright",
                             "bottomleft", "bottomright") )
-  stopifnot(is.character(pngname))
+
   x <- list(
     position = position,
-    saveaspng = saveaspng,
-    pngname = pngname
+    saveaspng = saveaspng
   )
   class(x) <- "opts_toolbar"
   x
@@ -377,7 +358,7 @@ opts_sizing <- function(rescale = TRUE, width = 1){
 
 #' @title Set girafe options
 #' @description Defines the animation options related to
-#' a [girafe()] object.
+#' a \code{\link{girafe}} object.
 #' @param x girafe object.
 #' @param ... set of options defined by calls to \code{opts_*} functions or
 #' to sizingPolicy from htmlwidgets (this won't have any effect within a
@@ -405,7 +386,7 @@ opts_sizing <- function(rescale = TRUE, width = 1){
 #'   print(x)
 #' }
 #' @export
-#' @seealso [girafe()]
+#' @seealso \code{\link{girafe}}
 #' @family girafe animation options
 girafe_options <- function(x, ...){
   stopifnot(inherits(x, "girafe"))

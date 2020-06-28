@@ -4,17 +4,9 @@
 \alias{dsvg}
 \title{SVG Graphics Driver}
 \usage{
-dsvg(
-  file = "Rplots.svg",
-  width = 6,
-  height = 6,
-  bg = "white",
-  pointsize = 12,
-  standalone = TRUE,
-  setdims = TRUE,
-  canvas_id = "svg_1",
-  fonts = list()
-)
+dsvg(file = "Rplots.svg", width = 6, height = 6, bg = "white",
+  pointsize = 12, standalone = TRUE, canvas_id = "svg_1",
+  fonts = list())
 }
 \arguments{
 \item{file}{the file where output will appear.}
@@ -28,8 +20,6 @@ dsvg(
 \item{standalone}{Produce a stand alone svg file? If \code{FALSE}, omits
 xml header and default namespace.}
 
-\item{setdims}{If TRUE (the default), the svg node will have attributes width & height set}
-
 \item{canvas_id}{svg id within HTML page.}
 
 \item{fonts}{Named list of font names to be aliased with
@@ -42,10 +32,11 @@ This function produces SVG files (compliant to the current w3 svg XML standard)
 where elements can be made interactive.
 }
 \examples{
-fileout <- tempfile(fileext = ".svg")
-dsvg(file = fileout)
+\donttest{
+dsvg()
 plot(rnorm(10), main="Simple Example", xlab = "", ylab = "")
 dev.off()
+}
 }
 \seealso{
 \code{\link{Devices}}

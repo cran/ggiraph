@@ -30,23 +30,23 @@ scale_discrete_manual_interactive(...)
 }
 \arguments{
 \item{...}{arguments passed to base function,
-plus any of the \code{\link[=interactive_parameters]{interactive_parameters()}}.}
+plus any of the \code{\link{interactive_parameters}}.}
 }
 \value{
 An interactive scale object.
 }
 \description{
 These scales are based on
-\code{\link[=scale_colour_manual]{scale_colour_manual()}},
-\code{\link[=scale_fill_manual]{scale_fill_manual()}},
-\code{\link[=scale_size_manual]{scale_size_manual()}},
-\code{\link[=scale_shape_manual]{scale_shape_manual()}},
-\code{\link[=scale_linetype_manual]{scale_linetype_manual()}},
-\code{\link[=scale_alpha_manual]{scale_alpha_manual()}} and
-\code{\link[=scale_discrete_manual]{scale_discrete_manual()}}.
+\code{\link[ggplot2]{scale_colour_manual}},
+\code{\link[ggplot2]{scale_fill_manual}},
+\code{\link[ggplot2]{scale_size_manual}},
+\code{\link[ggplot2]{scale_shape_manual}},
+\code{\link[ggplot2]{scale_linetype_manual}},
+\code{\link[ggplot2]{scale_alpha_manual}} and
+\code{\link[ggplot2]{scale_discrete_manual}}.
 See the documentation for those functions for more details.
 }
-\section{Details for scale_\emph{\emph{interactive and guide}}_interactive functions}{
+\section{Details for scale_*_interactive and guide_*_interactive functions}{
 
 For scales, the interactive parameters can be supplied as arguments in the relevant function
 and they can be scalar values or vectors, depending on the number of breaks (levels) and
@@ -54,28 +54,26 @@ the type of the guide used.
 The guides do not accept any interactive parameter directly, they receive them from the scales.
 
 \itemize{
-\item When guide of type \code{legend} or \code{bins} is used, it will be converted to a
-\code{\link[=guide_legend_interactive]{guide_legend_interactive()}} or \code{\link[=guide_bins_interactive]{guide_bins_interactive()}} respectively,
-if it's not already.
+  \item When guide of type `legend` is used, it will be converted to a
+  \code{\link{guide_legend_interactive}} if it's not already.
 
-The length of each scale interactive parameter vector should match the length of the breaks.
-It can also be a named vector, where each name should correspond to the same break name.
-It can also be defined as function that takes the breaks as input and returns a named or
-unnamed vector of values as output.
+  The length of each scale interactive parameter vector should match the length of the breaks.
+  It can also be a named vector, where each name should correspond to the same break name.
+  It can also be defined as function that takes the breaks as input and returns a named or
+  unnamed vector of values as output.
 
-The interactive parameters here, give interactivity only to the key elements of the guide.
+  The interactive parameters here, give interactivity only to the key elements of the guide.
 
-\item When guide of type \code{colourbar} or \code{coloursteps} is used, it will be converted to a
-\code{\link[=guide_colourbar_interactive]{guide_colourbar_interactive()}} or \code{\link[=guide_coloursteps_interactive]{guide_coloursteps_interactive()}}
-respectively, if it's not already.
+  \item When guide of type `colourbar` is used, it will be converted to a
+  \code{\link{guide_colourbar_interactive}} if it's not already.
 
-The scale interactive parameters in this case should be scalar values and give interactivity
-to the colorbar only.
+  The scale interactive parameters in this case should be scalar values and give interactivity
+  to the colorbar only.
 }
 
 To provide interactivity to the rest of the elements of a guide, (title, labels, background, etc),
 the relevant theme elements or relevant guide arguments can be used.
-The \code{guide} arguments \code{title.theme} and \code{label.theme} can be defined as
+The \code{guide} arguments `title.theme` and `label.theme` can be defined as
 \code{element_text_interactive} (in fact, they will be converted to that if they are not
 already), either directly or via the theme.
 See the element_*_interactive section for more details.
@@ -124,7 +122,7 @@ p3 <- p +
     values = c(Male = "#0072B2", Female = "#009E73"),
     data_id = function(breaks) { as.character(breaks)},
     tooltip = function(breaks) { as.character(breaks)},
-    onclick = function(breaks) { paste0("alert(\"", as.character(breaks), "\")") }
+    onclick = function(breaks) { paste0("alert(\\"", as.character(breaks), "\\")") }
   )
 x <- girafe(ggobj = p3)
 x <- girafe_options(x,
@@ -136,12 +134,12 @@ p4 <- p + scale_fill_manual_interactive(
   values = c(Male = "#0072B2", Female = "#009E73"),
   data_id = function(breaks) { as.character(breaks)},
   tooltip = function(breaks) { as.character(breaks)},
-  onclick = function(breaks) { paste0("alert(\"", as.character(breaks), "\")") },
+  onclick = function(breaks) { paste0("alert(\\"", as.character(breaks), "\\")") },
   guide = guide_legend_interactive(
     title.theme = element_text_interactive(
       size = 8,
       data_id = "legend.title",
-      onclick = "alert(\"Gender levels\")",
+      onclick = "alert(\\"Gender levels\\")",
       tooltip = "Gender levels"
     ),
     label.theme = element_text_interactive(
@@ -161,13 +159,13 @@ p5 <- p +
     values = c(Male = "#0072B2", Female = "#009E73"),
     data_id = function(breaks) { as.character(breaks)},
     tooltip = function(breaks) { as.character(breaks)},
-    onclick = function(breaks) { paste0("alert(\"", as.character(breaks), "\")") },
+    onclick = function(breaks) { paste0("alert(\\"", as.character(breaks), "\\")") },
     labels = function(breaks) {
       lapply(breaks, function(br) {
         label_interactive(
           as.character(br),
           data_id = as.character(br),
-          onclick = paste0("alert(\"", as.character(br), "\")"),
+          onclick = paste0("alert(\\"", as.character(br), "\\")"),
           tooltip = as.character(br)
         )
       })
@@ -179,17 +177,15 @@ x <- girafe_options(x,
 if (interactive()) print(x)
 }
 \seealso{
-\code{\link[=girafe]{girafe()}}
+\code{\link{girafe}}
 
-Other interactive scale: 
-\code{\link{scale_alpha_interactive}()},
-\code{\link{scale_colour_brewer_interactive}()},
-\code{\link{scale_colour_interactive}},
-\code{\link{scale_colour_steps_interactive}()},
-\code{\link{scale_gradient_interactive}},
-\code{\link{scale_linetype_interactive}()},
-\code{\link{scale_shape_interactive}()},
-\code{\link{scale_size_interactive}()},
-\code{\link{scale_viridis_interactive}}
+Other interactive scale: \code{\link{scale_alpha_interactive}},
+  \code{\link{scale_colour_brewer_interactive}},
+  \code{\link{scale_colour_interactive}},
+  \code{\link{scale_gradient_interactive}},
+  \code{\link{scale_linetype_interactive}},
+  \code{\link{scale_shape_interactive}},
+  \code{\link{scale_size_interactive}},
+  \code{\link{scale_viridis_interactive}}
 }
 \concept{interactive scale}

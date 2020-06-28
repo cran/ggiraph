@@ -14,11 +14,11 @@
 #'
 #' @param hover_css Individual css style associate with one or more elements.
 #' This css style is applied when the element is hovered and overrides the default style,
-#' set via [opts_hover()] or [opts_hover_key()].
+#' set via \code{\link{opts_hover}} or \code{\link{opts_hover_key}}.
 #'
 #' @param selected_css Individual css style associate with one or more elements.
 #' This css style is applied when the element is selected and overrides the default style,
-#' set via [opts_selection()] or [opts_selection_key()].
+#' set via \code{\link{opts_selection}} or \code{\link{opts_selection_key}}.
 #'
 #' @param data_id Identifier to associate with one or more elements.
 #' This is mandatory parameter if hover and selection interactivity is desired.
@@ -27,11 +27,11 @@
 #' @section Details for geom_*_interactive functions:
 #' The interactive parameters can be supplied with two ways:
 #' \itemize{
-#'   \item As aesthetics with the mapping argument (via [aes()]).
+#'   \item As aesthetics with the mapping argument (via \code{\link[ggplot2]{aes}}).
 #'   In this way they can be mapped to data columns and apply to a set of geometries.
 #'
-#'   \item As plain arguments into the geom_*_interactive function.
-#'   In this way they can be set to a scalar value.
+#'   \item As plain arguments into the geom_*_interactive function (see
+#'   \code{\link[ggplot2]{layer}}). In this way they can be set to a scalar value.
 #' }
 #'
 #' @section Details for annotate_*_interactive functions:
@@ -45,9 +45,8 @@
 #' The guides do not accept any interactive parameter directly, they receive them from the scales.
 #'
 #' \itemize{
-#'   \item When guide of type `legend` or `bins` is used, it will be converted to a
-#'   [guide_legend_interactive()] or [guide_bins_interactive()] respectively,
-#'   if it's not already.
+#'   \item When guide of type `legend` is used, it will be converted to a
+#'   \code{\link{guide_legend_interactive}} if it's not already.
 #'
 #'   The length of each scale interactive parameter vector should match the length of the breaks.
 #'   It can also be a named vector, where each name should correspond to the same break name.
@@ -56,9 +55,8 @@
 #'
 #'   The interactive parameters here, give interactivity only to the key elements of the guide.
 #'
-#'   \item When guide of type `colourbar` or `coloursteps` is used, it will be converted to a
-#'   [guide_colourbar_interactive()] or [guide_coloursteps_interactive()]
-#'   respectively, if it's not already.
+#'   \item When guide of type `colourbar` is used, it will be converted to a
+#'   \code{\link{guide_colourbar_interactive}} if it's not already.
 #'
 #'   The scale interactive parameters in this case should be scalar values and give interactivity
 #'   to the colorbar only.
@@ -75,21 +73,22 @@
 #' The interactive parameters can be supplied as arguments in the relevant function
 #' and they should be scalar values.
 #'
-#' For theme text elements ([element_text_interactive()]), the interactive parameters
-#' can also be supplied while setting a label value, via the [labs()] family
+#' For theme text elements (\code{\link{element_text_interactive}}), the interactive parameters
+#' can also be supplied while setting a label value, via the \code{\link[ggplot2]{labs}} family
 #' of functions or when setting a scale/guide title or key label.
 #' Instead of setting a character value for the element, function
-#' [label_interactive()] can be used to define interactive parameters
+#' \code{\link{label_interactive}} can be used to define interactive parameters
 #' to go along with the label.
 #' When the parameters are supplied that way, they override the default values
-#' that are set at the theme via [element_text_interactive()] or via the \code{guide}'s
+#' that are set at the theme via \code{element_text_interactive} or via the \code{guide}'s
 #' theme parameters.
 #'
 #' @section Details for interactive_*_grob functions:
 #' The interactive parameters can be supplied as arguments in the relevant function
 #' and they can be scalar values or vectors depending on params on base function.
 #'
-#' @seealso [girafe_options()], [girafe()]
+#' @seealso \code{\link{girafe_options}}
+#' @seealso \code{\link{girafe}}
 #' @rdname ipar
 #' @name interactive_parameters
 NULL
@@ -300,8 +299,6 @@ interactive_attr_toxml <- function(x,
       attrValue <- x[[a]][rows]
       attrValue <- switch(a,
                           tooltip = encode_cr(attrValue),
-                          hover_css = check_css_attr(attrValue),
-                          selected_css = check_css_attr(attrValue),
                           attrValue)
       attrName <- switch(a,
                          tooltip = "title",

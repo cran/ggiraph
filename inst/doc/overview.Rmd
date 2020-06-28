@@ -1,8 +1,8 @@
 ---
-title: "Overview"
+title: "Using ggiraph"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Overview}
+  %\VignetteIndexEntry{Using ggiraph}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

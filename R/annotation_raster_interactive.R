@@ -1,16 +1,16 @@
 #' @title Create interactive raster annotations
 #'
 #' @description
-#' The layer is based on [annotation_raster()].
+#' The layer is based on \code{\link[ggplot2]{annotation_raster}}.
 #' See the documentation for that function for more details.
 #'
 #' @param ... arguments passed to base function,
-#' plus any of the [interactive_parameters()]..
+#' plus any of the \code{\link{interactive_parameters}}.
 #' @inheritSection interactive_parameters Details for annotate_*_interactive functions
 #' @examples
 #' # add interactive raster annotation to a ggplot -------
 #' @example examples/annotation_raster_interactive.R
-#' @seealso [girafe()]
+#' @seealso \code{\link{girafe}}
 #' @export
 annotation_raster_interactive <- function(...)
   layer_interactive(annotation_raster, ...)

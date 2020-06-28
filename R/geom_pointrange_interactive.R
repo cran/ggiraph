@@ -15,19 +15,13 @@ GeomInteractivePointrange <- ggproto(
     gr <- GeomPointrange$draw_key(data, params, size)
     add_interactive_attrs(gr, data, data_attr = "key-id")
   },
-  draw_panel = function(data,
-                        panel_params,
-                        coord,
-                        fatten = 4,
-                        flipped_aes = FALSE) {
-    if (is.null(data[[flipped_names(flipped_aes)$y]]))
-      return(
-        GeomInteractiveLinerange$draw_panel(data, panel_params, coord, flipped_aes = flipped_aes)
-      )
+  draw_panel = function(data, panel_params, coord, fatten = 4) {
+    if (is.null(data$y))
+      return(GeomInteractiveLinerange$draw_panel(data, panel_params, coord))
 
     ggname("geom_pointrange", gTree(
       children = gList(
-        GeomInteractiveLinerange$draw_panel(data, panel_params, coord, flipped_aes = flipped_aes),
+        GeomInteractiveLinerange$draw_panel(data, panel_params, coord),
         GeomInteractivePoint$draw_panel(transform(data, size = size * fatten), panel_params, coord)
       )
     ))

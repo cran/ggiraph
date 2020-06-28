@@ -1,4 +1,3 @@
-#' @importFrom rlang abort
 # Include generic helpers from ggplot2
 #' @include utils_ggplot2.R
 #' @include utils_ggplot2_performance.R
@@ -31,7 +30,7 @@ encode_cr <- function(x)
 #' contains a `GeomInteractive*` object (like `GeomInteractivePoint`). The `Geom*`
 #' object is responsible for rendering the data in the plot.
 #'
-#' See \code{\link{Geom}} for more information.
+#' See \code{\link[ggplot2]{Geom}} for more information.
 #' @rdname ggiraph-ggproto
 #' @format NULL
 #' @usage NULL
