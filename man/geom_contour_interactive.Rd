@@ -2,27 +2,31 @@
 % Please edit documentation in R/geom_contour_interactive.R
 \name{geom_contour_interactive}
 \alias{geom_contour_interactive}
+\alias{geom_contour_filled_interactive}
 \title{Create interactive 2d contours of a 3d surface}
 \usage{
 geom_contour_interactive(...)
+
+geom_contour_filled_interactive(...)
 }
 \arguments{
 \item{...}{arguments passed to base function,
-plus any of the \code{\link{interactive_parameters}}.}
+plus any of the \code{\link[=interactive_parameters]{interactive_parameters()}}.}
 }
 \description{
-The geometry is based on \code{\link[ggplot2]{geom_contour}}.
+These geometries are based on \code{\link[=geom_contour]{geom_contour()}}
+and \code{\link[=geom_contour_filled]{geom_contour_filled()}}.
 See the documentation for those functions for more details.
 }
 \section{Details for geom_*_interactive functions}{
 
 The interactive parameters can be supplied with two ways:
 \itemize{
-  \item As aesthetics with the mapping argument (via \code{\link[ggplot2]{aes}}).
-  In this way they can be mapped to data columns and apply to a set of geometries.
+\item As aesthetics with the mapping argument (via \code{\link[=aes]{aes()}}).
+In this way they can be mapped to data columns and apply to a set of geometries.
 
-  \item As plain arguments into the geom_*_interactive function (see
-  \code{\link[ggplot2]{layer}}). In this way they can be set to a scalar value.
+\item As plain arguments into the geom_*_interactive function.
+In this way they can be set to a scalar value.
 }
 }
 
@@ -38,9 +42,17 @@ p <- v + geom_contour_interactive(aes(
 ))
 x <- girafe(ggobj = p)
 if (interactive()) print(x)
+
+if (packageVersion("grid") >= numeric_version("3.6")) {
+  p <- v + geom_contour_filled_interactive(aes(
+    colour = stat(level),
+    fill = stat(level),
+    tooltip = paste("Level:", stat(level))
+  ))
+  x <- girafe(ggobj = p)
+  if (interactive()) print(x)
+}
 }
 \seealso{
-\code{\link{girafe}}
-
-\code{\link{girafe}}
+\code{\link[=girafe]{girafe()}}
 }

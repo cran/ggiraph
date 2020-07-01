@@ -1,18 +1,18 @@
 #' @title Create interactive scales for alpha transparency
 #' @description These scales are based on
-#' \code{\link[ggplot2]{scale_alpha}},
-#' \code{\link[ggplot2]{scale_alpha_continuous}},
-#' \code{\link[ggplot2]{scale_alpha_discrete}},
-#' \code{\link[ggplot2]{scale_alpha_ordinal}},
-#' \code{\link[ggplot2]{scale_alpha_date}} and
-#' \code{\link[ggplot2]{scale_alpha_datetime}}.
+#' [scale_alpha()],
+#' [scale_alpha_continuous()],
+#' [scale_alpha_discrete()],
+#' [scale_alpha_ordinal()],
+#' [scale_alpha_date()],
+#' [scale_alpha_datetime()].
 #' See the documentation for those functions for more details.
 #'
 #' @param ... arguments passed to base function,
-#' plus any of the \code{\link{interactive_parameters}}.
+#' plus any of the [interactive_parameters()].
 #' @return An interactive scale object.
 #' @inheritSection interactive_parameters Details for scale_*_interactive and guide_*_interactive functions
-#' @seealso \code{\link{girafe}}
+#' @seealso [girafe()]
 #' @export
 #' @name scale_alpha_interactive
 #' @family interactive scale

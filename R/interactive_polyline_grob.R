@@ -1,15 +1,14 @@
 #' @title Create interactive polyline grob
 #'
 #' @description
-#' These grobs are based on \code{\link[grid]{polylineGrob}} and
-#' \code{\link[grid]{linesGrob}}.
+#' These grobs are based on [polylineGrob()] and [linesGrob()].
 #' See the documentation for those functions for more details.
 #'
 #' @param ... arguments passed to base function,
-#' plus any of the \code{\link{interactive_parameters}}.
+#' plus any of the [interactive_parameters()].
 #' @return An interactive grob object.
 #' @inheritSection interactive_parameters Details for interactive_*_grob functions
-#' @seealso \code{\link{girafe}}
+#' @seealso [girafe()]
 #' @export
 interactive_polyline_grob <- function(...) {
   grob_interactive(grid::polylineGrob, ...)
@@ -18,7 +17,7 @@ interactive_polyline_grob <- function(...) {
 #' @export
 drawDetails.interactive_polyline_grob <- function(x, recording) {
   dsvg_tracer_on()
-  do.call(grid.polyline, x[grob_argnames(x = x, grob = grid::polylineGrob)])
+  NextMethod()
   ids <- dsvg_tracer_off()
   if (length(ids) > 0) {
     if (is.null(x$id) && is.null(x$id.lengths))
@@ -38,7 +37,7 @@ interactive_lines_grob <- function(...) {
 #' @export
 drawDetails.interactive_lines_grob <- function(x, recording) {
   dsvg_tracer_on()
-  do.call(grid.lines, x[grob_argnames(x = x, grob = grid::linesGrob)])
+  NextMethod()
   ids <- dsvg_tracer_off()
   if (length(ids) > 0) {
     if (is.null(x$id) && is.null(x$id.lengths))

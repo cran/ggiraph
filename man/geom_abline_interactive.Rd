@@ -15,22 +15,21 @@ geom_vline_interactive(...)
 }
 \arguments{
 \item{...}{arguments passed to base function,
-plus any of the \code{\link{interactive_parameters}}.}
+plus any of the \code{\link[=interactive_parameters]{interactive_parameters()}}.}
 }
 \description{
-These geometries are based on \code{\link[ggplot2]{geom_abline}},
-\code{\link[ggplot2]{geom_hline}} and \code{\link[ggplot2]{geom_vline}}.
-See the documentation for those functions for more details.
+These geometries are based on \code{\link[=geom_abline]{geom_abline()}},
+\code{\link[=geom_hline]{geom_hline()}} and \code{\link[=geom_vline]{geom_vline()}}.
 }
 \section{Details for geom_*_interactive functions}{
 
 The interactive parameters can be supplied with two ways:
 \itemize{
-  \item As aesthetics with the mapping argument (via \code{\link[ggplot2]{aes}}).
-  In this way they can be mapped to data columns and apply to a set of geometries.
+\item As aesthetics with the mapping argument (via \code{\link[=aes]{aes()}}).
+In this way they can be mapped to data columns and apply to a set of geometries.
 
-  \item As plain arguments into the geom_*_interactive function (see
-  \code{\link[ggplot2]{layer}}). In this way they can be set to a scalar value.
+\item As plain arguments into the geom_*_interactive function.
+In this way they can be set to a scalar value.
 }
 }
 
@@ -49,7 +48,7 @@ l <- coef(lm(mpg ~ wt, data = mtcars))
 g <- p + geom_abline_interactive(
   intercept = l[[1]],
   slope = l[[2]],
-  tooltip = paste("intercept:", l[[1]], "\\nslope:", l[[2]]),
+  tooltip = paste("intercept:", l[[1]], "\nslope:", l[[2]]),
   data_id="abline"
 )
 x <- girafe(ggobj = g)
@@ -81,7 +80,7 @@ dataset <- data.frame(
   year = c(2014, 2015, 2016, 2017, 2018)
 )
 
-dataset$clickjs <- rep(paste0("alert(\\"", mean(dataset$y), "\\")"), 5)
+dataset$clickjs <- rep(paste0("alert(\"", mean(dataset$y), "\")"), 5)
 
 
 g2 <- ggplot(dataset, aes(x = year, y = y)) +
@@ -113,8 +112,8 @@ if (requireNamespace("dplyr", quietly = TRUE)) {
 
 dataset <- data.frame(x = rnorm(100))
 
-dataset$clickjs <- rep(paste0("alert(\\"",
-                              round(mean(dataset$x), 2), "\\")"), 100)
+dataset$clickjs <- rep(paste0("alert(\"",
+                              round(mean(dataset$x), 2), "\")"), 100)
 
 g2 <- ggplot(dataset, aes(x)) +
   geom_density(fill = "#000000", alpha = 0.7)
@@ -128,9 +127,9 @@ x <- girafe_options(x = x,
 if( interactive() ) print(x)
 }
 \seealso{
-\code{\link{girafe}}
+\code{\link[=girafe]{girafe()}}
 
-\code{\link{girafe}}
+\code{\link[=girafe]{girafe()}}
 
-\code{\link{girafe}}
+\code{\link[=girafe]{girafe()}}
 }

@@ -1,21 +1,21 @@
 #' @title Create interactive theme elements
 #'
 #' @description
-#' With these functions the user can add interactivity to various \code{\link[ggplot2]{theme}}
+#' With these functions the user can add interactivity to various [theme][ggplot2::theme]
 #' elements.
 #'
-#' They are based on \code{\link[ggplot2]{element_rect}},
-#' \code{\link[ggplot2]{element_line}} and \code{\link[ggplot2]{element_text}}.
+#' They are based on [element_rect()],
+#' [element_line()] and [element_text()]
 #' See the documentation for those functions for more details.
 #'
 #' @param ... arguments passed to base function,
-#' plus any of the \code{\link{interactive_parameters}}.
+#' plus any of the [interactive_parameters()].
 #'
 #' @inheritSection interactive_parameters Details for element_*_interactive functions
 #' @examples
 #' # add interactive theme elements -------
 #' @example examples/element_interactive.R
-#' @seealso \code{\link{girafe}}
+#' @seealso [girafe()]
 #' @name element_interactive
 #' @aliases NULL
 NULL
@@ -61,20 +61,19 @@ element_interactive <- function(element_func,
 #' @title Create an interactive label
 #' @description
 #' This function returns an object that can be used as a label
-#' via the \code{\link[ggplot2]{labs}} family of functions or
+#' via the [labs()] family of functions or
 #' when setting a \code{scale}/\code{guide} name/title or key label.
 #' It passes the interactive parameters to a theme element created via
 #' \code{\link{element_text_interactive}} or via an interactive guide.
 #'
 #' @param label The text for the label (scalar character)
-#' @param ... any of the \code{\link{interactive_parameters}}.
+#' @param ... any of the [interactive_parameters()].
 #' @return an interactive label object
 #' @export
 label_interactive <- function(label, ...) {
-  stopifnot(is.character(label), length(label) == 1)
   ip <- get_interactive_attrs(list(...))
   structure(
-    as.character(label),
+    label,
     interactive = ip,
     class = c("interactive_label")
   )
@@ -115,13 +114,12 @@ element_grob.interactive_element_text <- function(element,
 
 #' @export
 element_grob.interactive_element <- function(element, ...) {
-  ipar <- attr(element, "ipar")
-  if (is.null(ipar))
-    ipar <- IPAR_NAMES
-  data_attr <- attr(element, "data_attr")
-  if (is.null(data_attr))
-    data_attr <- "theme-id"
-  ip <- get_interactive_attrs(element, ipar = ipar)
+  dots <- list(...)
+  ipar <- dots$ipar %||% attr(element, "ipar") %||% IPAR_NAMES
+  data_attr <- dots$data_attr %||% attr(element, "data_attr") %||% "theme-id"
+  el_ip <- get_interactive_attrs(element, ipar = ipar)
+  dots_ip <- get_interactive_attrs(dots, ipar = ipar)
+  ip <- modify_list(el_ip, dots_ip)
   gr <- NextMethod()
   add_interactive_attrs(gr, ip, ipar = ipar, data_attr = data_attr)
 }

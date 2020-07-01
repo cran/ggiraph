@@ -8,21 +8,21 @@ geom_jitter_interactive(...)
 }
 \arguments{
 \item{...}{arguments passed to base function,
-plus any of the \code{\link{interactive_parameters}}.}
+plus any of the \code{\link[=interactive_parameters]{interactive_parameters()}}.}
 }
 \description{
-The geometry is based on \code{\link[ggplot2]{geom_jitter}}.
+The geometry is based on \code{\link[=geom_jitter]{geom_jitter()}}.
 See the documentation for those functions for more details.
 }
 \section{Details for geom_*_interactive functions}{
 
 The interactive parameters can be supplied with two ways:
 \itemize{
-  \item As aesthetics with the mapping argument (via \code{\link[ggplot2]{aes}}).
-  In this way they can be mapped to data columns and apply to a set of geometries.
+\item As aesthetics with the mapping argument (via \code{\link[=aes]{aes()}}).
+In this way they can be mapped to data columns and apply to a set of geometries.
 
-  \item As plain arguments into the geom_*_interactive function (see
-  \code{\link[ggplot2]{layer}}). In this way they can be set to a scalar value.
+\item As plain arguments into the geom_*_interactive function.
+In this way they can be set to a scalar value.
 }
 }
 
@@ -32,12 +32,12 @@ library(ggplot2)
 library(ggiraph)
 
 gg_jitter <- ggplot(mpg, aes(cyl, hwy,
-                     tooltip = paste(manufacturer, model, year, trans, sep = "\\n")))+
+                     tooltip = paste(manufacturer, model, year, trans, sep = "\n")))+
   geom_jitter_interactive()
 
 x <- girafe(ggobj = gg_jitter)
 if( interactive() ) print(x)
 }
 \seealso{
-\code{\link{girafe}}
+\code{\link[=girafe]{girafe()}}
 }

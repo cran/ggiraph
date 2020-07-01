@@ -11,14 +11,13 @@ interactive_lines_grob(...)
 }
 \arguments{
 \item{...}{arguments passed to base function,
-plus any of the \code{\link{interactive_parameters}}.}
+plus any of the \code{\link[=interactive_parameters]{interactive_parameters()}}.}
 }
 \value{
 An interactive grob object.
 }
 \description{
-These grobs are based on \code{\link[grid]{polylineGrob}} and
-\code{\link[grid]{linesGrob}}.
+These grobs are based on \code{\link[=polylineGrob]{polylineGrob()}} and \code{\link[=linesGrob]{linesGrob()}}.
 See the documentation for those functions for more details.
 }
 \section{Details for interactive_*_grob functions}{
@@ -28,5 +27,5 @@ and they can be scalar values or vectors depending on params on base function.
 }
 
 \seealso{
-\code{\link{girafe}}
+\code{\link[=girafe]{girafe()}}
 }

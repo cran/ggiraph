@@ -1,22 +1,22 @@
 #' @title Create your own interactive discrete scale
 #' @description These scales are based on
-#' \code{\link[ggplot2]{scale_colour_manual}},
-#' \code{\link[ggplot2]{scale_fill_manual}},
-#' \code{\link[ggplot2]{scale_size_manual}},
-#' \code{\link[ggplot2]{scale_shape_manual}},
-#' \code{\link[ggplot2]{scale_linetype_manual}},
-#' \code{\link[ggplot2]{scale_alpha_manual}} and
-#' \code{\link[ggplot2]{scale_discrete_manual}}.
+#' [scale_colour_manual()],
+#' [scale_fill_manual()],
+#' [scale_size_manual()],
+#' [scale_shape_manual()],
+#' [scale_linetype_manual()],
+#' [scale_alpha_manual()] and
+#' [scale_discrete_manual()].
 #' See the documentation for those functions for more details.
 #'
 #' @param ... arguments passed to base function,
-#' plus any of the \code{\link{interactive_parameters}}.
+#' plus any of the [interactive_parameters()].
 #' @return An interactive scale object.
 #' @inheritSection interactive_parameters Details for scale_*_interactive and guide_*_interactive functions
 #' @examples
 #' # add interactive manual fill scale to a ggplot -------
 #' @example examples/scale_manual_guide_legend_discrete_interactive.R
-#' @seealso \code{\link{girafe}}
+#' @seealso [girafe()]
 #' @export
 #' @name scale_manual_interactive
 #' @family interactive scale
