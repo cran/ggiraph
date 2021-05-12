@@ -2,20 +2,25 @@
 % Please edit documentation in R/girafe_options.R
 \name{opts_hover}
 \alias{opts_hover}
+\alias{opts_hover_inv}
 \alias{opts_hover_key}
 \alias{opts_hover_theme}
 \title{Hover effect settings}
 \usage{
-opts_hover(css = NULL)
+opts_hover(css = NULL, reactive = FALSE)
 
-opts_hover_key(css = NULL)
+opts_hover_inv(css = NULL)
 
-opts_hover_theme(css = NULL)
+opts_hover_key(css = NULL, reactive = FALSE)
+
+opts_hover_theme(css = NULL, reactive = FALSE)
 }
 \arguments{
 \item{css}{css to associate with elements when they are hovered.
 It must be a scalar character. It can also be constructed with
 \code{\link{girafe_css}}, to give more control over the css for different element types.}
+
+\item{reactive}{if TRUE, in Shiny context, hovering will set Shiny input values.}
 }
 \description{
 Allows customization of the rendering
@@ -23,6 +28,16 @@ of graphic elements when the user hovers over them with the cursor (mouse pointe
 Use \code{opts_hover} for interactive geometries in panels,
 \code{opts_hover_key} for interactive scales/guides and
 \code{opts_hover_theme} for interactive theme elements.
+Use \code{opts_hover_inv} for the effect on the rest of the geometries,
+while one is hovered (inverted operation).
+}
+\note{
+\strong{IMPORTANT}: When applying a \code{fill} style with the \code{css} argument,
+be aware that the browser's CSS engine will apply it also to line elements,
+if there are any that use the hovering feature. This will cause an undesired effect.
+
+To overcome this, supply the argument \code{css} using \code{\link{girafe_css}},
+in order to set the \code{fill} style only for the desired elements.
 }
 \examples{
 library(ggplot2)
@@ -42,9 +57,12 @@ x <- girafe_options(x,
 if( interactive() ) print(x)
 }
 \seealso{
-Other girafe animation options: \code{\link{girafe_options}},
-  \code{\link{opts_selection}}, \code{\link{opts_sizing}},
-  \code{\link{opts_toolbar}}, \code{\link{opts_tooltip}},
-  \code{\link{opts_zoom}}
+Other girafe animation options: 
+\code{\link{girafe_options}()},
+\code{\link{opts_selection}()},
+\code{\link{opts_sizing}()},
+\code{\link{opts_toolbar}()},
+\code{\link{opts_tooltip}()},
+\code{\link{opts_zoom}()}
 }
 \concept{girafe animation options}

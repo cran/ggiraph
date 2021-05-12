@@ -1,3 +1,66 @@
+# ggiraph 0.7.9
+
+## Enhancement
+
+* New function `geom_dotplot_interactive`.
+* New function `labeller_interactive` to make strip labels interactive.
+
+## Changes
+
+* Improved tooltip positioning and added 'placement' parameter
+* Added 'tooltip_fill' interactive attribute
+* move font management from gdtools to systemfonts, also libpng
+is now required as gdtools/cairo is not used anymore. It comes also
+with functions `validated_fonts()` and also `match_family()` and
+`font_family_exists()` that have been copied from package gdtools.
+
+## Issues
+
+* Fixed issue with tooltip fill color in geom_label_interactive
+* Fixed tooltip issues (scaling and markup decoding) in xaringan
+* Fixed issue with tooltip css missing zindex and pointer-events
+
+
+# ggiraph 0.7.8
+
+## Changes
+
+* update for changes in the R graphics engine (thanks to Dr Paul Murrell)
+
+## Issues
+
+* set max size in shiny to shinyOutput size
+
+# ggiraph 0.7.7
+
+## Enhancement
+
+* Updated geoms to ggplot2 v3.3.0
+* Added new scales and guides from ggplot2 v3.3.0
+
+# ggiraph 0.7.5
+
+## Enhancement
+
+* Using tinyxml2 for creating the svg doc
+
+# ggiraph 0.7.1
+
+## Enhancement
+
+* Refactoring of ggiraphjs, with separate modules for each action context
+* Added shiny messaging for hovered elements
+* Added opts_hover_inv for inverted hover effect
+* Added parameter for exported png filename and set png quality to 1
+
+## Bug fixes
+
+* misc fixes in interactive geom internals
+
+## Documentation
+
+* Added a complete shiny example (gender) for selection/hover options/tricks
+
 # ggiraph 0.7.0
 
 ## Enhancement

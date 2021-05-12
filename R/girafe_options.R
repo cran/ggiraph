@@ -1,5 +1,5 @@
 #' @title Tooltip settings
-#' @description Settings to be used with \code{\link{girafe}}
+#' @description Settings to be used with [girafe()]
 #' for tooltip customisation.
 #' @param css extra css (added to \code{position: absolute;pointer-events: none;})
 #' used to customize tooltip area.
@@ -14,6 +14,19 @@
 #' @param offx,offy tooltip x and y offset
 #' @param use_fill,use_stroke logical, use fill and stroke properties to
 #' color tooltip.
+#' @param placement Defines the container used for the tooltip element.
+#' It can be one of "auto" (default), "doc" or "container".
+#' \itemize{
+#'   \item doc: the host document's body is used as tooltip container.
+#'   The tooltip may cover areas outside of the svg graphic.
+#'   \item container: the svg container is used as tooltip container.
+#'   In this case the tooltip content may wrap to fit inside the svg bounds.
+#'   It will also inherit the CSS styles and transforms applied to the parent containers
+#'   (like scaling in a slide presentation).
+#'   \item auto: This is the default, ggiraph choses the best option according
+#'   to use cases. Usually it redirects to "doc", however in a *xaringan* context,
+#'   it redirects to "container".
+#' }
 #' @param zindex tooltip css z-index, default to 999.
 #' @examples
 #' library(ggplot2)
@@ -45,10 +58,11 @@ opts_tooltip <- function(css = NULL,
                          use_stroke = FALSE,
                          delay_mouseover = 200,
                          delay_mouseout = 500,
+                         placement = "auto",
                          zindex = 999) {
   css <- check_css(
     css = css,
-    default = "padding:5px;background:black;color:white;border-radius:2px 2px 2px 2px",
+    default = "padding:5px;background:black;color:white;border-radius:2px 2px 2px 2px;text-align:left;",
     cls_prefix = "tooltip_",
     name = "opts_tooltip"
   )
@@ -66,15 +80,26 @@ opts_tooltip <- function(css = NULL,
   stopifnot(zindex >= 1)
   zindex <- round(zindex, digits = 0)
 
-  css <- sub("\\}\n$",
+  css <- sub("\\}[\n]*$",
              paste0(
                "; position:absolute;pointer-events:none;",
                sprintf("z-index:%.0f;", zindex),
                "}\n"
              ),
              css)
+
+  stopifnot(placement %in% c("auto", "doc", "container"))
+  if (placement == "auto") {
+    placement <- "doc"
+    is_xaringan <- !is.null(getOption("xaringan.page_number.offset"))
+    if (is_xaringan) {
+      placement <- "container"
+    }
+  }
+
   x <- list(
     css = css,
+    placement = placement,
     offx = offx, offy = offy,
     use_cursor_pos = use_cursor_pos,
     opacity = opacity,
@@ -92,9 +117,18 @@ opts_tooltip <- function(css = NULL,
 #' Use \code{opts_hover} for interactive geometries in panels,
 #' \code{opts_hover_key} for interactive scales/guides and
 #' \code{opts_hover_theme} for interactive theme elements.
+#' Use \code{opts_hover_inv} for the effect on the rest of the geometries,
+#' while one is hovered (inverted operation).
 #' @param css css to associate with elements when they are hovered.
 #' It must be a scalar character. It can also be constructed with
 #' \code{\link{girafe_css}}, to give more control over the css for different element types.
+#' @param reactive if TRUE, in Shiny context, hovering will set Shiny input values.
+#' @note **IMPORTANT**: When applying a `fill` style with the `css` argument,
+#' be aware that the browser's CSS engine will apply it also to line elements,
+#' if there are any that use the hovering feature. This will cause an undesired effect.
+#'
+#' To overcome this, supply the argument `css` using \code{\link{girafe_css}},
+#' in order to set the `fill` style only for the desired elements.
 #' @examples
 #' library(ggplot2)
 #'
@@ -113,34 +147,48 @@ opts_tooltip <- function(css = NULL,
 #' if( interactive() ) print(x)
 #' @export
 #' @family girafe animation options
-opts_hover <- function(css = NULL) {
+opts_hover <- function(css = NULL,
+                       reactive = FALSE) {
   css <- check_css(css,
                    default = "fill:orange;stroke:gray;",
                    cls_prefix = "hover_",
                    name = "opts_hover")
-  structure(list(css = css),
+  structure(list(css = css, reactive = reactive),
             class = "opts_hover")
 }
 
 #' @export
 #' @rdname opts_hover
-opts_hover_key <- function(css = NULL) {
+opts_hover_inv <- function(css = NULL) {
+  css <- check_css(css,
+                   default = "",
+                   cls_prefix = "hover_inv_",
+                   name = "opts_hover_inv")
+  structure(list(css = css),
+            class = "opts_hover_inv")
+}
+
+#' @export
+#' @rdname opts_hover
+opts_hover_key <- function(css = NULL,
+                           reactive = FALSE) {
   css <- check_css(css,
                    default = "stroke:red;",
                    cls_prefix = "hover_key_",
                    name = "opts_hover")
-  structure(list(css = css),
+  structure(list(css = css, reactive = reactive),
             class = "opts_hover_key")
 }
 
 #' @export
 #' @rdname opts_hover
-opts_hover_theme <- function(css = NULL) {
+opts_hover_theme <- function(css = NULL,
+                             reactive = FALSE) {
   css <- check_css(css,
                    default = "fill:green;",
                    cls_prefix = "hover_theme_",
                    name = "opts_hover_theme")
-  structure(list(css = css),
+  structure(list(css = css, reactive = reactive),
             class = "opts_hover_theme")
 }
 
@@ -158,6 +206,12 @@ opts_hover_theme <- function(css = NULL) {
 #' @param only_shiny disable selections if not in a shiny context.
 #' @param selected character vector, id to be selected when the graph will be
 #' initialized.
+#' @note **IMPORTANT**: When applying a `fill` style with the `css` argument,
+#' be aware that the browser's CSS engine will apply it also to line elements,
+#' if there are any that use the selection feature. This will cause an undesired effect.
+#'
+#' To overcome this, supply the argument `css` using \code{\link{girafe_css}},
+#' in order to set the `fill` style only for the desired elements.
 #' @examples
 #' library(ggplot2)
 #'
@@ -281,6 +335,7 @@ opts_zoom <- function(min = 1, max = 1){
 #' @description Allows customization of the toolbar
 #' @param position one of 'top', 'bottom', 'topleft', 'topright', 'bottomleft', 'bottomright'
 #' @param saveaspng set to TRUE to propose the 'save as png' button.
+#' @param pngname the default basename (without .png extension) to use for the png file.
 #' @note
 #' \code{saveaspng} relies on JavaScript promises, so any browsers that don't natively
 #' support the standard Promise object will need to have a polyfill (e.g.
@@ -303,15 +358,16 @@ opts_zoom <- function(min = 1, max = 1){
 #' if( interactive() ) print(x)
 #' @export
 #' @family girafe animation options
-opts_toolbar <- function(position = "topright", saveaspng = TRUE){
+opts_toolbar <- function(position = "topright", saveaspng = TRUE, pngname = "diagram"){
 
   stopifnot(position %in% c("top", "bottom",
                             "topleft", "topright",
                             "bottomleft", "bottomright") )
-
+  stopifnot(is.character(pngname))
   x <- list(
     position = position,
-    saveaspng = saveaspng
+    saveaspng = saveaspng,
+    pngname = pngname
   )
   class(x) <- "opts_toolbar"
   x
@@ -320,8 +376,8 @@ opts_toolbar <- function(position = "topright", saveaspng = TRUE){
 
 #' @title Girafe sizing settings
 #' @description Allows customization of the svg style sizing
-#' @param rescale if FALSE, graphic will not be resized
-#' and the dimensions are exactly those of the container.
+#' @param rescale If FALSE, graphic will not be resized and the dimensions are exactly
+#' those of the svg. If TRUE the graphic will be resize to fit its container
 #' @param width widget width ratio (0 < width <= 1).
 #' @family girafe animation options
 #' @examples
@@ -358,7 +414,7 @@ opts_sizing <- function(rescale = TRUE, width = 1){
 
 #' @title Set girafe options
 #' @description Defines the animation options related to
-#' a \code{\link{girafe}} object.
+#' a [girafe()] object.
 #' @param x girafe object.
 #' @param ... set of options defined by calls to \code{opts_*} functions or
 #' to sizingPolicy from htmlwidgets (this won't have any effect within a
@@ -386,7 +442,7 @@ opts_sizing <- function(rescale = TRUE, width = 1){
 #'   print(x)
 #' }
 #' @export
-#' @seealso \code{\link{girafe}}
+#' @seealso [girafe()]
 #' @family girafe animation options
 girafe_options <- function(x, ...){
   stopifnot(inherits(x, "girafe"))

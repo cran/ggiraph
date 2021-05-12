@@ -1,16 +1,16 @@
 #' @title Create interactive boxplot
 #'
 #' @description
-#' The geometry is based on \code{\link[ggplot2]{geom_boxplot}}.
+#' The geometry is based on [geom_boxplot()].
 #' See the documentation for those functions for more details.
 #'
 #' @param ... arguments passed to base function,
-#' plus any of the \code{\link{interactive_parameters}}.
+#' plus any of the [interactive_parameters()].
 #' @inheritSection interactive_parameters Details for geom_*_interactive functions
 #' @examples
 #' # add interactive boxplot -------
 #' @example examples/geom_boxplot_interactive.R
-#' @seealso \code{\link{girafe}}
+#' @seealso [girafe()]
 #' @export
 geom_boxplot_interactive  <- function(...)
   layer_interactive(geom_boxplot, ...)
@@ -39,11 +39,12 @@ GeomInteractiveBoxplot <- ggproto(
                         outlier.alpha = NULL,
                         notch = FALSE,
                         notchwidth = 0.5,
-                        varwidth = FALSE) {
+                        varwidth = FALSE,
+                        flipped_aes = FALSE) {
+    data <- flip_data(data, flipped_aes)
     # this may occur when using geom_boxplot(stat = "identity")
     if (nrow(data) != 1) {
-      stop("Can't draw more than one boxplot per group. Did you forget aes(group = ...)?",
-           call. = FALSE)
+      abort("Can't draw more than one boxplot per group. Did you forget aes(group = ...)?")
     }
 
     common <- list(
@@ -63,6 +64,7 @@ GeomInteractiveBoxplot <- ggproto(
       alpha = c(NA_real_, NA_real_)
     ),
     common), n = 2)
+    whiskers <- flip_data(whiskers, flipped_aes)
 
     box <- new_data_frame(c(
       list(
@@ -78,6 +80,7 @@ GeomInteractiveBoxplot <- ggproto(
       ),
       common
     ))
+    box <- flip_data(box, flipped_aes)
 
     if (!is.null(data$outliers) &&
         length(data$outliers[[1]] >= 1)) {
@@ -100,6 +103,7 @@ GeomInteractiveBoxplot <- ggproto(
         outl,
         n = length(data$outliers[[1]])
       )
+      outliers <- flip_data(outliers, flipped_aes)
       outliers_grob <-
         GeomInteractivePoint$draw_panel(outliers, panel_params, coord)
     } else {
@@ -111,7 +115,7 @@ GeomInteractiveBoxplot <- ggproto(
       grobTree(
         outliers_grob,
         GeomInteractiveSegment$draw_panel(whiskers, panel_params, coord),
-        GeomInteractiveCrossbar$draw_panel(box, fatten = fatten, panel_params, coord)
+        GeomInteractiveCrossbar$draw_panel(box, fatten = fatten, panel_params, coord, flipped_aes = flipped_aes)
       )
     )
   }

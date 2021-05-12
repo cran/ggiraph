@@ -9,29 +9,43 @@
 #' If this is supplied a tooltip is shown when the element is hovered.
 #' Plain text or html is supported.
 #'
+#' To use html markup it is advised to use [htmltools::HTML()] function
+#' in order to mark the text as html markup.
+#' If the text is not marked as html and no opening/closing tags were detected,
+#' then any existing newline characters (`\r\n`, `\r` and `\n`)
+#' are replaced with the `<br/>` tag.
+#'
 #' @param onclick Javascript code to associate with one or more elements.
 #' This code will be executed when the element is clicked.
 #'
 #' @param hover_css Individual css style associate with one or more elements.
 #' This css style is applied when the element is hovered and overrides the default style,
-#' set via \code{\link{opts_hover}} or \code{\link{opts_hover_key}}.
+#' set via [opts_hover()], [opts_hover_key()] or [opts_hover_theme()].
+#' It can also be constructed with \code{\link{girafe_css}},
+#' to give more control over the css for different element types (see [opts_hover()] note).
 #'
 #' @param selected_css Individual css style associate with one or more elements.
 #' This css style is applied when the element is selected and overrides the default style,
-#' set via \code{\link{opts_selection}} or \code{\link{opts_selection_key}}.
+#' set via [opts_selection()], [opts_selection_key()] or [opts_selection_theme()].
+#' It can also be constructed with \code{\link{girafe_css}},
+#' to give more control over the css for different element types (see [opts_selection()] note).
 #'
 #' @param data_id Identifier to associate with one or more elements.
 #' This is mandatory parameter if hover and selection interactivity is desired.
 #' Identifiers are available as reactive input values in Shiny applications.
 #'
+#' @param tooltip_fill Color to use for tooltip background when [opts_tooltip()] `use_fill` is TRUE.
+#' Useful for setting the tooltip background color in [geom_text_interactive()] or
+#' [geom_label_interactive()], when the geom text color may be the same as the tooltip text color.
+#'
 #' @section Details for geom_*_interactive functions:
 #' The interactive parameters can be supplied with two ways:
 #' \itemize{
-#'   \item As aesthetics with the mapping argument (via \code{\link[ggplot2]{aes}}).
+#'   \item As aesthetics with the mapping argument (via [aes()]).
 #'   In this way they can be mapped to data columns and apply to a set of geometries.
 #'
-#'   \item As plain arguments into the geom_*_interactive function (see
-#'   \code{\link[ggplot2]{layer}}). In this way they can be set to a scalar value.
+#'   \item As plain arguments into the geom_*_interactive function.
+#'   In this way they can be set to a scalar value.
 #' }
 #'
 #' @section Details for annotate_*_interactive functions:
@@ -45,8 +59,9 @@
 #' The guides do not accept any interactive parameter directly, they receive them from the scales.
 #'
 #' \itemize{
-#'   \item When guide of type `legend` is used, it will be converted to a
-#'   \code{\link{guide_legend_interactive}} if it's not already.
+#'   \item When guide of type `legend` or `bins` is used, it will be converted to a
+#'   [guide_legend_interactive()] or [guide_bins_interactive()] respectively,
+#'   if it's not already.
 #'
 #'   The length of each scale interactive parameter vector should match the length of the breaks.
 #'   It can also be a named vector, where each name should correspond to the same break name.
@@ -55,8 +70,9 @@
 #'
 #'   The interactive parameters here, give interactivity only to the key elements of the guide.
 #'
-#'   \item When guide of type `colourbar` is used, it will be converted to a
-#'   \code{\link{guide_colourbar_interactive}} if it's not already.
+#'   \item When guide of type `colourbar` or `coloursteps` is used, it will be converted to a
+#'   [guide_colourbar_interactive()] or [guide_coloursteps_interactive()]
+#'   respectively, if it's not already.
 #'
 #'   The scale interactive parameters in this case should be scalar values and give interactivity
 #'   to the colorbar only.
@@ -73,22 +89,21 @@
 #' The interactive parameters can be supplied as arguments in the relevant function
 #' and they should be scalar values.
 #'
-#' For theme text elements (\code{\link{element_text_interactive}}), the interactive parameters
-#' can also be supplied while setting a label value, via the \code{\link[ggplot2]{labs}} family
+#' For theme text elements ([element_text_interactive()]), the interactive parameters
+#' can also be supplied while setting a label value, via the [labs()] family
 #' of functions or when setting a scale/guide title or key label.
 #' Instead of setting a character value for the element, function
-#' \code{\link{label_interactive}} can be used to define interactive parameters
+#' [label_interactive()] can be used to define interactive parameters
 #' to go along with the label.
 #' When the parameters are supplied that way, they override the default values
-#' that are set at the theme via \code{element_text_interactive} or via the \code{guide}'s
+#' that are set at the theme via [element_text_interactive()] or via the \code{guide}'s
 #' theme parameters.
 #'
 #' @section Details for interactive_*_grob functions:
 #' The interactive parameters can be supplied as arguments in the relevant function
 #' and they can be scalar values or vectors depending on params on base function.
 #'
-#' @seealso \code{\link{girafe_options}}
-#' @seealso \code{\link{girafe}}
+#' @seealso [girafe_options()], [girafe()]
 #' @rdname ipar
 #' @name interactive_parameters
 NULL
@@ -101,7 +116,8 @@ IPAR_DEFAULTS <- list(
   tooltip = NULL,
   onclick = NULL,
   hover_css = NULL,
-  selected_css = NULL
+  selected_css = NULL,
+  tooltip_fill = NULL
 )
 
 IPAR_NAMES <- names(IPAR_DEFAULTS)
@@ -266,7 +282,7 @@ add_interactive_attrs <- function(gr,
     # some grobs have class name which contains "grob" already, like rastergrob
     # and labelgrob, so they end up named like interactive_rastergrob_grob.
     # we normalize the name here, to use class interactive_raster_grob.
-    cl <- sub("grob_grob", "_grob", cl)
+    cl <- sub("grob_grob", "_grob", cl, ignore.case = TRUE)
   }
   # just extend the class, so that it inherits other grob methods
   class(gr) <- c(cl, class(gr))
@@ -299,6 +315,8 @@ interactive_attr_toxml <- function(x,
       attrValue <- x[[a]][rows]
       attrValue <- switch(a,
                           tooltip = encode_cr(attrValue),
+                          hover_css = check_css_attr(attrValue),
+                          selected_css = check_css_attr(attrValue),
                           attrValue)
       attrName <- switch(a,
                          tooltip = "title",

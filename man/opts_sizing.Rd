@@ -7,8 +7,8 @@
 opts_sizing(rescale = TRUE, width = 1)
 }
 \arguments{
-\item{rescale}{if FALSE, graphic will not be resized
-and the dimensions are exactly those of the container.}
+\item{rescale}{If FALSE, graphic will not be resized and the dimensions are exactly
+those of the svg. If TRUE the graphic will be resize to fit its container}
 
 \item{width}{widget width ratio (0 < width <= 1).}
 }
@@ -33,9 +33,12 @@ x <- girafe_options(x,
 if( interactive() ) print(x)
 }
 \seealso{
-Other girafe animation options: \code{\link{girafe_options}},
-  \code{\link{opts_hover}}, \code{\link{opts_selection}},
-  \code{\link{opts_toolbar}}, \code{\link{opts_tooltip}},
-  \code{\link{opts_zoom}}
+Other girafe animation options: 
+\code{\link{girafe_options}()},
+\code{\link{opts_hover}()},
+\code{\link{opts_selection}()},
+\code{\link{opts_toolbar}()},
+\code{\link{opts_tooltip}()},
+\code{\link{opts_zoom}()}
 }
 \concept{girafe animation options}

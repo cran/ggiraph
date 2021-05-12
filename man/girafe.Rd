@@ -4,8 +4,15 @@
 \alias{girafe}
 \title{Create a girafe object}
 \usage{
-girafe(code, ggobj = NULL, pointsize = 12, width_svg = 6,
-  height_svg = 5, xml_reader_options = list(), options = list(), ...)
+girafe(
+  code,
+  ggobj = NULL,
+  pointsize = 12,
+  width_svg = 6,
+  height_svg = 5,
+  options = list(),
+  ...
+)
 }
 \arguments{
 \item{code}{Plotting code to execute}
@@ -18,11 +25,6 @@ be ignored if this argument is supplied.}
 \item{width_svg, height_svg}{The width and height of the graphics region in inches.
 The default values are 6 and 5 inches. This will define the aspect ratio of the
 graphic as it will be used to define viewbox attribute of the SVG result.}
-
-\item{xml_reader_options}{read_xml additional arguments to be used
-when parsing the svg result. This feature can be used to parse
-huge svg files by using \code{list(options = "HUGE")} but this
-is not recommanded.}
 
 \item{options}{a list of options for girafe rendering, see
 \code{\link{opts_tooltip}}, \code{\link{opts_hover}}, \code{\link{opts_selection}}, ...}
@@ -38,7 +40,7 @@ to be used in a web browser. The function should replace function
 Use \code{geom_zzz_interactive} to create interactive graphical elements.
 
 Difference from original functions is that some extra aesthetics are understood:
-the \code{\link{interactive_parameters}}.
+the \code{\link[=interactive_parameters]{interactive_parameters()}}.
 
 Tooltips can be displayed when mouse is over graphical elements.
 
@@ -78,7 +80,7 @@ always respected when the graph is displayed.
 When a girafe graphic is in a Shiny application,
 graphic will be resized according to the arguments \code{width} and
 \code{height} of the function \code{girafeOutput}. Default
-values are '100\%' and '500px'. These arguments determine the
+values are '100\\%' and '500px'. These arguments determine the
 outer bounding box of the graphic (the HTML element that will
 contain the graphic with an aspect ratio).
 
@@ -110,5 +112,5 @@ if(interactive()){
 }
 }
 \seealso{
-\code{\link{girafe_options}}
+\code{\link[=girafe_options]{girafe_options()}}, \code{\link[=validated_fonts]{validated_fonts()}}, \code{\link[=dsvg]{dsvg()}}
 }

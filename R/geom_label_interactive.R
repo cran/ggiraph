@@ -38,6 +38,9 @@ GeomInteractiveLabel <- ggproto(
       label.size = label.size
     )
     coords <- coord$transform(data, panel_params)
+    if (is.null(coords$tooltip_fill)) {
+      coords$tooltip_fill <- coords$fill
+    }
     coords <- force_interactive_aes_to_char(coords)
     add_interactive_attrs(gr, coords)
   }
@@ -45,42 +48,9 @@ GeomInteractiveLabel <- ggproto(
 
 #' @export
 makeContent.interactive_label_grob <- function(x) {
-  hj <- resolveHJust(x$just, NULL)
-  vj <- resolveVJust(x$just, NULL)
-
-  t1 <- textGrob(
-    x$label,
-    x$x + 2 * (0.5 - hj) * x$padding,
-    x$y + 2 * (0.5 - vj) * x$padding,
-    just = c(hj, vj),
-    gp = x$text.gp,
-    name = "text"
-  )
-
-  t <- textGrob(
-    label = x$label,
-    x = x$x + 2 * (0.5 - hj) * x$padding,
-    y = x$y + 2 * (0.5 - vj) * x$padding,
-    just = c(hj, vj),
-    check.overlap = FALSE,
-    default.units = x$default.units,
-    name = "label",
-    gp = x$text.gp
-  )
-  t <- add_interactive_attrs(t, x)
-
-  r <- roundrectGrob(
-    x = x$x,
-    y = x$y,
-    width = grobWidth(t1) + 2 * x$padding,
-    height = grobHeight(t1) + 2 * x$padding,
-    r = x$r,
-    just = c(hj, vj),
-    default.units = x$default.units,
-    name = "box",
-    gp = x$rect.gp
-  )
-  r <- add_interactive_attrs(r, x)
-
-  setChildren(x, gList(r, t))
+  gr <- NextMethod()
+  for (i in seq_along(gr$children)) {
+    gr$children[[i]] <- add_interactive_attrs(gr$children[[i]], x)
+  }
+  gr
 }

@@ -5,15 +5,16 @@
 %   R/geom_bar_interactive.R, R/geom_boxplot_interactive.R,
 %   R/geom_col_interactive.R, R/geom_contour_interactive.R,
 %   R/geom_crossbar_interactive.R, R/geom_density_2d_interactive.R,
-%   R/geom_density_interactive.R, R/geom_errorbar_interactive.R,
-%   R/geom_errorbarh_interactive.R, R/geom_hline_interactive.R,
-%   R/geom_label_interactive.R, R/geom_linerange_interactive.R,
-%   R/geom_map_interactive.R, R/geom_point_interactive.R,
-%   R/geom_pointrange_interactive.R, R/geom_quantile_interactive.R,
-%   R/geom_raster_interactive.R, R/geom_ribbon_interactive.R,
-%   R/geom_segment_interactive.R, R/geom_sf_interactive.R,
-%   R/geom_smooth_interactive.R, R/geom_text_interactive.R,
-%   R/geom_tile_interactive.R, R/geom_vline_interactive.R
+%   R/geom_density_interactive.R, R/geom_dotplot_interactive.R,
+%   R/geom_errorbar_interactive.R, R/geom_errorbarh_interactive.R,
+%   R/geom_hline_interactive.R, R/geom_label_interactive.R,
+%   R/geom_linerange_interactive.R, R/geom_map_interactive.R,
+%   R/geom_point_interactive.R, R/geom_pointrange_interactive.R,
+%   R/geom_quantile_interactive.R, R/geom_raster_interactive.R,
+%   R/geom_ribbon_interactive.R, R/geom_segment_interactive.R,
+%   R/geom_sf_interactive.R, R/geom_smooth_interactive.R,
+%   R/geom_text_interactive.R, R/geom_tile_interactive.R,
+%   R/geom_vline_interactive.R
 \docType{data}
 \name{GeomInteractive}
 \alias{GeomInteractive}
@@ -31,6 +32,7 @@
 \alias{GeomInteractiveCrossbar}
 \alias{GeomInteractiveDensity2d}
 \alias{GeomInteractiveDensity}
+\alias{GeomInteractiveDotplot}
 \alias{GeomInteractiveErrorbar}
 \alias{GeomInteractiveErrorbarh}
 \alias{GeomInteractiveHline}
@@ -56,11 +58,11 @@ ggproto classes for ggiraph
 \section{Geoms}{
 
 
-All `geom_*_interactive` functions (like `geom_point_interactive`) return a layer that
-contains a `GeomInteractive*` object (like `GeomInteractivePoint`). The `Geom*`
+All \verb{geom_*_interactive} functions (like \code{geom_point_interactive}) return a layer that
+contains a \verb{GeomInteractive*} object (like \code{GeomInteractivePoint}). The \verb{Geom*}
 object is responsible for rendering the data in the plot.
 
-See \code{\link[ggplot2]{Geom}} for more information.
+See \code{\link{Geom}} for more information.
 }
 
 \keyword{datasets}

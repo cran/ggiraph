@@ -1,17 +1,16 @@
 #' @title Create interactive contours of a 2d density estimate
 #'
 #' @description
-#' The geometry is based on \code{\link[ggplot2]{geom_density_2d}}.
+#' The geometry is based on [geom_density_2d()].
 #' See the documentation for those functions for more details.
 #'
 #' @param ... arguments passed to base function,
-#' plus any of the \code{\link{interactive_parameters}}.
+#' plus any of the [interactive_parameters()].
 #' @inheritSection interactive_parameters Details for geom_*_interactive functions
-#' @seealso \code{\link{girafe}}
 #' @examples
 #' # add interactive contours to a ggplot -------
 #' @example examples/geom_density_2d_interactive.R
-#' @seealso \code{\link{girafe}}
+#' @seealso [girafe()]
 #' @export
 geom_density_2d_interactive <- function(...)
   layer_interactive(geom_density_2d, ...)

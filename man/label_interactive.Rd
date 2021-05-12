@@ -9,15 +9,37 @@ label_interactive(label, ...)
 \arguments{
 \item{label}{The text for the label (scalar character)}
 
-\item{...}{any of the \code{\link{interactive_parameters}}.}
+\item{...}{any of the \code{\link[=interactive_parameters]{interactive_parameters()}}.}
 }
 \value{
 an interactive label object
 }
 \description{
 This function returns an object that can be used as a label
-via the \code{\link[ggplot2]{labs}} family of functions or
+via the \code{\link[=labs]{labs()}} family of functions or
 when setting a \code{scale}/\code{guide} name/title or key label.
 It passes the interactive parameters to a theme element created via
 \code{\link{element_text_interactive}} or via an interactive guide.
+}
+\examples{
+library(ggplot2)
+library(ggiraph)
+
+gg_jitter <- ggplot(
+  mpg, aes(cyl, hwy, group = cyl)) +
+  geom_boxplot() +
+  labs(title =
+         label_interactive(
+           "title",
+           data_id = "id_title",
+           onclick = "alert(\"title\")",
+           tooltip = "title" )
+  ) +
+  theme(plot.title = element_text_interactive())
+
+x <- girafe(ggobj = gg_jitter)
+if( interactive() ) print(x)
+}
+\seealso{
+\link{interactive_parameters}, \code{\link[=labeller_interactive]{labeller_interactive()}}
 }

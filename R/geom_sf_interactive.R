@@ -1,17 +1,16 @@
 #' @title Create interactive sf objects
 #'
 #' @description
-#' These geometries are based on \code{\link[ggplot2]{geom_sf}},
-#' \code{\link[ggplot2]{geom_sf_label}} and \code{\link[ggplot2]{geom_sf_text}}.
+#' These geometries are based on [geom_sf()], [geom_sf_label()] and [geom_sf_text()].
 #' See the documentation for those functions for more details.
 #'
 #' @param ... arguments passed to base function,
-#' plus any of the \code{\link{interactive_parameters}}.
+#' plus any of the [interactive_parameters()].
 #' @inheritSection interactive_parameters Details for geom_*_interactive functions
 #' @examples
 #' # add interactive sf objects to a ggplot -------
 #' @example examples/geom_sf_interactive.R
-#' @seealso \code{\link{girafe}}
+#' @seealso [girafe()]
 #' @export
 geom_sf_interactive <- function(...)
   layer_interactive(geom_sf, ...)
@@ -35,7 +34,8 @@ GeomInteractiveSf <- ggproto(
                         legend = NULL,
                         lineend = "butt",
                         linejoin = "round",
-                        linemitre = 10) {
+                        linemitre = 10,
+                        na.rm = TRUE) {
     data <- force_interactive_aes_to_char(data)
     # call original draw_panel for each data row/geometry
     # this way multi geometries are handled too
@@ -48,7 +48,8 @@ GeomInteractiveSf <- ggproto(
                               legend = legend,
                               lineend = lineend,
                               linejoin = linejoin,
-                              linemitre = linemitre)
+                              linemitre = linemitre,
+                              na.rm = na.rm)
       if (inherits(gr, "gList")) { # grid v<3.6.0
         useflatten <<- TRUE
         for (i in seq_along(gr)) {

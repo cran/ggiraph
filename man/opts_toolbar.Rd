@@ -4,12 +4,14 @@
 \alias{opts_toolbar}
 \title{Toolbar settings}
 \usage{
-opts_toolbar(position = "topright", saveaspng = TRUE)
+opts_toolbar(position = "topright", saveaspng = TRUE, pngname = "diagram")
 }
 \arguments{
 \item{position}{one of 'top', 'bottom', 'topleft', 'topright', 'bottomleft', 'bottomright'}
 
 \item{saveaspng}{set to TRUE to propose the 'save as png' button.}
+
+\item{pngname}{the default basename (without .png extension) to use for the png file.}
 }
 \description{
 Allows customization of the toolbar
@@ -37,9 +39,12 @@ x <- girafe_options(x,
 if( interactive() ) print(x)
 }
 \seealso{
-Other girafe animation options: \code{\link{girafe_options}},
-  \code{\link{opts_hover}}, \code{\link{opts_selection}},
-  \code{\link{opts_sizing}}, \code{\link{opts_tooltip}},
-  \code{\link{opts_zoom}}
+Other girafe animation options: 
+\code{\link{girafe_options}()},
+\code{\link{opts_hover}()},
+\code{\link{opts_selection}()},
+\code{\link{opts_sizing}()},
+\code{\link{opts_tooltip}()},
+\code{\link{opts_zoom}()}
 }
 \concept{girafe animation options}
