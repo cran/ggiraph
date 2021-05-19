@@ -2,67 +2,174 @@
 % Please edit documentation in R/labeller_interactive.R
 \name{labeller_interactive}
 \alias{labeller_interactive}
-\title{Create a interactive strip label}
+\title{Construct interactive labelling specification for facet strips}
 \usage{
-labeller_interactive(
-  custom_label_func = id_label,
-  ...,
-  .default = ggplot2::label_value
-)
+labeller_interactive(.mapping = NULL, ...)
 }
 \arguments{
-\item{custom_label_func}{a function that returns the result
-of \code{\link[=label_interactive]{label_interactive()}}.}
+\item{.mapping}{set of aesthetic mappings created by \code{\link[=aes]{aes()}} or \code{\link[=aes_]{aes_()}}.
+It should provide mappings for any of the \code{\link[=interactive_parameters]{interactive_parameters()}}.
+In addition it understands a \code{label} parameter for creating a new label text.}
 
-\item{...}{optional additional arguments for function \code{custom_label_func}.}
-
-\item{.default}{a Labeller function, see \code{\link[=label_value]{label_value()}}}
+\item{...}{arguments passed to base function \code{\link[=labeller]{labeller()}}}
 }
 \description{
-These function is an helper function
-to let user add interactivity on facet strip text.
+This function is a wrapper around \code{\link[=labeller]{labeller()}} that allows the user to turn
+facet strip labels into interactive labels via \code{\link[=label_interactive]{label_interactive()}}.
 
-The function adds interactive attributes but does not tell
-to use them, make sure the theme you are using is specifying the use of \code{element_text_interactive}
-for strip text,
-for example \code{theme(strip.text = element_text_interactive())}
+It requires that the \code{\link[=theme]{theme()}}'s \code{strip.text} elements are defined as interactive
+theme elements via \code{\link[=element_text_interactive]{element_text_interactive()}}, see details.
+}
+\details{
+The aesthetics set provided via \code{.mapping} is evaluated against the data provided
+by the ggplot2 facet. This means that the variables for each facet are available
+for using inside the aesthetic mappings. In addition the \code{.label} variable provides
+access to the produced label. See the examples.
+
+The plot's theme is required to have the strip texts as interactive text elements.
+This involves \code{strip.text} or individually \code{strip.text.x} and \code{strip.text.y}:
+\code{theme(strip.text.x = element_text_interactive())}
+\code{theme(strip.text.y = element_text_interactive())}
 }
 \examples{
+# use interactive labeller
 library(ggplot2)
 library(ggiraph)
 
-gg_jitter <- ggplot(
-  mpg, aes(cyl, hwy, group = cyl)) +
-  geom_boxplot() +
-  facet_wrap(~manufacturer,
-             labeller = labeller_interactive(id_label)) +
-  theme(strip.text = element_text_interactive())
+p1 <- ggplot(mtcars, aes(x = mpg, y = wt)) +
+  geom_point_interactive(aes(tooltip = row.names(mtcars)))
 
-x <- girafe(ggobj = gg_jitter)
-if(interactive()) print(x)
-
-
-lab_custom <- function(z, prefix = "label: ") {
-  label_interactive(label = z, data_id = z, tooltip = paste0(prefix, z))
-}
-
-gg_jitter <- ggplot(diamonds, aes(x = x)) +
-  geom_density() +
-  facet_grid(color ~ cut,
-    labeller = labeller(
-      cut = labeller_interactive(lab_custom, prefix = "cut: "),
-      color = labeller_interactive(lab_custom, prefix = "color: ")
-    )) +
-  theme_light() +
+# Always remember to set the theme's strip texts as interactive
+# no need to set any interactive parameters, they'll be assigned from the labels
+p1 <- p1 +
   theme(
     strip.text.x = element_text_interactive(),
     strip.text.y = element_text_interactive()
   )
 
-x <- girafe(ggobj = gg_jitter, width_svg = 8, height_svg = 5)
+# simple facet
+p <- p1 + facet_wrap(
+  vars(gear),
+  labeller = labeller_interactive(aes(tooltip = paste("Gear:", gear)))
+)
+x <- girafe(ggobj = p)
+if (interactive()) print(x)
 
+# With two vars. When the .multi_line labeller argument is TRUE (default),
+# supply a different labeller for each var
+p <- p1 + facet_wrap(
+  vars(gear, vs),
+  labeller = labeller_interactive(
+    gear = labeller_interactive(aes(tooltip = paste("Gear:", gear))),
+    vs = labeller_interactive(aes(tooltip = paste("VS:", vs)))
+  )
+)
+x <- girafe(ggobj = p)
+if (interactive()) print(x)
+
+# When the .multi_line argument is FALSE, the labels are joined and
+# the same happens with the data, so we can refer to both variables in the aesthetics!
+p <- p1 + facet_wrap(
+  vars(gear, vs),
+  labeller = labeller_interactive(
+    aes(tooltip = paste0("Gear: ", gear, "\nVS: ", vs)),
+    .multi_line = FALSE
+  )
+)
+x <- girafe(ggobj = p)
+if (interactive()) print(x)
+
+# Example with facet_grid:
+p <- p1 + facet_grid(
+  vs + am ~ gear,
+  labeller = labeller(
+    gear = labeller_interactive(aes(
+      tooltip = paste("gear:", gear), data_id = paste0("gear_", gear)
+    )),
+    vs = labeller_interactive(aes(
+      tooltip = paste("VS:", vs), data_id = paste0("vs_", vs)
+    )),
+    am = labeller_interactive(aes(
+      tooltip = paste("AM:", am), data_id = paste0("am_", am)
+    ))
+  )
+)
+x <- girafe(ggobj = p)
+if (interactive()) print(x)
+
+# Same with .rows and .cols and .multi_line = FALSE
+p <- p1 + facet_grid(
+  vs + am ~ gear,
+  labeller = labeller(
+    .cols = labeller_interactive(
+      .mapping = aes(tooltip = paste("gear:", gear))
+    ),
+    .rows = labeller_interactive(
+      aes(tooltip = paste0("VS: ", vs, "\nAM: ", am)),
+      .multi_line = FALSE
+    )
+  )
+)
+x <- girafe(ggobj = p)
+if (interactive()) print(x)
+
+# a more complex example
+p2 <- ggplot(msleep, aes(x = sleep_total, y = awake)) +
+  geom_point_interactive(aes(tooltip = name)) +
+  theme(
+    strip.text.x = element_text_interactive(),
+    strip.text.y = element_text_interactive()
+  )
+
+# character vector as lookup table
+conservation_status <- c(
+  cd = "Conservation Dependent",
+  en = "Endangered",
+  lc = "Least concern",
+  nt = "Near Threatened",
+  vu = "Vulnerable",
+  domesticated = "Domesticated"
+)
+
+# function to capitalize a string
+capitalize <- function(x) {
+  substr(x, 1, 1) <- toupper(substr(x, 1, 1))
+  x
+}
+
+# function to cut a string and append an ellipsis
+cut_str <- function(x, width = 10) {
+  ind <- !is.na(x) & nchar(x) > width
+  x[ind] <- paste0(substr(x[ind], 1, width), "...")
+  x
+}
+
+replace_nas <- function(x) {
+  ifelse(is.na(x), "Not available", x)
+}
+
+# in this example we use the '.label' variable to access the produced label
+# and we set the 'label' aesthetic to modify the label
+p <- p2 + facet_grid(
+  vore ~ conservation,
+  labeller = labeller(
+    vore = labeller_interactive(
+      aes(tooltip = paste("Vore:", replace_nas(.label))),
+      .default = capitalize
+    ),
+    conservation = labeller_interactive(
+      aes(
+        tooltip = paste("Conservation:\n", replace_nas(.label)),
+        label = cut_str(.label, 3)
+      ),
+      .default = conservation_status
+    )
+  )
+)
+
+x <- girafe(ggobj = p)
 if (interactive()) print(x)
 }
 \seealso{
-\code{\link[=id_label]{id_label()}}, \code{\link[=label_interactive]{label_interactive()}}
+\code{\link[=labeller]{labeller()}}, \code{\link[=label_interactive]{label_interactive()}}, \link{labellers}
 }
