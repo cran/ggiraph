@@ -1,26 +1,48 @@
-// Various utilities for dsvg
+/*
+ * Misc utilities
+ */
+#ifndef DSVG_UTILS_INCLUDED
+#define DSVG_UTILS_INCLUDED
 
-// tinyxml2 must be included first
-#include "tinyxml2.h"
 #include <Rcpp.h>
+#include <string>
 
-std::string to_string( const double& d );
-std::string to_string( const int& i );
+// #define DSVG_DEBUG 1
+#if defined(DSVG_DEBUG)
+#  include <assert.h>
+#  define DSVGASSERT assert
+#else
+#  define DSVGASSERT(x) {}
+#endif
 
-typedef tinyxml2::XMLDocument SVGDocument;
-typedef tinyxml2::XMLElement SVGElement;
-typedef tinyxml2::XMLText SVGText;
-void set_attr(SVGElement* element, const char* name, const char* value);
-void set_attr(SVGElement* element, const char* name, const double& value);
-void set_attr(SVGElement* element, const char* name, const int& value);
-void set_attr(SVGElement* element, const char* name, const std::string value);
-void set_fill(SVGElement* element, const int col);
-void set_stroke(SVGElement* element, const double width, const int col, const int type, const int join, const int end);
-void set_clip(SVGElement* element, const char* clipid);
-void svg_to_file(SVGDocument* doc, FILE* file, const bool compact = true);
-SVGDocument* new_svg_doc(const bool declaration = true, const bool bom = false);
-SVGElement* new_svg_element(const char* name, SVGDocument* doc);
-SVGText* new_svg_text(const char* str, SVGDocument* doc, const bool cdata = true);
-void append_element(SVGElement* child, SVGElement* parent);
-void prepend_element(SVGElement* child, SVGElement* parent);
-const char* svg_attribute(const SVGElement* element, const char * name);
+/*
+ * Conversions to string
+ */
+std::string to_string(const double& d, const std::streamsize& precision = 2);
+std::string to_string(const int& i);
+std::string to_string(const unsigned int& i);
+
+/*
+ * SVG element numeric index.
+ * A valid index starts from 1.
+ */
+typedef unsigned int INDEX;
+#define NULL_INDEX 0
+#define IS_VALID_INDEX(i) (i > NULL_INDEX)
+
+/*
+ * Helpers to convert between index and references
+ */
+INDEX ref_to_index(const SEXP& ref);
+SEXP index_to_ref(const INDEX& index);
+
+/* Checks if supplied SEXP is a function call */
+bool is_function_ref(SEXP& path);
+
+/* Evaluates the function in supplied SEXP */
+void eval_function_ref(SEXP& path, SEXP env = R_GlobalEnv);
+
+/* Returns the current graphics engine version */
+pGEDevDesc get_ge_device(int dn);
+
+#endif // DSVG_UTILS_INCLUDED

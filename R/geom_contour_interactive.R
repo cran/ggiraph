@@ -23,11 +23,22 @@ geom_contour_interactive <- function(...)
 GeomInteractiveContour <- ggproto(
   "GeomInteractiveContour",
   GeomInteractivePath,
-  default_aes = add_default_interactive_aes(GeomContour)
+  default_aes = add_default_interactive_aes(GeomContour),
+  parameters = interactive_geom_parameters
 )
 
 #' @export
 #' @rdname geom_contour_interactive
 #' @include geom_polygon_interactive.R
 geom_contour_filled_interactive <- function(...)
-  layer_interactive(geom_contour_filled, ..., interactive_geom = GeomInteractivePolygon)
+  layer_interactive(geom_contour_filled, ...)
+
+#' @rdname ggiraph-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomInteractiveContourFilled <- ggproto(
+  "GeomInteractiveContourFilled",
+  GeomInteractivePolygon,
+  default_aes = add_default_interactive_aes(GeomContourFilled)
+)

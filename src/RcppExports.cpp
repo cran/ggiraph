@@ -5,22 +5,37 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // DSVG_
-bool DSVG_(std::string file, double width, double height, std::string bg, int pointsize, bool standalone, bool setdims, std::string canvas_id, Rcpp::List aliases);
-RcppExport SEXP _ggiraph_DSVG_(SEXP fileSEXP, SEXP widthSEXP, SEXP heightSEXP, SEXP bgSEXP, SEXP pointsizeSEXP, SEXP standaloneSEXP, SEXP setdimsSEXP, SEXP canvas_idSEXP, SEXP aliasesSEXP) {
+bool DSVG_(std::string filename, double width, double height, std::string canvas_id, bool standalone, bool setdims, int pointsize, std::string bg, Rcpp::List aliases);
+RcppExport SEXP _ggiraph_DSVG_(SEXP filenameSEXP, SEXP widthSEXP, SEXP heightSEXP, SEXP canvas_idSEXP, SEXP standaloneSEXP, SEXP setdimsSEXP, SEXP pointsizeSEXP, SEXP bgSEXP, SEXP aliasesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type file(fileSEXP);
+    Rcpp::traits::input_parameter< std::string >::type filename(filenameSEXP);
     Rcpp::traits::input_parameter< double >::type width(widthSEXP);
     Rcpp::traits::input_parameter< double >::type height(heightSEXP);
-    Rcpp::traits::input_parameter< std::string >::type bg(bgSEXP);
-    Rcpp::traits::input_parameter< int >::type pointsize(pointsizeSEXP);
+    Rcpp::traits::input_parameter< std::string >::type canvas_id(canvas_idSEXP);
     Rcpp::traits::input_parameter< bool >::type standalone(standaloneSEXP);
     Rcpp::traits::input_parameter< bool >::type setdims(setdimsSEXP);
-    Rcpp::traits::input_parameter< std::string >::type canvas_id(canvas_idSEXP);
+    Rcpp::traits::input_parameter< int >::type pointsize(pointsizeSEXP);
+    Rcpp::traits::input_parameter< std::string >::type bg(bgSEXP);
     Rcpp::traits::input_parameter< Rcpp::List >::type aliases(aliasesSEXP);
-    rcpp_result_gen = Rcpp::wrap(DSVG_(file, width, height, bg, pointsize, standalone, setdims, canvas_id, aliases));
+    rcpp_result_gen = Rcpp::wrap(DSVG_(filename, width, height, canvas_id, standalone, setdims, pointsize, bg, aliases));
+    return rcpp_result_gen;
+END_RCPP
+}
+// get_ge_version
+Rcpp::IntegerVector get_ge_version();
+RcppExport SEXP _ggiraph_get_ge_version() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(get_ge_version());
     return rcpp_result_gen;
 END_RCPP
 }
@@ -58,26 +73,49 @@ BEGIN_RCPP
 END_RCPP
 }
 // add_attribute
-bool add_attribute(int dn, Rcpp::IntegerVector id, std::vector< std::string > str, std::string name);
-RcppExport SEXP _ggiraph_add_attribute(SEXP dnSEXP, SEXP idSEXP, SEXP strSEXP, SEXP nameSEXP) {
+bool add_attribute(int dn, std::string name, Rcpp::IntegerVector ids, Rcpp::CharacterVector values);
+RcppExport SEXP _ggiraph_add_attribute(SEXP dnSEXP, SEXP nameSEXP, SEXP idsSEXP, SEXP valuesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< int >::type dn(dnSEXP);
-    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type id(idSEXP);
-    Rcpp::traits::input_parameter< std::vector< std::string > >::type str(strSEXP);
     Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
-    rcpp_result_gen = Rcpp::wrap(add_attribute(dn, id, str, name));
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type ids(idsSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type values(valuesSEXP);
+    rcpp_result_gen = Rcpp::wrap(add_attribute(dn, name, ids, values));
+    return rcpp_result_gen;
+END_RCPP
+}
+// non_overlapping_texts
+Rcpp::IntegerVector non_overlapping_texts(int dn, Rcpp::RObject label, Rcpp::DoubleVector x, Rcpp::DoubleVector y, Rcpp::DoubleVector hjust, Rcpp::DoubleVector vjust, Rcpp::DoubleVector rot, Rcpp::DoubleVector fontsize, Rcpp::CharacterVector fontfamily, Rcpp::IntegerVector fontface, Rcpp::DoubleVector lineheight);
+RcppExport SEXP _ggiraph_non_overlapping_texts(SEXP dnSEXP, SEXP labelSEXP, SEXP xSEXP, SEXP ySEXP, SEXP hjustSEXP, SEXP vjustSEXP, SEXP rotSEXP, SEXP fontsizeSEXP, SEXP fontfamilySEXP, SEXP fontfaceSEXP, SEXP lineheightSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type dn(dnSEXP);
+    Rcpp::traits::input_parameter< Rcpp::RObject >::type label(labelSEXP);
+    Rcpp::traits::input_parameter< Rcpp::DoubleVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Rcpp::DoubleVector >::type y(ySEXP);
+    Rcpp::traits::input_parameter< Rcpp::DoubleVector >::type hjust(hjustSEXP);
+    Rcpp::traits::input_parameter< Rcpp::DoubleVector >::type vjust(vjustSEXP);
+    Rcpp::traits::input_parameter< Rcpp::DoubleVector >::type rot(rotSEXP);
+    Rcpp::traits::input_parameter< Rcpp::DoubleVector >::type fontsize(fontsizeSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type fontfamily(fontfamilySEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type fontface(fontfaceSEXP);
+    Rcpp::traits::input_parameter< Rcpp::DoubleVector >::type lineheight(lineheightSEXP);
+    rcpp_result_gen = Rcpp::wrap(non_overlapping_texts(dn, label, x, y, hjust, vjust, rot, fontsize, fontfamily, fontface, lineheight));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
     {"_ggiraph_DSVG_", (DL_FUNC) &_ggiraph_DSVG_, 9},
+    {"_ggiraph_get_ge_version", (DL_FUNC) &_ggiraph_get_ge_version, 0},
     {"_ggiraph_set_tracer_on", (DL_FUNC) &_ggiraph_set_tracer_on, 1},
     {"_ggiraph_set_tracer_off", (DL_FUNC) &_ggiraph_set_tracer_off, 1},
     {"_ggiraph_collect_id", (DL_FUNC) &_ggiraph_collect_id, 1},
     {"_ggiraph_add_attribute", (DL_FUNC) &_ggiraph_add_attribute, 4},
+    {"_ggiraph_non_overlapping_texts", (DL_FUNC) &_ggiraph_non_overlapping_texts, 11},
     {NULL, NULL, 0}
 };
 

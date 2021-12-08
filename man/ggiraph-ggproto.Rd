@@ -4,16 +4,18 @@
 %   R/geom_polygon_interactive.R, R/geom_rect_interactive.R,
 %   R/geom_bar_interactive.R, R/geom_boxplot_interactive.R,
 %   R/geom_col_interactive.R, R/geom_contour_interactive.R,
-%   R/geom_crossbar_interactive.R, R/geom_density_2d_interactive.R,
-%   R/geom_density_interactive.R, R/geom_dotplot_interactive.R,
-%   R/geom_errorbar_interactive.R, R/geom_errorbarh_interactive.R,
+%   R/geom_crossbar_interactive.R, R/geom_curve_interactive.R,
+%   R/geom_density_2d_interactive.R, R/geom_density_interactive.R,
+%   R/geom_dotplot_interactive.R, R/geom_errorbar_interactive.R,
+%   R/geom_errorbarh_interactive.R, R/geom_hex_interactive.R,
 %   R/geom_hline_interactive.R, R/geom_label_interactive.R,
 %   R/geom_linerange_interactive.R, R/geom_map_interactive.R,
 %   R/geom_point_interactive.R, R/geom_pointrange_interactive.R,
 %   R/geom_quantile_interactive.R, R/geom_raster_interactive.R,
 %   R/geom_ribbon_interactive.R, R/geom_segment_interactive.R,
 %   R/geom_sf_interactive.R, R/geom_smooth_interactive.R,
-%   R/geom_text_interactive.R, R/geom_tile_interactive.R,
+%   R/geom_spoke_interactive.R, R/geom_text_interactive.R,
+%   R/geom_tile_interactive.R, R/geom_violin_interactive.R,
 %   R/geom_vline_interactive.R
 \docType{data}
 \name{GeomInteractive}
@@ -29,12 +31,16 @@
 \alias{GeomInteractiveBoxplot}
 \alias{GeomInteractiveCol}
 \alias{GeomInteractiveContour}
+\alias{GeomInteractiveContourFilled}
 \alias{GeomInteractiveCrossbar}
+\alias{GeomInteractiveCurve}
 \alias{GeomInteractiveDensity2d}
+\alias{GeomInteractiveDensity2dFilled}
 \alias{GeomInteractiveDensity}
 \alias{GeomInteractiveDotplot}
 \alias{GeomInteractiveErrorbar}
 \alias{GeomInteractiveErrorbarh}
+\alias{GeomInteractiveHex}
 \alias{GeomInteractiveHline}
 \alias{GeomInteractiveLabel}
 \alias{GeomInteractiveLinerange}
@@ -48,8 +54,10 @@
 \alias{GeomInteractiveSegment}
 \alias{GeomInteractiveSf}
 \alias{GeomInteractiveSmooth}
+\alias{GeomInteractiveSpoke}
 \alias{GeomInteractiveText}
 \alias{GeomInteractiveTile}
+\alias{GeomInteractiveViolin}
 \alias{GeomInteractiveVline}
 \title{ggproto classes for ggiraph}
 \description{

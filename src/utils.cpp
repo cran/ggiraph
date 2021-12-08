@@ -1,151 +1,79 @@
 #include "utils.h"
-#include "a_color.h"
 
-std::string to_string( const double& d ) {
+std::string to_string(const double& d, const std::streamsize& precision) {
   std::ostringstream os;
   os.flags(std::ios_base::fixed | std::ios_base::dec);
-  os.precision(2);
-  os << d ;
-  return os.str();
+  os.precision(precision);
+  os << std::noshowpoint << d;
+  // remove trailing zeros
+  std::string str(os.str());
+  const std::string::size_type sep_pos = str.find_first_of(".,");
+  if (sep_pos != std::string::npos) {
+    const std::string::size_type last_zero_pos = str.find_last_of('0');
+    const std::string::size_type last_not_zero_pos = str.find_last_not_of('0');
+    if (last_not_zero_pos == sep_pos) {
+      str.erase(sep_pos);
+    } else if (
+        last_zero_pos != std::string::npos &&
+          last_not_zero_pos != std::string::npos &&
+          sep_pos < last_zero_pos && last_not_zero_pos < last_zero_pos) {
+      str.erase(last_not_zero_pos + 1);
+    }
+  }
+  return str;
 }
-std::string to_string( const int& i ) {
+
+std::string to_string(const int& i) {
   std::ostringstream os;
   os.flags(std::ios_base::fixed | std::ios_base::dec);
   os.precision(0);
-  os << i ;
+  os << i;
   return os.str();
 }
 
-const char* svg_attribute(const SVGElement* element, const char * name) {
-  const tinyxml2::XMLAttribute* a = element->FindAttribute(name);
-  if (a != 0) {
-    return a->Value();
-  }
-  return NULL;
-}
-
-void svg_to_file(SVGDocument* doc, FILE* file, const bool compact) {
-  tinyxml2::XMLPrinter* printer = new tinyxml2::XMLPrinter(file, compact);
-  doc->Print( printer );
-  delete(printer);
-}
-
-SVGDocument* new_svg_doc(const bool declaration, const bool bom) {
-  SVGDocument* doc = new SVGDocument();
-  doc->SetBOM( bom );
-  if (declaration)
-    doc->InsertEndChild( doc->NewDeclaration() );
-  return doc;
-}
-
-SVGElement* new_svg_element(const char* name, SVGDocument* doc) {
-  return doc->NewElement(name);
-}
-
-SVGText* new_svg_text(const char* str, SVGDocument* doc, const bool cdata) {
-  SVGText* t = doc->NewText(str);
-  t->SetCData(cdata);
-  return t;
-}
-
-void append_element(SVGElement* child, SVGElement* parent) {
-  parent->InsertEndChild(child);
-}
-
-void prepend_element(SVGElement* child, SVGElement* parent) {
-  parent->InsertFirstChild(child);
-}
-
-void set_attr(SVGElement* element, const char* name, const char* value) {
-  element->SetAttribute(name, value);
-}
-void set_attr(SVGElement* element, const char* name, const double& value) {
-  element->SetAttribute(name, to_string(value).c_str());
-}
-void set_attr(SVGElement* element, const char* name, const int& value) {
-  element->SetAttribute(name, to_string(value).c_str());
-}
-void set_attr(SVGElement* element, const char* name, const std::string value) {
-  element->SetAttribute(name, value.c_str());
-}
-
-void set_fill(SVGElement* element, const int col) {
-  a_color col_(col);
-  if( col_.is_transparent() > 0 ) {
-    set_attr(element, "fill", "none");
-  } else {
-    set_attr(element, "fill", col_.color().c_str());
-    set_attr(element, "fill-opacity", col_.opacity().c_str());
-  }
-}
-
-void set_stroke(SVGElement* element, const double width, const int col, const int type, const int join, const int end) {
-  a_color col_(col);
-  if( col_.is_transparent() > 0 ) {
-    set_attr(element, "stroke", "none");
-  } else {
-    set_attr(element, "stroke", col_.color().c_str());
-    set_attr(element, "stroke-opacity", col_.opacity().c_str());
-  }
-  if( col_.is_visible() < 1 || width < 0.0001 || type < 0 ) {
-    return;
-  }
-
-  set_attr(element, "stroke-width", width * 72 / 96);
-
-  int lty = type;
-  double lwd = width;
-
-  switch (type) {
-  case LTY_BLANK:
-    break;
-  case LTY_SOLID:
-    break;
-  default:
-    std::stringstream os;
-    os << (int) lwd * (lty & 15);
-    lty = lty >> 4;
-    for(int i = 0 ; i < 8 && lty & 15 ; i++) {
-      os << ","<< (int) lwd * (lty & 15);
-      lty = lty >> 4;
-    }
-    set_attr(element, "stroke-dasharray", os.str().c_str());
-    break;
-  }
-
-  switch (join) {
-  case GE_ROUND_JOIN: //round
-    set_attr(element, "stroke-linejoin", "round");
-    break;
-  case GE_MITRE_JOIN: //mitre
-    set_attr(element, "stroke-linejoin", "miter");
-    break;
-  case GE_BEVEL_JOIN: //bevel
-    set_attr(element, "stroke-linejoin", "bevel");
-    break;
-  default:
-    set_attr(element, "stroke-linejoin", "round");
-  break;
-  }
-
-  switch (end) {
-  case GE_ROUND_CAP:
-    set_attr(element, "stroke-linecap", "round");
-    break;
-  case GE_BUTT_CAP:
-    set_attr(element, "stroke-linecap", "butt");
-    break;
-  case GE_SQUARE_CAP:
-    set_attr(element, "stroke-linecap", "square");
-    break;
-  default:
-    set_attr(element, "stroke-linecap", "round");
-  break;
-  }
-}
-
-void set_clip(SVGElement* element, const char* clipid) {
+std::string to_string(const unsigned int& i) {
   std::ostringstream os;
-  os << "url(#" << clipid << ")";
-  set_attr(element, "clip-path", os.str().c_str());
+  os.flags(std::ios_base::fixed | std::ios_base::dec);
+  os.precision(0);
+  os << i;
+  return os.str();
+}
+
+INDEX ref_to_index(const SEXP& ref) {
+  Rcpp::RObject o(ref);
+  if (o.sexp_type() == INTSXP) {
+    Rcpp::IntegerVector v = Rcpp::as<Rcpp::IntegerVector>(o);
+    if (v.size() == 1)
+      return Rcpp::as<Rcpp::IntegerVector>(o)[0];
+  }
+  return NULL_INDEX;
+}
+
+SEXP index_to_ref(const INDEX& index) {
+  SEXP ret = R_NilValue;
+  if (IS_VALID_INDEX(index)) {
+    Rcpp::IntegerVector v(1);
+    v[0] = (int)index;
+    ret = v;
+  }
+  return ret;
+}
+
+bool is_function_ref(SEXP& path) {
+  return !Rf_isNull(path) && Rf_isFunction(path);
+}
+
+void eval_function_ref(SEXP& path, SEXP env) {
+  SEXP call = Rf_protect(Rf_lang1(path));
+  Rcpp::Rcpp_fast_eval(call, env);
+  Rf_unprotect(1);
+}
+
+pGEDevDesc get_ge_device(int dn) {
+  pGEDevDesc dev = NULL;
+  // check for valid number because passing dn <= 0 crashes R
+  if (dn > 0) {
+    dev = GEgetDevice(dn);
+  }
+  return dev;
 }

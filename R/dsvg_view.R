@@ -14,12 +14,17 @@
 #' @importFrom htmltools browsable HTML
 dsvg_view <- function(code, ...) {
   path <- tempfile()
+  devlength <- length(dev.list())
   dsvg(path, ...)
-  tryCatch(code,
-           finally = dev.off()
-  )
+  tryCatch({
+    code
+  }, finally = {
+    if (length(dev.list()) > devlength) {
+      dev.off()
+    }
+  })
   if( interactive() ){
-    doc <- paste0(readLines(path, encoding = "UTF-8"), collapse = "\n")
+    doc <- read_file(path)
     browsable(HTML(as.character(doc)) )
   }
   else invisible()

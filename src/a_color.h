@@ -1,12 +1,14 @@
-class a_color
-{
+#ifndef DSVG_COLOR_INCLUDED
+#define DSVG_COLOR_INCLUDED
+
+#include <string>
+
+class a_color {
 public:
   a_color (int);
-  int is_visible();
-  int has_alpha();
-  std::string svg_fill_attr();
-  std::string svg_stroke_attr();
-  int is_transparent();
+  bool is_visible();
+  bool is_transparent();
+  bool has_alpha();
   std::string color();
   std::string opacity();
 
@@ -14,3 +16,5 @@ private:
   int col;
   int alpha;
 };
+
+#endif // DSVG_COLOR_INCLUDED

@@ -1,14 +1,14 @@
-#' @title Create interactive line segments
+#' @title Create interactive line segments and curves
 #'
 #' @description
-#' The geometry is based on [geom_segment()].
+#' The geometries are based on [geom_segment()] and [geom_curve()].
 #' See the documentation for those functions for more details.
 #'
 #' @param ... arguments passed to base function,
 #' plus any of the [interactive_parameters()].
 #' @inheritSection interactive_parameters Details for geom_*_interactive functions
 #' @examples
-#' # add interactive segments to a ggplot -------
+#' # add interactive segments and curves to a ggplot -------
 #' @example examples/geom_segment_interactive.R
 #' @seealso [girafe()]
 #' @export
@@ -23,10 +23,8 @@ GeomInteractiveSegment <- ggproto(
   "GeomInteractiveSegment",
   GeomSegment,
   default_aes = add_default_interactive_aes(GeomSegment),
-  draw_key = function(data, params, size) {
-    gr <- GeomSegment$draw_key(data, params, size)
-    add_interactive_attrs(gr, data, data_attr = "key-id")
-  },
+  parameters = interactive_geom_parameters,
+  draw_key = interactive_geom_draw_key,
   draw_panel = function(data,
                         panel_params,
                         coord,
@@ -34,7 +32,8 @@ GeomInteractiveSegment <- ggproto(
                         arrow.fill = NULL,
                         lineend = "butt",
                         linejoin = "round",
-                        na.rm = FALSE) {
+                        na.rm = FALSE, 
+                        .ipar = IPAR_NAMES) {
     data <- remove_missing(
       data,
       na.rm = na.rm,
@@ -59,8 +58,6 @@ GeomInteractiveSegment <- ggproto(
       coord <- coord$transform(data, panel_params)
       arrow.fill <- arrow.fill %||% coord$colour
 
-      coord <- force_interactive_aes_to_char(coord)
-
       gr <- segmentsGrob(
         coord$x,
         coord$y,
@@ -77,7 +74,7 @@ GeomInteractiveSegment <- ggproto(
         ),
         arrow = arrow
       )
-      gr <- add_interactive_attrs(gr, coord)
+      gr <- add_interactive_attrs(gr, coord, ipar = .ipar)
       return(gr)
     }
 
@@ -93,6 +90,7 @@ GeomInteractiveSegment <- ggproto(
                                    panel_params,
                                    coord,
                                    arrow = arrow,
-                                   lineend = lineend)
+                                   lineend = lineend, 
+                                   .ipar = .ipar)
   }
 )

@@ -26,7 +26,7 @@
 #' selection and lasso anti-selections buttons are available in a toolbar.
 #'
 #' @param code Plotting code to execute
-#' @param ggobj ggplot objet to print. argument \code{code} will
+#' @param ggobj ggplot object to print. Argument \code{code} will
 #' be ignored if this argument is supplied.
 #' @param width_svg,height_svg The width and height of the graphics region in inches.
 #' The default values are 6 and 5 inches. This will define the aspect ratio of the
@@ -80,7 +80,7 @@
 #' width of the graphic within its HTML container. Its height is automatically
 #' adjusted regarding to the argument \code{width} and the aspect ratio.
 #'
-#' If this behavior does not fit with your need, I recommand you to use
+#' If this behavior does not fit with your need, I recommend you to use
 #' package widgetframe that wraps htmlwidgets inside a responsive iframe.
 #' @seealso [girafe_options()], [validated_fonts()], [dsvg()]
 #' @export
@@ -101,6 +101,7 @@ girafe <- function(
   args$standalone <- TRUE
   args$setdims <- FALSE
 
+  devlength <- length(dev.list())
   do.call(dsvg, args)
   tryCatch({
     if( !is.null(ggobj) ){
@@ -108,21 +109,27 @@ girafe <- function(
       print(ggobj)
     } else
       code
-  }, finally = dev.off() )
+  }, finally = {
+    if (length(dev.list()) > devlength) {
+      dev.off()
+    }
+  })
 
   settings <- merge_options(default_opts(), options)
-  x = list( html = paste0(readLines(path, encoding = "UTF-8"), collapse = "\n"),
-            js = NULL,
-            uid = args$canvas_id,
-            ratio = width_svg / height_svg,
-            settings = settings
-            )
+  sizing_policy <- merge_sizing_policy(default_sizing_policy(), options)
+  x <- list(
+    html = read_file(path),
+    js = NULL,
+    uid = args$canvas_id,
+    ratio = width_svg / height_svg,
+    settings = settings
+  )
 
   unlink(path)
 
   createWidget(
     name = 'girafe', x = x, package = 'ggiraph',
-    sizingPolicy = sizingPolicy(knitr.figure = TRUE, browser.fill = FALSE)
+    sizingPolicy = sizing_policy
   )
 
 }
@@ -154,56 +161,18 @@ girafeOutput <- function(outputId, width = "100%", height = "500px"){
 #' @param expr An expression that returns a [girafe()] object.
 #' @param env The environment in which to evaluate expr.
 #' @param quoted Is \code{expr} a quoted expression
+#' @param outputArgs A list of arguments to be passed through to the implicit call to [girafeOutput()]
+#' when `renderGirafe` is used in an interactive R Markdown document.
 #' @export
-renderGirafe <- function(expr, env = parent.frame(), quoted = FALSE) {
-	if (!quoted) { expr <- substitute(expr) } # force quoted
-	shinyRenderWidget(expr, girafeOutput, env, quoted = TRUE)
-}
-
-default_opts <- function(){
-  settings <- list(
-    tooltip = opts_tooltip(),
-    hover = opts_hover(),
-    hoverkey = opts_hover_key(),
-    hovertheme = opts_hover_theme(),
-    hoverinv = opts_hover_inv(),
-    zoom = opts_zoom(),
-    capture = opts_selection(),
-    capturekey = opts_selection_key(),
-    capturetheme = opts_selection_theme(),
-    toolbar = opts_toolbar(),
-    sizing = opts_sizing()
-  )
-  settings
-}
-
-merge_options <- function(options, args){
-  for (arg in args) {
-    if (inherits(arg, "opts_zoom")) {
-      options$zoom <- arg
-    } else if (inherits(arg, "opts_selection")) {
-      options$capture <- arg
-    } else if (inherits(arg, "opts_selection_key")) {
-      options$capturekey <- arg
-    } else if (inherits(arg, "opts_selection_theme")) {
-      options$capturetheme <- arg
-    } else if (inherits(arg, "opts_tooltip")) {
-      options$tooltip <- arg
-    } else if (inherits(arg, "opts_hover")) {
-      options$hover <- arg
-    } else if (inherits(arg, "opts_hover_key")) {
-      options$hoverkey <- arg
-    } else if (inherits(arg, "opts_hover_theme")) {
-      options$hovertheme <- arg
-    } else if (inherits(arg, "opts_hover_inv")) {
-      options$hoverinv <- arg
-    } else if (inherits(arg, "opts_toolbar")) {
-      options$toolbar <- arg
-    } else if (inherits(arg, "opts_sizing")) {
-      options$sizing <- arg
-    }
+renderGirafe <- function(expr, env = parent.frame(), quoted = FALSE, outputArgs = list()) {
+  if (!quoted) { expr <- substitute(expr) } # force quoted
+  f <- shinyRenderWidget(expr, girafeOutput, env, quoted = TRUE)
+  # shinyRenderWidget is missing outputArgs argument
+  # set outputArgs to the result function instead
+  if (inherits(f, "shiny.render.function")) {
+    attr(f, "outputArgs") <- outputArgs
   }
-  options
+  f
 }
 
 girafe_app_paths <- function(){
