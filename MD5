@@ -1,6 +1,6 @@
-3837c6eaa48ddf070b5e9bf0ab54d11f *DESCRIPTION
+e731d445036048c9ed0c3b7a9b9d33ab *DESCRIPTION
 e41635b2c9730ff82ed950d47d71bec1 *NAMESPACE
-c926aa2a3afbee45a3036afdbd0ff371 *NEWS.md
+aeedcba32fb4ff720dec5baac568bc2b *NEWS.md
 f0d44a3204a819dda81f26d58b196811 *R/RcppExports.R
 d8f23a4e2813d9a509869738ecc51f63 *R/annotate_interactive.R
 3da2b05af2c31b278eb9fda301780b0f *R/annotation_raster_interactive.R
@@ -86,7 +86,7 @@ b3c95f5781b39e0ce1d310bbe441de60 *R/utils.R
 4faa3ca1e459530d90dc378df133b796 *R/utils_css.R
 eecf88663f1b0d59069c6103282bcd2f *R/utils_ggplot2.R
 3471fbb24a254b5962dde4dace4ccb02 *R/utils_ggplot2_performance.R
-cf376e417cb3075eced12c48ece3fb38 *README.md
+6390b0ae9694de483de21becea946de6 *README.md
 7ea20f8987cd8d56affd380c5c6086d1 *build/vignette.rds
 fe7e2858996bdc73d20bd64947b5f47d *inst/COPYRIGHTS
 09a472ddbc3ab8d3bb1a962381342145 *inst/doc/overview.Rmd
@@ -146,7 +146,7 @@ f52d3b64110b95e8067b88671836608a *inst/tinytest/test-dsvg_lines.R
 24a55f72bc840f1350a6b042a1da0cab *inst/tinytest/test-dsvg_text.R
 7157cce9c311e76ed7bccf624e3206da *inst/tinytest/test-dsvg_view.R
 62cb4dcd811c94087b0a2a4f82ac9b37 *inst/tinytest/test-element_interactive.R
-b6f410cb38fe284162c636b01889aaee *inst/tinytest/test-fonts.R
+e15ea4f68296787b5c8bbe66a9f45f02 *inst/tinytest/test-fonts.R
 916ae007dc8dab10bb802fd128609d38 *inst/tinytest/test-geom_abline_interactive.R
 f97400a13694cf73cf0ec68b977b9df4 *inst/tinytest/test-geom_bar_interactive.R
 5e910b15ced7083fc64108e91af22735 *inst/tinytest/test-geom_bin_2d_interactive.R
@@ -205,7 +205,7 @@ b9dab04df5b4d586625d595676334e3b *inst/tinytest/test-interactive_raster_grob.R
 9f61073320c77c22615c6faef5662c19 *inst/tinytest/test-interactive_rect_grob.R
 13d9242d9a33f0474797a9919a82c1cd *inst/tinytest/test-interactive_roundrect_grob.R
 c5397d71c16b0e9fba8d6ecb2ed462d4 *inst/tinytest/test-interactive_segments_grob.R
-5b233967e4741c01bba69fefc6e87340 *inst/tinytest/test-interactive_text_grob.R
+44e7530122f541dfbc6d0242d8f8a93e *inst/tinytest/test-interactive_text_grob.R
 8e51c9c24bb6679b67ef145ed5dfe767 *inst/tinytest/test-ipar.R
 db1263d7604a81c73cbe6890a241faeb *inst/tinytest/test-labeller_interactive.R
 8f8148b5651f27715ae534d2f04d0b20 *inst/tinytest/test-layer_interactive.R
@@ -223,7 +223,7 @@ c85eb8b06723c810c7bfb7f2cbd2edff *inst/tinytest/test-scale_steps_interactive.R
 da3971b07f50ee4afcf1ff0790a2824d *inst/tinytest/test-tracers.R
 76fed56b0654b18b0e0c3054d8cbc4b2 *inst/tinytest/test-utils.R
 30e83113a2bd0ae2bd389b10ab5c57f9 *inst/tinytest/test-utils_css.R
-de23eb246e4c5c9f56e5347a5bb2368f *inst/tinytest/test-zz-dom.R
+6a02ce17d354fdd4ffb3fbcb15483174 *inst/tinytest/test-zz-dom.R
 64d18f3e8fe5afa05041820c7fbb85fe *man/annotate_interactive.Rd
 8316f7987f9cbe8a3004340c124874c0 *man/annotation_raster_interactive.Rd
 ace5ca57f93fbbecab03eab9f525de2f *man/dsvg.Rd
