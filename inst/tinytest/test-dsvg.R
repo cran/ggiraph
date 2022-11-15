@@ -68,7 +68,7 @@ source("setup.R")
   bg_node <- xml_find_first(doc, "/svg/g//rect")
   expect_inherits(bg_node, "xml_node")
   expect_equal(xml_attr(bg_node, "fill"), "#123456")
-  expect_false(xml_has_attr(bg_node, "fill-opacity"))
+  expect_equal(xml_attr(bg_node, "fill-opacity"), "1")
 
   doc <- dsvg_doc(bg = "#12345699", {
     plot.new()
@@ -83,6 +83,33 @@ source("setup.R")
   expect_inherits(bg_node, "xml_missing")
 }
 
+# svg title/desc ----------------------------------------------------------
+{
+  doc <- dsvg_doc(title = "title", desc = "desc", {
+    plot.new()
+  })
+  root_node <- xml_root(doc)
+  expect_equal(xml_attr(root_node, "aria-labelledby"), "svgid_title")
+  expect_equal(xml_attr(root_node, "aria-describedby"), "svgid_desc")
+  title_node <- xml_find_first(doc, "/svg/title")
+  expect_equal(xml_attr(title_node, "id"), "svgid_title")
+  expect_equal(xml_text(title_node), "title")
+  desc_node <- xml_find_first(doc, "/svg/desc")
+  expect_equal(xml_attr(desc_node, "id"), "svgid_desc")
+  expect_equal(xml_text(desc_node), "desc")
+
+  doc <- dsvg_doc({
+    plot.new()
+  })
+  root_node <- xml_root(doc)
+  expect_false(xml_has_attr(root_node, "aria-labelledby"))
+  expect_false(xml_has_attr(root_node, "aria-describedby"))
+  title_node <- xml_find_first(doc, "/svg/title")
+  expect_inherits(title_node, "xml_missing")
+  desc_node <- xml_find_first(doc, "/svg/desc")
+  expect_inherits(desc_node, "xml_missing")
+}
+
 # dsvg accepts only one page ----------------------------------------------
 {
   expect_error(
@@ -92,4 +119,17 @@ source("setup.R")
     }),
     info = "dsvg accepts only one page"
   )
+}
+
+# dsvg arguments ----------------------------------------------
+{
+  expect_error(dsvg(file = NULL), info = "check file argument")
+  expect_error(dsvg(width = -5), info = "check width argument")
+  expect_error(dsvg(height = -5), info = "check height argument")
+  expect_error(dsvg(bg = NA), info = "check bg argument")
+  expect_error(dsvg(pointsize = 0), info = "check pointsize argument")
+  expect_error(dsvg(standalone = NULL), info = "check standalone argument")
+  expect_error(dsvg(setdims = NULL), info = "check setdims argument")
+  expect_error(dsvg(canvas_id = NULL), info = "check canvas_id argument")
+  expect_error(dsvg(fonts = NULL), info = "check fonts argument")
 }

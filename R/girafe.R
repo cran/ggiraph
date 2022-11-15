@@ -2,13 +2,13 @@
 #'
 #' @description Create an interactive graphic with a ggplot object
 #' to be used in a web browser. The function should replace function
-#' \code{ggiraph}.
+#' `ggiraph`.
 #'
 #' @details
-#' Use \code{geom_zzz_interactive} to create interactive graphical elements.
+#' Use `geom_zzz_interactive` to create interactive graphical elements.
 #'
 #' Difference from original functions is that some extra aesthetics are understood:
-#' the [interactive_parameters()].
+#' the [interactive_parameters].
 #'
 #' Tooltips can be displayed when mouse is over graphical elements.
 #'
@@ -26,15 +26,19 @@
 #' selection and lasso anti-selections buttons are available in a toolbar.
 #'
 #' @param code Plotting code to execute
-#' @param ggobj ggplot object to print. Argument \code{code} will
+#' @param ggobj ggplot object to print. Argument `code` will
 #' be ignored if this argument is supplied.
 #' @param width_svg,height_svg The width and height of the graphics region in inches.
 #' The default values are 6 and 5 inches. This will define the aspect ratio of the
 #' graphic as it will be used to define viewbox attribute of the SVG result.
+#'
+#' If you use `girafe()` in an 'R Markdown' document, we
+#' recommend not using these arguments so that the knitr
+#' options `fig.width` and `fig.height` are used instead.
 #' @param pointsize the default pointsize of plotted text in pixels, default to 12.
 #' @param options a list of options for girafe rendering, see
-#' \code{\link{opts_tooltip}}, \code{\link{opts_hover}}, \code{\link{opts_selection}}, ...
-#' @param ... arguments passed on to \code{\link{dsvg}}
+#' [opts_tooltip()], [opts_hover()], [opts_selection()], ...
+#' @param ... arguments passed on to [dsvg()]
 #' @examples
 #' library(ggplot2)
 #'
@@ -52,33 +56,33 @@
 #'   print(x)
 #' }
 #' @section Widget options:
-#' girafe animations can be customized with function \code{\link{girafe_options}}.
+#' girafe animations can be customized with function [girafe_options()].
 #' Options are available to customize tooltips, hover effects, zoom effects
 #' selection effects and toolbar.
 #' @section Widget sizing:
 #' girafe graphics are responsive, which mean, they will be resized
 #' according to their container. There are two responsive behavior
 #' implementations: one for Shiny applications and flexdashboard documents
-#' and one for other documents (i.e. R markdown and \code{saveWidget}).
+#' and one for other documents (i.e. R markdown and `saveWidget`).
 #'
 #' Graphics are created by an R graphic device (i.e pdf, png, svg here) and
 #' need arguments width and height to define a graphic region.
-#' Arguments \code{width_svg} and \code{height_svg} are used as corresponding
+#' Arguments `width_svg` and `height_svg` are used as corresponding
 #' values. They are defining the aspect ratio of the graphic. This proportion is
 #' always respected when the graph is displayed.
 #'
 #' When a girafe graphic is in a Shiny application,
-#' graphic will be resized according to the arguments \code{width} and
-#' \code{height} of the function \code{girafeOutput}. Default
+#' graphic will be resized according to the arguments `width` and
+#' `height` of the function `girafeOutput`. Default
 #' values are '100\%' and '500px'. These arguments determine the
 #' outer bounding box of the graphic (the HTML element that will
 #' contain the graphic with an aspect ratio).
 #'
 #' When a girafe graphic is in an R markdown document (producing an HTML
-#' document), the graphic will be resized according to the argument \code{width} of the
-#' function \code{girafe}. Its value is beeing used to define a relative
+#' document), the graphic will be resized according to the argument `width` of the
+#' function `girafe`. Its value is beeing used to define a relative
 #' width of the graphic within its HTML container. Its height is automatically
-#' adjusted regarding to the argument \code{width} and the aspect ratio.
+#' adjusted regarding to the argument `width` and the aspect ratio.
 #'
 #' If this behavior does not fit with your need, I recommend you to use
 #' package widgetframe that wraps htmlwidgets inside a responsive iframe.
@@ -87,25 +91,39 @@
 #' @importFrom uuid UUIDgenerate
 girafe <- function(
   code, ggobj = NULL,  pointsize = 12,
-  width_svg = 6, height_svg = 5,
+  width_svg = NULL, height_svg = NULL,
   options = list(), ...) {
 
   path = tempfile()
 
+  if (is.null(width_svg)) {
+    width_svg <- default_width(default = 6)
+  }
+  if (is.null(height_svg)) {
+    height_svg <- default_height(default = 5)
+  }
+
+
   args <- list(...)
-  args$canvas_id <- args$canvas_id %||% paste("svg", UUIDgenerate(), sep = "_")
+  args$canvas_id <- args$canvas_id %||% paste("svg", gsub('-', '_', UUIDgenerate()), sep = "_")
   args$file <- path
   args$width <- width_svg
   args$height <- height_svg
   args$pointsize <- pointsize
   args$standalone <- TRUE
   args$setdims <- FALSE
+  # we need a surface with pointer events
+  if (identical(args$bg, "transparent")) {
+    args$bg <- "#fffffffd"
+  }
 
   devlength <- length(dev.list())
   do.call(dsvg, args)
   tryCatch({
-    if( !is.null(ggobj) ){
-      stopifnot(inherits(ggobj, "ggplot"))
+    if (!is.null(ggobj)) {
+      if (!inherits(ggobj, "ggplot")) {
+        abort("`ggobj` must be a ggplot2 plot", call = NULL)
+      }
       print(ggobj)
     } else
       code
@@ -160,7 +178,7 @@ girafeOutput <- function(outputId, width = "100%", height = "500px"){
 #'
 #' @param expr An expression that returns a [girafe()] object.
 #' @param env The environment in which to evaluate expr.
-#' @param quoted Is \code{expr} a quoted expression
+#' @param quoted Is `expr` a quoted expression
 #' @param outputArgs A list of arguments to be passed through to the implicit call to [girafeOutput()]
 #' when `renderGirafe` is used in an interactive R Markdown document.
 #' @export
@@ -193,8 +211,8 @@ run_girafe_example <- function(name = "crimes"){
   example_dir <- system.file(package = "ggiraph", "examples", "shiny")
   apps <- girafe_app_paths()
   if( !name %in% basename(apps) ){
-    stop("could not find app named ", shQuote(name), " in the following list: ",
-         paste0(shQuote(basename(apps)), collapse = ", ")
+    abort("could not find app named ", shQuote(name), " in the following list: ",
+         paste0(shQuote(basename(apps)), collapse = ", "), call = NULL
     )
   }
   if(requireNamespace("shiny"))

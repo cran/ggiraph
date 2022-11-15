@@ -26,8 +26,10 @@ library(xml2)
   expect_inherits(doc, "xml_document")
 
   expect_error(girafe(ggobj = NULL))
+  expect_error(girafe(ggobj = "foo"))
 
-  g <- girafe(ggobj = ggplot(), width_svg = 10, height_svg = 11)
+  g <- girafe(ggobj = ggplot(), width_svg = 10, height_svg = 11,
+              bg = "transparent")
   doc <- try(
     {
       suppressWarnings(xml2::read_xml(g$x$html))
@@ -58,10 +60,12 @@ library(xml2)
   expect_inherits(result, "shiny.tag.list")
 }
 
-# renderGirafe ----
-{
-  result <- renderGirafe(girafe(ggobj = ggplot()))
-  expect_inherits(result, "shiny.render.function")
+if (requireNamespace("httpuv", quietly = TRUE)) {
+  # renderGirafe ----
+  {
+    result <- renderGirafe(girafe(ggobj = ggplot()))
+    expect_inherits(result, "shiny.render.function")
+  }
 }
 
 # girafe_app_paths ----

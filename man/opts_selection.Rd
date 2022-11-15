@@ -2,27 +2,30 @@
 % Please edit documentation in R/girafe_options.R
 \name{opts_selection}
 \alias{opts_selection}
+\alias{opts_selection_inv}
 \alias{opts_selection_key}
 \alias{opts_selection_theme}
 \title{Selection effect settings}
 \usage{
 opts_selection(
   css = NULL,
-  type = "multiple",
+  type = c("multiple", "single", "none"),
   only_shiny = TRUE,
   selected = character(0)
 )
 
+opts_selection_inv(css = NULL)
+
 opts_selection_key(
   css = NULL,
-  type = "single",
+  type = c("single", "multiple", "none"),
   only_shiny = TRUE,
   selected = character(0)
 )
 
 opts_selection_theme(
   css = NULL,
-  type = "single",
+  type = c("single", "multiple", "none"),
   only_shiny = TRUE,
   selected = character(0)
 )
@@ -30,7 +33,7 @@ opts_selection_theme(
 \arguments{
 \item{css}{css to associate with elements when they are selected.
 It must be a scalar character. It can also be constructed with
-\code{\link{girafe_css}}, to give more control over the css for different element types.}
+\code{\link[=girafe_css]{girafe_css()}}, to give more control over the css for different element types.}
 
 \item{type}{selection mode ("single", "multiple", "none")
 when widget is in a Shiny application.}
@@ -46,13 +49,15 @@ selected graphic elements.
 Use \code{opts_selection} for interactive geometries in panels,
 \code{opts_selection_key} for interactive scales/guides and
 \code{opts_selection_theme} for interactive theme elements.
+Use \code{opts_selection_inv} for the effect on the rest of the geometries,
+while some are selected (inverted operation).
 }
 \note{
 \strong{IMPORTANT}: When applying a \code{fill} style with the \code{css} argument,
 be aware that the browser's CSS engine will apply it also to line elements,
 if there are any that use the selection feature. This will cause an undesired effect.
 
-To overcome this, supply the argument \code{css} using \code{\link{girafe_css}},
+To overcome this, supply the argument \code{css} using \code{\link[=girafe_css]{girafe_css()}},
 in order to set the \code{fill} style only for the desired elements.
 }
 \examples{
@@ -69,17 +74,22 @@ gg <- ggplot(
 
 x <- girafe(ggobj = gg)
 x <- girafe_options(x,
-  opts_selection(type = "multiple",
+  opts_selection(type = "multiple", only_shiny = FALSE,
     css = "fill:red;stroke:gray;r:5pt;") )
 if( interactive() ) print(x)
 }
 \seealso{
+\code{\link[=girafe_css]{girafe_css()}}, \code{\link[=girafe_css_bicolor]{girafe_css_bicolor()}}
+
 Other girafe animation options: 
+\code{\link{girafe_defaults}()},
 \code{\link{girafe_options}()},
+\code{\link{init_girafe_defaults}()},
 \code{\link{opts_hover}()},
 \code{\link{opts_sizing}()},
 \code{\link{opts_toolbar}()},
 \code{\link{opts_tooltip}()},
-\code{\link{opts_zoom}()}
+\code{\link{opts_zoom}()},
+\code{\link{set_girafe_defaults}()}
 }
 \concept{girafe animation options}

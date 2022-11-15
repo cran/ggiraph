@@ -42,7 +42,7 @@ scale_fill_ordinal_interactive(...)
 }
 \arguments{
 \item{...}{arguments passed to base function,
-plus any of the \code{\link[=interactive_parameters]{interactive_parameters()}}.}
+plus any of the \link{interactive_parameters}.}
 }
 \value{
 An interactive scale object.
@@ -103,8 +103,8 @@ set.seed(4393)
 dsmall <- diamonds[sample(nrow(diamonds), 1000),]
 p <- ggplot(dsmall, aes(x, y)) +
   stat_density_2d(aes(
-    fill = stat(nlevel),
-    tooltip = paste("nlevel:", stat(nlevel))
+    fill = after_stat(nlevel),
+    tooltip = paste("nlevel:", after_stat(nlevel))
   ),
   geom = "interactive_polygon") +
   facet_grid(. ~ cut)

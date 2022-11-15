@@ -3,7 +3,7 @@
 
 std::string a_color::color() {
   char buf[ 100 ];
-  sprintf( buf, "#%02X%02X%02X", R_RED(col), R_GREEN(col), R_BLUE(col));
+  snprintf( buf, 100, "#%02X%02X%02X", R_RED(col), R_GREEN(col), R_BLUE(col));
   std::string str = buf;
   return str;
 }
@@ -13,15 +13,8 @@ std::string a_color::opacity() {
 }
 
 bool a_color::is_visible() {
-  return (col != NA_INTEGER) && (alpha != 0);
-}
-
-bool a_color::is_transparent() {
-  return (alpha == 0);
-}
-
-bool a_color::has_alpha() {
-  return (alpha < 255);
+  // NA color is converted to transparent white
+  return (col != R_TRANWHITE);
 }
 
 a_color::a_color (int col):

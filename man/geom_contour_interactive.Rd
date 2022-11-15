@@ -11,7 +11,7 @@ geom_contour_filled_interactive(...)
 }
 \arguments{
 \item{...}{arguments passed to base function,
-plus any of the \code{\link[=interactive_parameters]{interactive_parameters()}}.}
+plus any of the \link{interactive_parameters}.}
 }
 \description{
 These geometries are based on \code{\link[=geom_contour]{geom_contour()}}
@@ -37,17 +37,17 @@ library(ggiraph)
 
 v <- ggplot(faithfuld, aes(waiting, eruptions, z = density))
 p <- v + geom_contour_interactive(aes(
-  colour = stat(level),
-  tooltip = paste("Level:", stat(level))
+  colour = after_stat(level),
+  tooltip = paste("Level:", after_stat(level))
 ))
 x <- girafe(ggobj = p)
 if (interactive()) print(x)
 
 if (packageVersion("grid") >= numeric_version("3.6")) {
   p <- v + geom_contour_filled_interactive(aes(
-    colour = stat(level),
-    fill = stat(level),
-    tooltip = paste("Level:", stat(level))
+    colour = after_stat(level),
+    fill = after_stat(level),
+    tooltip = paste("Level:", after_stat(level))
   ))
   x <- girafe(ggobj = p)
   if (interactive()) print(x)

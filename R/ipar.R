@@ -21,13 +21,13 @@
 #' @param hover_css Individual css style associate with one or more elements.
 #' This css style is applied when the element is hovered and overrides the default style,
 #' set via [opts_hover()], [opts_hover_key()] or [opts_hover_theme()].
-#' It can also be constructed with \code{\link{girafe_css}},
+#' It can also be constructed with [girafe_css()],
 #' to give more control over the css for different element types (see [opts_hover()] note).
 #'
 #' @param selected_css Individual css style associate with one or more elements.
 #' This css style is applied when the element is selected and overrides the default style,
 #' set via [opts_selection()], [opts_selection_key()] or [opts_selection_theme()].
-#' It can also be constructed with \code{\link{girafe_css}},
+#' It can also be constructed with [girafe_css()],
 #' to give more control over the css for different element types (see [opts_selection()] note).
 #'
 #' @param data_id Identifier to associate with one or more elements.
@@ -37,6 +37,9 @@
 #' @param tooltip_fill Color to use for tooltip background when [opts_tooltip()] `use_fill` is TRUE.
 #' Useful for setting the tooltip background color in [geom_text_interactive()] or
 #' [geom_label_interactive()], when the geom text color may be the same as the tooltip text color.
+#'
+#' @param hover_nearest Set to TRUE to apply the hover effect on the nearest element
+#' while moving the mouse. In this case it is mandatory to also set the `data_id` parameter
 #'
 #' @section Details for interactive geom functions:
 #' The interactive parameters can be supplied with two ways:
@@ -80,8 +83,8 @@
 #'
 #' To provide interactivity to the rest of the elements of a guide, (title, labels, background, etc),
 #' the relevant theme elements or relevant guide arguments can be used.
-#' The \code{guide} arguments `title.theme` and `label.theme` can be defined as
-#' \code{element_text_interactive} (in fact, they will be converted to that if they are not
+#' The `guide` arguments `title.theme` and `label.theme` can be defined as
+#' `element_text_interactive` (in fact, they will be converted to that if they are not
 #' already), either directly or via the theme.
 #' See the element_*_interactive section for more details.
 #'
@@ -96,7 +99,7 @@
 #' [label_interactive()] can be used to define interactive parameters
 #' to go along with the label.
 #' When the parameters are supplied that way, they override the default values
-#' that are set at the theme via [element_text_interactive()] or via the \code{guide}'s
+#' that are set at the theme via [element_text_interactive()] or via the `guide`'s
 #' theme parameters.
 #'
 #' @section Details for interactive_*_grob functions:
@@ -113,7 +116,7 @@
 #' Intended only for expert use.
 #'
 #' @seealso [girafe_options()], [girafe()]
-#' @rdname ipar
+#' @rdname interactive_parameters
 #' @name interactive_parameters
 NULL
 
@@ -126,7 +129,8 @@ IPAR_DEFAULTS <- list(
   onclick = NULL,
   hover_css = NULL,
   selected_css = NULL,
-  tooltip_fill = NULL
+  tooltip_fill = NULL,
+  hover_nearest = NULL
 )
 
 IPAR_NAMES <- names(IPAR_DEFAULTS)
@@ -265,7 +269,7 @@ add_interactive_attrs <- function(gr,
           )
       }
     } else {
-      stop("Can't add interactive attrs to gTree", call. = FALSE)
+      abort("Can't add interactive attrs to gTree", call = NULL)
     }
     return(gr)
 

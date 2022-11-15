@@ -8,7 +8,7 @@ labeller_interactive(.mapping = NULL, ...)
 }
 \arguments{
 \item{.mapping}{set of aesthetic mappings created by \code{\link[=aes]{aes()}} or \code{\link[=aes_]{aes_()}}.
-It should provide mappings for any of the \code{\link[=interactive_parameters]{interactive_parameters()}}.
+It should provide mappings for any of the \link{interactive_parameters}.
 In addition it understands a \code{label} parameter for creating a new label text.}
 
 \item{...}{arguments passed to base function \code{\link[=labeller]{labeller()}}}
@@ -48,7 +48,7 @@ p1 <- p1 +
   )
 
 # simple facet
-p <- p1 + facet_wrap(
+p <- p1 + facet_wrap_interactive(
   vars(gear),
   labeller = labeller_interactive(aes(tooltip = paste("Gear:", gear)))
 )
@@ -57,7 +57,7 @@ if (interactive()) print(x)
 
 # With two vars. When the .multi_line labeller argument is TRUE (default),
 # supply a different labeller for each var
-p <- p1 + facet_wrap(
+p <- p1 + facet_wrap_interactive(
   vars(gear, vs),
   labeller = labeller_interactive(
     gear = labeller_interactive(aes(tooltip = paste("Gear:", gear))),
@@ -69,7 +69,7 @@ if (interactive()) print(x)
 
 # When the .multi_line argument is FALSE, the labels are joined and
 # the same happens with the data, so we can refer to both variables in the aesthetics!
-p <- p1 + facet_wrap(
+p <- p1 + facet_wrap_interactive(
   vars(gear, vs),
   labeller = labeller_interactive(
     aes(tooltip = paste0("Gear: ", gear, "\nVS: ", vs)),
@@ -80,7 +80,7 @@ x <- girafe(ggobj = p)
 if (interactive()) print(x)
 
 # Example with facet_grid:
-p <- p1 + facet_grid(
+p <- p1 + facet_grid_interactive(
   vs + am ~ gear,
   labeller = labeller(
     gear = labeller_interactive(aes(
@@ -98,7 +98,7 @@ x <- girafe(ggobj = p)
 if (interactive()) print(x)
 
 # Same with .rows and .cols and .multi_line = FALSE
-p <- p1 + facet_grid(
+p <- p1 + facet_grid_interactive(
   vs + am ~ gear,
   labeller = labeller(
     .cols = labeller_interactive(
@@ -150,7 +150,7 @@ replace_nas <- function(x) {
 
 # in this example we use the '.label' variable to access the produced label
 # and we set the 'label' aesthetic to modify the label
-p <- p2 + facet_grid(
+p <- p2 + facet_grid_interactive(
   vore ~ conservation,
   labeller = labeller(
     vore = labeller_interactive(

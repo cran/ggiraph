@@ -5,7 +5,7 @@
 #' [geom_hline()] and [geom_vline()].
 #'
 #' @param ... arguments passed to base function,
-#' plus any of the [interactive_parameters()].
+#' plus any of the [interactive_parameters].
 #' @inheritSection interactive_parameters Details for interactive geom functions
 #' @examples
 #' # add diagonal interactive reference lines to a ggplot -------
@@ -25,7 +25,7 @@ GeomInteractiveAbline <- ggproto(
   default_aes = add_default_interactive_aes(GeomAbline),
   parameters = interactive_geom_parameters,
   draw_key = interactive_geom_draw_key,
-  draw_panel = function(data, panel_params, coord, ..., .ipar = IPAR_NAMES) {
+  draw_panel = function(data, panel_params, coord, lineend = "butt", ..., .ipar = IPAR_NAMES) {
     ranges <- coord$backtransform_range(panel_params)
 
     if (coord$clip == "on" && coord$is_linear()) {
@@ -39,6 +39,6 @@ GeomInteractiveAbline <- ggproto(
     data$y    <- ranges$x[1] * data$slope + data$intercept
     data$yend <- ranges$x[2] * data$slope + data$intercept
 
-    GeomInteractiveSegment$draw_panel(unique(data), panel_params, coord, ..., .ipar = .ipar)
+    GeomInteractiveSegment$draw_panel(unique0(data), panel_params, coord, lineend = lineend, ..., .ipar = .ipar)
   }
 )

@@ -41,10 +41,11 @@ void dsvg_new_page(const pGEcontext gc, pDevDesc dd) {
   a_color bg_temp(gc->fill);
   if (bg_temp.is_visible())
     bg_fill = gc->fill;
-  else bg_fill = dd->startfill;
+  else
+    bg_fill = dd->startfill;
 
   a_color bg_color(bg_fill);
-  if (!bg_color.is_transparent()) {
+  if (bg_color.is_visible()) {
     fill = gc->fill;
     col = gc->col;
     gc->fill = bg_fill;
@@ -53,12 +54,28 @@ void dsvg_new_page(const pGEcontext gc, pDevDesc dd) {
     dsvg_rect(0, 0, dd->right, dd->bottom, gc, dd);
     gc->fill = fill;
     gc->col = col;
+
+    // get the root g
+    SVGElement* child = root->LastChildElement();
+    if (child) {
+      // get the container g
+      child = child->FirstChildElement();
+      if (child) {
+        // get the background rect we just created
+        child = child->FirstChildElement();
+        if (child) {
+          // set class
+          set_attr(child, "class", "ggiraph-svg-bg");
+        }
+      }
+    }
   }
 }
 
 pDevDesc dsvg_driver_new(std::string filename,
                          double width, double height,
                          std::string canvas_id,
+                         std::string title, std::string desc,
                          bool standalone, bool setdims,
                          int pointsize, rcolor bg,
                          Rcpp::List aliases) {
@@ -150,6 +167,7 @@ pDevDesc dsvg_driver_new(std::string filename,
   dd->deviceSpecific = new DSVG_dev(filename,
                                     width * 72, height * 72,
                                     canvas_id,
+                                    title, desc,
                                     standalone, setdims,
                                     aliases);
   return dd;
@@ -159,6 +177,7 @@ pDevDesc dsvg_driver_new(std::string filename,
 bool DSVG_(std::string filename,
            double width, double height,
            std::string canvas_id,
+           std::string title, std::string desc,
            bool standalone, bool setdims,
            int pointsize, std::string bg,
            Rcpp::List aliases) {
@@ -173,6 +192,7 @@ bool DSVG_(std::string filename,
     pDevDesc dd = dsvg_driver_new(filename,
                                   width, height,
                                   canvas_id,
+                                  title, desc,
                                   standalone, setdims,
                                   pointsize, bg_,
                                   aliases);

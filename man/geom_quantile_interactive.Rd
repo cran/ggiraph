@@ -8,7 +8,7 @@ geom_quantile_interactive(...)
 }
 \arguments{
 \item{...}{arguments passed to base function,
-plus any of the \code{\link[=interactive_parameters]{interactive_parameters()}}.}
+plus any of the \link{interactive_parameters}.}
 }
 \description{
 The geometry is based on \code{\link[=geom_quantile]{geom_quantile()}}.
@@ -35,9 +35,9 @@ if (requireNamespace("quantreg", quietly = TRUE)) {
   m <- ggplot(mpg, aes(displ, 1 / hwy)) + geom_point()
   p <- m + geom_quantile_interactive(
     aes(
-      tooltip = stat(quantile),
-      data_id = stat(quantile),
-      colour = stat(quantile)
+      tooltip = after_stat(quantile),
+      data_id = after_stat(quantile),
+      colour = after_stat(quantile)
     ),
     formula = y ~ x,
     size = 2,

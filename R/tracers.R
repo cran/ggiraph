@@ -36,7 +36,7 @@ dsvg_tracer_off <- function() {
 #' to graphical elements.
 #' @param name name of the attribute to set.
 #' @param ids integer vector of graphical elements identifiers (returned by
-#' \code{\link{dsvg_tracer_off}}).
+#' [dsvg_tracer_off()]).
 #' @param values values to set for the attribute.
 #' @noRd
 set_attr <- function(name, ids, values) {
@@ -54,7 +54,7 @@ set_attr <- function(name, ids, values) {
     stopifnot(is.character(values))
     stopifnot(is.numeric(ids))
     if (any(grepl(pattern = "'", values))) {
-      stop("Attribute values cannot contain single quote \"'\".")
+      abort("Attribute values cannot contain single quote \"'\".", call = NULL)
     }
 
     if (length(values) == 1 && length(ids) > 1) {

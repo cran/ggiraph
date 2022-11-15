@@ -5,7 +5,7 @@
 #include <regex>
 
 INDEX InteractiveElements::push(SVGElement* el) {
-  const INDEX index = IndexedElements::push(el, false);
+  const INDEX index = IndexedElements::push(el);
   if (el) {
     map.insert(std::pair<INDEX, SVGElement*>(index, el));
     if (tracing) {
@@ -95,8 +95,10 @@ bool add_attribute(int dn, std::string name,
   DSVG_dev *svgd = (DSVG_dev *) dev->dev->deviceSpecific;
 
   std::string hover("hover_css");
-  std::string selected("selected_css");
+  std::string select("select_css");
   std::string cls_prefix("");
+  std::string nearest("hover_nearest");
+  std::string true_value("TRUE");
 
   int nb_elts = ids.size();
   for (int i = 0; i < nb_elts; i++) {
@@ -106,17 +108,18 @@ bool add_attribute(int dn, std::string name,
     INDEX index = (INDEX)ids[i];
     SVGElement* el = svgd->interactives.find(index);
     if (el) {
+      const bool isHoverNearest = nearest.compare(name) == 0;
       const bool isHoverCss = hover.compare(name) == 0;
-      const bool isSelectedCss = selected.compare(name) == 0;
-      if (isHoverCss || isSelectedCss) {
+      const bool isSelectCss = select.compare(name) == 0;
+      if (isHoverCss || isSelectCss) {
         if (isHoverCss) {
           cls_prefix.assign("hover_");
         } else {
-          cls_prefix.assign("selected_");
+          cls_prefix.assign("select_");
         }
         const char * data_id = svg_attribute(el, "data-id");
         if (data_id != NULL) {
-          std::string css = compile_css(cls_prefix, "", svgd->canvas_id,
+          std::string css = compile_css(cls_prefix, "data_", svgd->canvas_id,
                                         "data-id", data_id, values[i]);
           if (css.length() > 0)
             svgd->add_css(std::string(cls_prefix + "_data_id_" + data_id), css);
@@ -137,6 +140,10 @@ bool add_attribute(int dn, std::string name,
           if (css.length() > 0)
             svgd->add_css(std::string(cls_prefix + "_theme_id_" + theme_id), css);
           continue;
+        }
+      } else if (isHoverNearest) {
+        if (true_value.compare(values[i]) == 0) {
+          set_attr(el, "nearest", "true");
         }
       } else {
         set_attr(el, name.c_str(), values[i]);

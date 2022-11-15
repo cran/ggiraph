@@ -1,3 +1,36 @@
+# ggiraph 0.8.4
+
+## Enhancement
+
+* Added tooltips argument to opts_toolbar for internationalization purposes
+* Added hidden argument to opts_toolbar for hiding buttons/button groups
+* Added zoom by rectangle feature and zoom related improvements
+* New feature: hover nearest element on mouse movement
+* Improved javascript performance (mouse event handling)
+* Added interactive parameters for outlier points in geom_boxplot_interactive
+* Added accessibility elements to the SVG output (title, desc, role)
+* Added opts_selection_inv for inverted selection effect
+* Added `set_girafe_defaults()`, `girafe_defaults()` and `init_girafe_defaults()` 
+to set some default girafe options automatically. Also in R Markdown, svg default 
+width and height are set to knitr chunk options `fig.width` and `fig.height`.
+
+## Issues
+
+* fix: issue with incorrect font used on png export
+* fix: issue with broken interactivity on discrete guides
+* fix: issue with geom_segment_interactive and polar coords
+* fix: set fill/stroke color to svg elements even if opacity is zero.
+* fix: hover styles should take priority over selection styles.
+* doc: updated documentation links
+* test: updated some tests to check for required packages
+* test: updated github actions
+
+## Changes
+
+* Update internals for 'ggplot2' version `3.4.0`. 
+* Now `facet_wrap_interactive()` or `facet_grid_interactive()` need to 
+be used to let the facets be interactives (see also `labeller_interactive()`).
+
 # ggiraph 0.8.3
 
 ## Issues

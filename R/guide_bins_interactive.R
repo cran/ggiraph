@@ -9,7 +9,7 @@
 #' @examples
 #' # add interactive bins guide to a ggplot -------
 #' @example examples/scale_viridis_guide_bins_interactive.R
-#' @seealso [interactive_parameters()], [girafe()]
+#' @seealso [interactive_parameters], [girafe()]
 #' @export
 guide_bins_interactive <- function(...)
   guide_interactive(guide_legend, "interactive_bins", ...)
@@ -24,4 +24,11 @@ guide_train.interactive_bins <- function(guide,
     return(zz)
 
   copy_interactive_attrs_from_scale(zz, scale)
+}
+
+#' @export
+guide_geom.interactive_bins <- function(guide,
+                                        layers,
+                                        default_mapping) {
+  check_guide_key_geoms(NextMethod())
 }

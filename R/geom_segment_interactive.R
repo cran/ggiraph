@@ -5,7 +5,7 @@
 #' See the documentation for those functions for more details.
 #'
 #' @param ... arguments passed to base function,
-#' plus any of the [interactive_parameters()].
+#' plus any of the [interactive_parameters].
 #' @inheritSection interactive_parameters Details for interactive geom functions
 #' @examples
 #' # add interactive segments and curves to a ggplot -------
@@ -32,7 +32,7 @@ GeomInteractiveSegment <- ggproto(
                         arrow.fill = NULL,
                         lineend = "butt",
                         linejoin = "round",
-                        na.rm = FALSE, 
+                        na.rm = FALSE,
                         .ipar = IPAR_NAMES) {
     data <- remove_missing(
       data,
@@ -43,7 +43,7 @@ GeomInteractiveSegment <- ggproto(
         "xend",
         "yend",
         "linetype",
-        "size",
+        "linewidth",
         "shape",
         "tooltip",
         "onclick",
@@ -67,7 +67,7 @@ GeomInteractiveSegment <- ggproto(
         gp = gpar(
           col = alpha(coord$colour, coord$alpha),
           fill = alpha(arrow.fill, coord$alpha),
-          lwd = coord$size * .pt,
+          lwd = coord$linewidth * .pt,
           lty = coord$linetype,
           lineend = lineend,
           linejoin = linejoin
@@ -90,7 +90,7 @@ GeomInteractiveSegment <- ggproto(
                                    panel_params,
                                    coord,
                                    arrow = arrow,
-                                   lineend = lineend, 
+                                   lineend = lineend,
                                    .ipar = .ipar)
   }
 )

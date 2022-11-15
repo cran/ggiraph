@@ -13,7 +13,7 @@ geom_density_2d_filled_interactive(...)
 }
 \arguments{
 \item{...}{arguments passed to base function,
-plus any of the \code{\link[=interactive_parameters]{interactive_parameters()}}.}
+plus any of the \link{interactive_parameters}.}
 }
 \description{
 The geometries are based on \code{\link[=geom_density_2d]{geom_density_2d()}} and \code{\link[=geom_density_2d_filled]{geom_density_2d_filled()}}.
@@ -40,7 +40,7 @@ m <- ggplot(faithful, aes(x = eruptions, y = waiting)) +
   geom_point_interactive(aes(tooltip = paste("Waiting:", waiting, "\neruptions:", eruptions))) +
   xlim(0.5, 6) +
   ylim(40, 110)
-p <- m + geom_density_2d_interactive(aes(tooltip = paste("Level:", stat(level))))
+p <- m + geom_density_2d_interactive(aes(tooltip = paste("Level:", after_stat(level))))
 x <- girafe(ggobj = p)
 if (interactive()) print(x)
 

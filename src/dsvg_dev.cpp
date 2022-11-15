@@ -6,12 +6,15 @@
 DSVG_dev::DSVG_dev(std::string filename_,
                    double width_, double height_,
                    std::string canvas_id_,
+                   std::string title_, std::string desc_,
                    bool standalone_, bool setdims_,
                    Rcpp::List& aliases_):
     filename(filename_),
     width(width_),
     height(height_),
     canvas_id(canvas_id_),
+    title(title_),
+    desc(desc_),
     standalone(standalone_),
     setdims(setdims_),
     system_aliases(Rcpp::wrap(aliases_["system"])),
@@ -57,14 +60,41 @@ SVGElement* DSVG_dev::svg_root() {
     set_attr(root, "xmlns", "http://www.w3.org/2000/svg");
     set_attr(root, "xmlns:xlink", "http://www.w3.org/1999/xlink");
   }
+  set_attr(root, "class", "ggiraph-svg");
+  set_attr(root, "role", "img");
+
+  std::string id;
+
+  if (!title.empty()) {
+    SVGElement* titleEl = create_element("title", root);
+    SVGText* titleT = new_svg_text(title.c_str(), doc, false);
+    append_element((SVGElement*)titleT, titleEl);
+    id.assign(canvas_id + "_title");
+    set_attr(titleEl, "id", id);
+    set_attr(root, "aria-labelledby", id);
+  }
+
+  if (!desc.empty()) {
+    SVGElement* descEl = create_element("desc", root);
+    SVGText* descT = new_svg_text(desc.c_str(), doc, false);
+    append_element((SVGElement*)descT, descEl);
+    id.assign(canvas_id + "_desc");
+    set_attr(descEl, "id", id);
+    set_attr(root, "aria-describedby", id);
+  }
 
   // create main defs element
   // all definitions (clips, masks, gradients, etc) will go here
   root_defs = create_element("defs", root);
+  id.assign(canvas_id + "_defs");
+  set_attr(root_defs, "id", id);
 
   // create main g element
   // all regular elements will go here
   root_g = create_element("g", root);
+  id.assign(canvas_id + "_rootg");
+  set_attr(root_g, "id", id);
+  set_attr(root_g, "class", "ggiraph-svg-rootg");
 
   // initialize contexts stack
   contexts = new std::stack<ContainerContext*>();

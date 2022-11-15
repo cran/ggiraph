@@ -36,7 +36,11 @@ be ignored if this argument is supplied.}
 
 \item{width_svg, height_svg}{The width and height of the graphics region in inches.
 The default values are 6 and 5 inches. This will define the aspect ratio of the
-graphic as it will be used to define viewbox attribute of the SVG result.}
+graphic as it will be used to define viewbox attribute of the SVG result.
+
+If you use \code{girafe()} in an 'R Markdown' document, we
+recommend not using these arguments so that the knitr
+options \code{fig.width} and \code{fig.height} are used instead.}
 
 \item{tooltip_extra_css}{extra css (added to \code{position: absolute;pointer-events: none;})
 used to customize tooltip area.}
@@ -61,13 +65,13 @@ when widget is in a Shiny application.}
 \item{dep_dir}{Deprecated; the path where the output files are stored. If \code{NULL},
 the current path for temporary files is used.}
 
-\item{...}{arguments passed on to \code{\link{dsvg}}}
+\item{...}{arguments passed on to \code{\link[=dsvg]{dsvg()}}}
 }
 \description{
 Create an interactive graphic to be used in a web browser.
 
 This function is maintained for backward compatibility reasons, user should
-now use function \code{\link[=girafe]{girafe()}} and \code{\link{girafe_options}}.
+now use function \code{\link[=girafe]{girafe()}} and \code{\link[=girafe_options]{girafe_options()}}.
 }
 \examples{
 # ggiraph simple example -------
