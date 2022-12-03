@@ -1,4 +1,4 @@
-ab517f004c08e7fee2cb739e849ecf77 *DESCRIPTION
+a3b423b0bba220f29429f8e05f67d575 *DESCRIPTION
 2612e22cfd5dd9021831fd8deabea700 *NAMESPACE
 c1f8fd473dc49e73c831f8ffe6c551c3 *NEWS.md
 92762864badb0fbdf8a241621146a3f6 *R/RcppExports.R
@@ -51,7 +51,7 @@ ee5da2aebaff76fad1b76890d4466938 *R/geom_violin_interactive.R
 edc19d18ebc6b8366a6f25320a67e79e *R/geom_vline_interactive.R
 ac185ae7bbe959dc51752d2a5b23c239 *R/ggiraph.R
 abdd009aba81117b76860ac97c681763 *R/girafe.R
-61ddeed63d0e69f336ecfba890484724 *R/girafe_options.R
+4a232fcf756aacc85c7443f7f258aed2 *R/girafe_options.R
 52c19a025ce64c203d1d4e2086ceb28f *R/grob_interactive.R
 4b9ec0fd907c4853f25e4137b357b5f9 *R/guide_bins_interactive.R
 a001381bbd247e1b03cd78957642219d *R/guide_colourbar_interactive.R
@@ -92,7 +92,7 @@ d1066055313a430651c03e5277ca28c2 *R/utils_ggplot2.R
 2a9f255baf804e6f0e61aa6654eb40ba *build/vignette.rds
 c7561fd688c5b6456d05919b1fb2278c *inst/COPYRIGHTS
 09a472ddbc3ab8d3bb1a962381342145 *inst/doc/overview.Rmd
-5d6630b8906ef6948730c3c480dbdd47 *inst/doc/overview.html
+81c0dec3d6ff077d997f850f8db48109 *inst/doc/overview.html
 fa99fe307390b6f04135c1294451ab20 *inst/examples/rmd/flexdashboard/flexdashboard.Rmd
 a7bd23a8da9e996aa70380e828938187 *inst/examples/rmd/xaringan/xaringan.Rmd
 2d413d3766ca975bedc8ecea7c9f30aa *inst/examples/shiny/DT/DESCRIPTION
