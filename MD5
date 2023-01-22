@@ -1,6 +1,6 @@
-a3b423b0bba220f29429f8e05f67d575 *DESCRIPTION
+9c0e29b9a181bff9f0e2a7d1c1d3d61e *DESCRIPTION
 2612e22cfd5dd9021831fd8deabea700 *NAMESPACE
-c1f8fd473dc49e73c831f8ffe6c551c3 *NEWS.md
+432dba4950d9b37f52a8bacfc206f142 *NEWS.md
 92762864badb0fbdf8a241621146a3f6 *R/RcppExports.R
 5c7bb63463e4e615f7d99efd6361de08 *R/annotate_interactive.R
 4a01c8591da4f12f73e9ce3b3c23fc95 *R/annotation_raster_interactive.R
@@ -50,7 +50,7 @@ a7c3798823310b2f77aadc52297b0e97 *R/geom_text_interactive.R
 ee5da2aebaff76fad1b76890d4466938 *R/geom_violin_interactive.R
 edc19d18ebc6b8366a6f25320a67e79e *R/geom_vline_interactive.R
 ac185ae7bbe959dc51752d2a5b23c239 *R/ggiraph.R
-abdd009aba81117b76860ac97c681763 *R/girafe.R
+f11809445f2d50eb22c6b54bcade789f *R/girafe.R
 4a232fcf756aacc85c7443f7f258aed2 *R/girafe_options.R
 52c19a025ce64c203d1d4e2086ceb28f *R/grob_interactive.R
 4b9ec0fd907c4853f25e4137b357b5f9 *R/guide_bins_interactive.R
@@ -271,7 +271,7 @@ f86d096333c3240764c7e1849c5ad3ee *man/geom_text_interactive.Rd
 92ef48040997560b73f085bd11e84dde *man/ggiraph-ggproto.Rd
 3fb84797e2bf3112369b7beb5d843598 *man/ggiraph.Rd
 1bb1173ecd3010c44b2a57877b3988d8 *man/ggiraphOutput.Rd
-d2cc2b5e84f7e0e40c6ad88957fa4ad3 *man/girafe.Rd
+eb44c0e76974e27ae84acab6be6c689d *man/girafe.Rd
 ee2f288ce03adb8366ac8e6a5bdc7587 *man/girafeOutput.Rd
 417b8fb9a7bdada4a452d36c8e1dc528 *man/girafe_css.Rd
 4e9001b728493eafd594757bcd912157 *man/girafe_css_bicolor.Rd
@@ -340,7 +340,7 @@ a0e982df700d65079666505cd0546d5c *src/interactive.cpp
 30a3eac336285e0a0ad927ac68d10199 *src/mask.h
 06cb6079ca3f1df5eea2ae3abca0ef19 *src/pattern.cpp
 dfa971202c0aa08411734e600fae8f09 *src/pattern.h
-b58e61a89c3724dce7447efb8649bbc4 *src/raster.cpp
+0fa84f6687bf003dbdba52b72188507c *src/raster.cpp
 757c60325f01a8c0bd58c78128e7a12f *src/raster.h
 5560a749600f52adebc0fbce69f4456c *src/shapes.cpp
 350fd410ab03db46dff9f129ac43123a *src/shapes.h
