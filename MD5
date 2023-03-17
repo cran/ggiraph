@@ -1,6 +1,6 @@
-9c0e29b9a181bff9f0e2a7d1c1d3d61e *DESCRIPTION
-2612e22cfd5dd9021831fd8deabea700 *NAMESPACE
-432dba4950d9b37f52a8bacfc206f142 *NEWS.md
+49767e04b20d457b0f290946bada9440 *DESCRIPTION
+144df9f1ab54fa626cc370fe496d46a2 *NAMESPACE
+d3e9708c535b7bb98e88b085a92ea84b *NEWS.md
 92762864badb0fbdf8a241621146a3f6 *R/RcppExports.R
 5c7bb63463e4e615f7d99efd6361de08 *R/annotate_interactive.R
 4a01c8591da4f12f73e9ce3b3c23fc95 *R/annotation_raster_interactive.R
@@ -21,7 +21,7 @@ e45785962b3efc8986bd674f3a198778 *R/geom_crossbar_interactive.R
 1d26f41a51a07ebeef6478d60a648aeb *R/geom_curve_interactive.R
 35cafaafc68a04fda9e816a062aee242 *R/geom_density_2d_interactive.R
 d9aab90b621c59403b8d6a60570c9ea7 *R/geom_density_interactive.R
-d72c7acaf4f340bdd0092a8fa13c7ec8 *R/geom_dotplot_interactive.R
+9e36a52b5f76770528e00f846f023037 *R/geom_dotplot_interactive.R
 94d23ce5615a2c8136a710f302d9f334 *R/geom_errorbar_interactive.R
 d297556a1b8ec3c802b14f8e9d53c82b *R/geom_errorbarh_interactive.R
 c43c4cabfef24a7131f79764408bb851 *R/geom_freqpoly_interactive.R
@@ -49,8 +49,8 @@ a7c3798823310b2f77aadc52297b0e97 *R/geom_text_interactive.R
 5ac6e0714ff0f82ef6fef78ce9b59cd2 *R/geom_tile_interactive.R
 ee5da2aebaff76fad1b76890d4466938 *R/geom_violin_interactive.R
 edc19d18ebc6b8366a6f25320a67e79e *R/geom_vline_interactive.R
-ac185ae7bbe959dc51752d2a5b23c239 *R/ggiraph.R
-f11809445f2d50eb22c6b54bcade789f *R/girafe.R
+e16167aba15dbb5849cf890afbcbdaed *R/ggiraph.R
+b694db0bdaa924ccb89fd038618242b9 *R/girafe.R
 4a232fcf756aacc85c7443f7f258aed2 *R/girafe_options.R
 52c19a025ce64c203d1d4e2086ceb28f *R/grob_interactive.R
 4b9ec0fd907c4853f25e4137b357b5f9 *R/guide_bins_interactive.R
@@ -269,9 +269,9 @@ f86d096333c3240764c7e1849c5ad3ee *man/geom_text_interactive.Rd
 8d2f506f687cca2576b478bc6c86cf6c *man/geom_text_repel_interactive.Rd
 8a8b2c877fe41b9e914fdcc7805d3d00 *man/geom_violin_interactive.Rd
 92ef48040997560b73f085bd11e84dde *man/ggiraph-ggproto.Rd
-3fb84797e2bf3112369b7beb5d843598 *man/ggiraph.Rd
-1bb1173ecd3010c44b2a57877b3988d8 *man/ggiraphOutput.Rd
-eb44c0e76974e27ae84acab6be6c689d *man/girafe.Rd
+eca4da8a3949e0652b49e34fcdf1fc7c *man/ggiraph.Rd
+408b84f23c4375f7e4d1cd133352d486 *man/ggiraphOutput.Rd
+60ef70ca1ce1f6ab366d56ab17011978 *man/girafe.Rd
 ee2f288ce03adb8366ac8e6a5bdc7587 *man/girafeOutput.Rd
 417b8fb9a7bdada4a452d36c8e1dc528 *man/girafe_css.Rd
 4e9001b728493eafd594757bcd912157 *man/girafe_css_bicolor.Rd
@@ -304,7 +304,7 @@ e44ef246739b886c9a85e120e5f48fdf *man/match_family.Rd
 a89640d95b33baaaa36baa8d8b12be4b *man/opts_tooltip.Rd
 9056b5f0c20cd54806c333b1acc36462 *man/opts_zoom.Rd
 bbcdf20b1ae31b8ec881a4cc47c2c215 *man/renderGirafe.Rd
-efaddc9d5d3c60a24bc075ed24a6ea15 *man/renderggiraph.Rd
+8cd6d9ce68c781e7efd433cf3a4ccb1d *man/renderggiraph.Rd
 b47ed90a1b4bdde48054f5ca656c3e04 *man/run_girafe_example.Rd
 e99cdad135def1c1ea54fbbde0d6fd29 *man/scale_alpha_interactive.Rd
 ee0f38a459a12c3f6db4af0d3c1bafbf *man/scale_colour_brewer_interactive.Rd
@@ -318,7 +318,7 @@ fca3346bdeeed2bcbe4d1d08e317783b *man/scale_shape_interactive.Rd
 d3b13f2ba1432327a7378ab57952b0ff *man/scale_viridis_interactive.Rd
 3a825b28a3d9ffd7dc6701e92f46a2de *man/set_girafe_defaults.Rd
 f7136ad8ea14c323abb66f4e79e5f7ec *man/validated_fonts.Rd
-c38a387e5025d29da0a42bcec9d6b944 *src/Makevars
+5f05efe55b70273f72fc1174e7da90c4 *src/Makevars
 2cec33791efd347cbcb051402d7cf9c4 *src/Makevars.ucrt
 aaf23318566b8c32e2111686d09c8f12 *src/Makevars.win
 b134d01e354001cb537da63d77cd757d *src/RcppExports.cpp
