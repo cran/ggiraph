@@ -2,7 +2,7 @@ Package: ggiraph
 Type: Package
 Title: Make 'ggplot2' Graphics Interactive
 Description: Create interactive 'ggplot2' graphics using 'htmlwidgets'.
-Version: 0.8.7
+Version: 0.8.8
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -78,7 +78,7 @@ Collate: 'RcppExports.R' 'ipar.R' 'utils_ggplot2_performance.R'
         'scale_size_interactive.R' 'scale_steps_interactive.R'
         'scale_viridis_interactive.R' 'tracers.R'
 NeedsCompilation: yes
-Packaged: 2023-03-17 12:23:25 UTC; davidgohel
+Packaged: 2023-12-09 15:13:45 UTC; davidgohel
 Author: David Gohel [aut, cre],
   Panagiotis Skintzos [aut],
   Mike Bostock [cph] (d3.js),
@@ -89,4 +89,4 @@ Author: David Gohel [aut, cre],
   Eric Book [ctb] (hline and vline geoms)
 Maintainer: David Gohel <david.gohel@ardata.fr>
 Repository: CRAN
-Date/Publication: 2023-03-17 13:50:03 UTC
+Date/Publication: 2023-12-09 15:50:02 UTC

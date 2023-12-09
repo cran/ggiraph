@@ -1,11 +1,11 @@
-49767e04b20d457b0f290946bada9440 *DESCRIPTION
+22aa3fb00c7f216ca9666400ffabd221 *DESCRIPTION
 144df9f1ab54fa626cc370fe496d46a2 *NAMESPACE
-d3e9708c535b7bb98e88b085a92ea84b *NEWS.md
+b67c66c653668f1c82bc435a48372b02 *NEWS.md
 92762864badb0fbdf8a241621146a3f6 *R/RcppExports.R
 5c7bb63463e4e615f7d99efd6361de08 *R/annotate_interactive.R
 4a01c8591da4f12f73e9ce3b3c23fc95 *R/annotation_raster_interactive.R
 4664b16f5535af9fbf2386835aba5d06 *R/default.R
-9e7bd46d9e1dfba2fecf9dc26399eac3 *R/dsvg.R
+125c697ac100991961177761cede9f22 *R/dsvg.R
 d7994d51730db84849ae8e479e980d2c *R/dsvg_view.R
 e15a8110edad91ab4cb4062b887837de *R/element_interactive.R
 a499e116ececbd15c8c2167d947835d2 *R/facet_interactive.R
@@ -33,7 +33,7 @@ a1aba40b0d4afbde020af32402eef577 *R/geom_hline_interactive.R
 4ccdc42141caa6a20145fb09615c32b0 *R/geom_linerange_interactive.R
 5d76db6e6b0e4c010edee4c2cf902056 *R/geom_map_interactive.R
 f43c4a09c91cebe8e1083030089d286f *R/geom_path_interactive.R
-f4d1f249e88db0397f400e19f63a6942 *R/geom_point_interactive.R
+97e1ae755106e5876f836993123792ac *R/geom_point_interactive.R
 4d8c06a239159b137f5248af4400ec5c *R/geom_pointrange_interactive.R
 8f717780d2fa4b2498c8c24153b6fa2d *R/geom_polygon_interactive.R
 1e120df8592c3eaed60d943d625aa252 *R/geom_quantile_interactive.R
@@ -61,7 +61,7 @@ c1312e4d26c668019cee94c570325134 *R/guide_coloursteps_interactive.R
 9dcd3fe0c5b7b110f3e4aba8ca46a36d *R/interactive_circle_grob.R
 19407cb26068727b52eb38d3c6c99dcb *R/interactive_curve_grob.R
 7ec9107b16e4806aa6296a5c703ee35f *R/interactive_path_grob.R
-06b4531436b3131961ff2b5ae2507ce6 *R/interactive_points_grob.R
+f89cda2d5892e535980bd40abe075039 *R/interactive_points_grob.R
 9b06295a3d328c54a0e16b34a9acf90c *R/interactive_polygon_grob.R
 9c0c38850e711bc8357fbe5d03c92e5a *R/interactive_polyline_grob.R
 bad38104e966ae3ff1b604284c2d99a2 *R/interactive_raster_grob.R
@@ -89,10 +89,10 @@ c7d0a7a443e4b76f7e853d04f81a923c *R/utils_css.R
 d1066055313a430651c03e5277ca28c2 *R/utils_ggplot2.R
 3471fbb24a254b5962dde4dace4ccb02 *R/utils_ggplot2_performance.R
 6390b0ae9694de483de21becea946de6 *README.md
-2a9f255baf804e6f0e61aa6654eb40ba *build/vignette.rds
+35c816dc67de3249889d0d8931e7f5b1 *build/vignette.rds
 c7561fd688c5b6456d05919b1fb2278c *inst/COPYRIGHTS
 09a472ddbc3ab8d3bb1a962381342145 *inst/doc/overview.Rmd
-81c0dec3d6ff077d997f850f8db48109 *inst/doc/overview.html
+5d6630b8906ef6948730c3c480dbdd47 *inst/doc/overview.html
 fa99fe307390b6f04135c1294451ab20 *inst/examples/rmd/flexdashboard/flexdashboard.Rmd
 a7bd23a8da9e996aa70380e828938187 *inst/examples/rmd/xaringan/xaringan.Rmd
 2d413d3766ca975bedc8ecea7c9f30aa *inst/examples/shiny/DT/DESCRIPTION
@@ -173,7 +173,7 @@ ea30def6a5ace8a6992baf51f7657569 *inst/tinytest/test-geom_jitter_interactive.R
 e7f7420e3692c12593fe71efd8734649 *inst/tinytest/test-geom_linerange_interactive.R
 30cd63ec27477e46f15901ca46d2253b *inst/tinytest/test-geom_map_interactive.R
 80f218d260cdc57bc78f7b59c93d0242 *inst/tinytest/test-geom_path_interactive.R
-db79b39eba6c84655ee41426343f5713 *inst/tinytest/test-geom_point_interactive.R
+2511beb30a948be95d2f7b732527fb6e *inst/tinytest/test-geom_point_interactive.R
 aa5de385b77ba4bef9a9129573402b04 *inst/tinytest/test-geom_pointrange_interactive.R
 e4db37165af2661def11013595e24481 *inst/tinytest/test-geom_polygon_interactive.R
 c536c7a815756eb36fc6a048a647a062 *inst/tinytest/test-geom_quantile_interactive.R
@@ -201,7 +201,7 @@ dbb7e15c18b7010fe3a2bdb7a3ed6bbf *inst/tinytest/test-guide_legend_interactive.R
 c6e36be35d18b669e3d249c41df9df22 *inst/tinytest/test-interactive_circle_grob.R
 135c964e0e6db2db067c3eda14f5950e *inst/tinytest/test-interactive_curve_grob.R
 e26c15b227dbe54513f5d1a7d01f5179 *inst/tinytest/test-interactive_path_grob.R
-28d22b7a180c190baaed30581978e320 *inst/tinytest/test-interactive_points_grob.R
+c59cfbceda65fe0d43d1cf856d21dc3d *inst/tinytest/test-interactive_points_grob.R
 d63d0f954b1fd10760de85d576fb5bd9 *inst/tinytest/test-interactive_polygon_grob.R
 932e1d4b87fcc303ebd9506324b54c6f *inst/tinytest/test-interactive_polyline_grob.R
 b9dab04df5b4d586625d595676334e3b *inst/tinytest/test-interactive_raster_grob.R
@@ -246,8 +246,8 @@ cba70b253da16219754b8e0c0d0d8a6f *man/geom_bin_2d_interactive.Rd
 74e6435ce552f9362a9ad0bf877b44bd *man/geom_contour_interactive.Rd
 7fcbe9b4280721633cab8205f71b0142 *man/geom_count_interactive.Rd
 06d8068aa90ecce7500e137f92e07787 *man/geom_crossbar_interactive.Rd
-8629ebc54b79d828ff22e22f2a599c33 *man/geom_density_2d_interactive.Rd
-132e13676ef71f447762508aea58cfff *man/geom_density_interactive.Rd
+3dc580537b364f792c5f150be6f89762 *man/geom_density_2d_interactive.Rd
+fab48a5d95f7675c83985d96648174b1 *man/geom_density_interactive.Rd
 9a613b358872583e0407b2eb30b3670c *man/geom_dotplot_interactive.Rd
 3f305b59f7b9663052b55ee6af629057 *man/geom_errorbarh_interactive.Rd
 213fee88ec2bcbfe91d56266ca0e5793 *man/geom_hex_interactive.Rd
@@ -277,9 +277,9 @@ ee2f288ce03adb8366ac8e6a5bdc7587 *man/girafeOutput.Rd
 4e9001b728493eafd594757bcd912157 *man/girafe_css_bicolor.Rd
 0e25d7c1be48290a785028a43dbcf475 *man/girafe_defaults.Rd
 092a4a4d5a19782e6deeaa3caa59b79f *man/girafe_options.Rd
-ed62e97386b1b1505fc599da39dd24f6 *man/guide_bins_interactive.Rd
+8fb8577351d48c67012ef73c16ca1cb3 *man/guide_bins_interactive.Rd
 15af122dc967de67622921983afe16ed *man/guide_colourbar_interactive.Rd
-b7ae296874936c72f931e8b6ce5d56ed *man/guide_coloursteps_interactive.Rd
+c00a3acdcfc3dcb9f0bb2a6081d73e49 *man/guide_coloursteps_interactive.Rd
 5bc43fd018c9529a56e53a10cbf05619 *man/guide_legend_interactive.Rd
 08adac3aea34c7758731d28f890a6d8d *man/init_girafe_defaults.Rd
 fe940b600cfcaa1a15103a9002c486dd *man/interactive_circle_grob.Rd
@@ -328,7 +328,7 @@ b2076a185a29585271dc164b541aed62 *src/clip.cpp
 53f2d7c450b3b7ea1423c84881de145c *src/clip.h
 9fb64b230103151a2db29608824242cb *src/dsvg.cpp
 6e1d73aadd952abed0ea2c6fa92df6a4 *src/dsvg.h
-d5f062d7946b10a57fc506ada12cc6b3 *src/dsvg_dev.cpp
+eeda8c921c6a9c7106576e8096372da5 *src/dsvg_dev.cpp
 e4321b82a939d4ff65f2280ad34bd7fa *src/dsvg_dev.h
 de8a4941a991aa4c9c4957802679db2e *src/geom.cpp
 b55f909976a0dde3cd612a1cf82d6c97 *src/geom.h
