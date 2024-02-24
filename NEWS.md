@@ -1,3 +1,17 @@
+# ggiraph 0.8.9
+
+## Changes
+
+- adapt guides to ggplot '3.5.0'
+- deprecate ggiraph
+- A font check is now done with theme settings (only when argument `ggobj` is used)
+
+## Issues 
+
+- When `bg` is set to 'transparent', it's been transformed to almost 
+transparent '#ffffff01'.
+- Enable screen-readers to read <text> items - set svg role to 'graphics-document'
+
 # ggiraph 0.8.8
 
 ## Issues 
