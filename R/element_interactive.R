@@ -36,11 +36,12 @@ element_text_interactive <- function(...)
   element_interactive(element_text, ...)
 
 #' Calls a base ggplot2 element function and returns an interactive element.
+#' @importFrom rlang list2
 #' @noRd
 element_interactive <- function(element_func,
                                 ...,
                                 extra_interactive_params = NULL) {
-  args <- list(...)
+  args <- list2(...)
   # We need to get the interactive parameters from the arguments and remove them
   ipar <- get_default_ipar(extra_interactive_params)
   ip <- get_interactive_attrs(args, ipar = ipar)
@@ -91,7 +92,7 @@ element_interactive <- function(element_func,
 #' if( interactive() ) print(x)
 #' @seealso [interactive_parameters], [labeller_interactive()]
 label_interactive <- function(label, ...) {
-  dots <- list(...)
+  dots <- list2(...)
   ipar <- get_default_ipar(dots$extra_interactive_params)
   ip <- get_interactive_attrs(dots, ipar = ipar)
   structure(
