@@ -1,3 +1,14 @@
+# ggiraph 0.9.0
+
+## Issues
+
+- enable build in Alpine linux, thanks to Sebastian Meyer.
+- `geom_line_interactive()` now correctly assigns data_id and tooltip values
+
+## Changes
+
+- defunct `ggiraph()`, `ggiraphOutput()` and `renderggiraph()`.
+
 # ggiraph 0.8.10
 
 ## Changes

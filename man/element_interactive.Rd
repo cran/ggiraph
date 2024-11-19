@@ -17,11 +17,11 @@ element_text_interactive(...)
 plus any of the \link{interactive_parameters}.}
 }
 \description{
-With these functions the user can add interactivity to various \link[ggplot2:theme]{theme}
+With these functions the user can add interactivity to various \code{\link[ggplot2:theme]{ggplot2::theme()}}
 elements.
 
-They are based on \code{\link[=element_rect]{element_rect()}},
-\code{\link[=element_line]{element_line()}} and \code{\link[=element_text]{element_text()}}
+They are based on \code{\link[ggplot2:element]{ggplot2::element_rect()}},
+\code{\link[ggplot2:element]{ggplot2::element_line()}} and \code{\link[ggplot2:element]{ggplot2::element_text()}}
 See the documentation for those functions for more details.
 }
 \section{Details for element_*_interactive functions}{
@@ -30,7 +30,7 @@ The interactive parameters can be supplied as arguments in the relevant function
 and they should be scalar values.
 
 For theme text elements (\code{\link[=element_text_interactive]{element_text_interactive()}}), the interactive parameters
-can also be supplied while setting a label value, via the \code{\link[=labs]{labs()}} family
+can also be supplied while setting a label value, via the \code{\link[ggplot2:labs]{ggplot2::labs()}} family
 of functions or when setting a scale/guide title or key label.
 Instead of setting a character value for the element, function
 \code{\link[=label_interactive]{label_interactive()}} can be used to define interactive parameters
