@@ -1,7 +1,7 @@
 Type: Package
 Package: ggiraph
 Title: Make 'ggplot2' Graphics Interactive
-Version: 0.8.11
+Version: 0.8.12
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("Panagiotis", "Skintzos", , "sigmapi@posteo.net", role = "aut"),
@@ -76,7 +76,7 @@ Collate: 'RcppExports.R' 'ipar.R' 'utils_ggplot2_performance.R'
         'scale_size_interactive.R' 'scale_steps_interactive.R'
         'scale_viridis_interactive.R' 'tracers.R'
 NeedsCompilation: yes
-Packaged: 2024-11-19 13:18:06 UTC; davidgohel
+Packaged: 2024-12-20 10:08:07 UTC; davidgohel
 Author: David Gohel [aut, cre],
   Panagiotis Skintzos [aut],
   Mike Bostock [cph] (d3.js),
@@ -87,4 +87,4 @@ Author: David Gohel [aut, cre],
   Eric Book [ctb] (hline and vline geoms)
 Maintainer: David Gohel <david.gohel@ardata.fr>
 Repository: CRAN
-Date/Publication: 2024-11-19 14:30:02 UTC
+Date/Publication: 2025-01-08 11:10:02 UTC

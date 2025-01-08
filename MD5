@@ -1,4 +1,4 @@
-fbf0f63bcdcdc130ac4dd6cdbc9256b1 *DESCRIPTION
+c23e4ad863866c71f87770a96b2a1dae *DESCRIPTION
 133df551d930698f9bbe8b9db26f6d05 *NAMESPACE
 93133f4455a56da747406a88855e49ba *NEWS.md
 92762864badb0fbdf8a241621146a3f6 *R/RcppExports.R
@@ -331,7 +331,7 @@ de8a4941a991aa4c9c4957802679db2e *src/geom.cpp
 b55f909976a0dde3cd612a1cf82d6c97 *src/geom.h
 960713f41a26124f201c388353f8e4e2 *src/indexed.cpp
 360013cce097cef115e9ec1fd4620d02 *src/indexed.h
-a0e982df700d65079666505cd0546d5c *src/interactive.cpp
+413bd8b91688fc478f788baf4a73519f *src/interactive.cpp
 01eee4ebad72ede77a98f88a286f7dad *src/interactive.h
 185c068e347e8bab304ff5f171d20432 *src/mask.cpp
 30a3eac336285e0a0ad927ac68d10199 *src/mask.h
