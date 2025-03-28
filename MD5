@@ -1,6 +1,6 @@
-c23e4ad863866c71f87770a96b2a1dae *DESCRIPTION
+c0fb3b3d389974df2a1688df1f82b19e *DESCRIPTION
 133df551d930698f9bbe8b9db26f6d05 *NAMESPACE
-93133f4455a56da747406a88855e49ba *NEWS.md
+b59698fad44f8cf9f5369703558e1169 *NEWS.md
 92762864badb0fbdf8a241621146a3f6 *R/RcppExports.R
 da831d779fe38c4d2166e241cdfed35b *R/annotate_interactive.R
 09e01a21e70c6ef09fa81e39d87afa88 *R/annotation_raster_interactive.R
@@ -89,7 +89,7 @@ c7d0a7a443e4b76f7e853d04f81a923c *R/utils_css.R
 3b2b602a6e878b6bf6cf1dd7396ed6e3 *R/utils_ggplot2.R
 3471fbb24a254b5962dde4dace4ccb02 *R/utils_ggplot2_performance.R
 6390b0ae9694de483de21becea946de6 *README.md
-e95f80fe1ac953f781fc75e8004619de *build/vignette.rds
+add7b218469f30f3029b7d35393133b2 *build/vignette.rds
 c7561fd688c5b6456d05919b1fb2278c *inst/COPYRIGHTS
 09a472ddbc3ab8d3bb1a962381342145 *inst/doc/overview.Rmd
 81c0dec3d6ff077d997f850f8db48109 *inst/doc/overview.html
@@ -316,7 +316,7 @@ a6dc1d8784660f7d5f83f7eae4445339 *man/scale_gradient_interactive.Rd
 3a825b28a3d9ffd7dc6701e92f46a2de *man/set_girafe_defaults.Rd
 f7136ad8ea14c323abb66f4e79e5f7ec *man/validated_fonts.Rd
 5f05efe55b70273f72fc1174e7da90c4 *src/Makevars
-2cec33791efd347cbcb051402d7cf9c4 *src/Makevars.ucrt
+f4590e6223ac79ec631f7cb35303f882 *src/Makevars.ucrt
 aaf23318566b8c32e2111686d09c8f12 *src/Makevars.win
 b134d01e354001cb537da63d77cd757d *src/RcppExports.cpp
 f36cb2b7b459c74171c149aaec9f7848 *src/a_color.cpp
