@@ -1,3 +1,12 @@
+# ggiraph 0.9.1
+
+## Issues
+
+- adapt codes for ggplot2 4.0.0. There are lot of changes in ggplot2 4.0.0 
+and we hope we did not miss anything...
+- fix regexpr pattern used in `facet_wrap_interactive()` that was causing issues
+when there were more than 9 levels.
+
 # ggiraph 0.9.0
 
 ## Issues

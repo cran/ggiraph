@@ -1,7 +1,7 @@
 Type: Package
 Package: ggiraph
 Title: Make 'ggplot2' Graphics Interactive
-Version: 0.9.0
+Version: 0.9.1
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("Panagiotis", "Skintzos", , "sigmapi@posteo.net", role = "aut"),
@@ -22,7 +22,7 @@ Description: Create interactive 'ggplot2' graphics using 'htmlwidgets'.
 License: GPL-3
 URL: https://davidgohel.github.io/ggiraph/
 BugReports: https://github.com/davidgohel/ggiraph/issues
-Imports: cli, ggplot2 (>= 3.5.2), grid, htmltools, htmlwidgets (>=
+Imports: cli, ggplot2 (>= 4.0.0), grid, htmltools, htmlwidgets (>=
         1.5), purrr, Rcpp (>= 1.0), rlang, stats, systemfonts, uuid,
         vctrs
 Suggests: dplyr, gdtools (>= 0.3.0), ggrepel (>= 0.9.1), hexbin, knitr,
@@ -32,7 +32,7 @@ LinkingTo: Rcpp, systemfonts
 VignetteBuilder: knitr
 Copyright: See file COPYRIGHTS.
 Encoding: UTF-8
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 SystemRequirements: libpng
 Collate: 'RcppExports.R' 'ipar.R' 'utils_ggplot2_performance.R'
         'utils_ggplot2.R' 'utils.R' 'annotate_interactive.R'
@@ -76,7 +76,7 @@ Collate: 'RcppExports.R' 'ipar.R' 'utils_ggplot2_performance.R'
         'scale_size_interactive.R' 'scale_steps_interactive.R'
         'scale_viridis_interactive.R' 'tracers.R'
 NeedsCompilation: yes
-Packaged: 2025-08-18 17:01:04 UTC; davidgohel
+Packaged: 2025-09-16 08:12:18 UTC; davidgohel
 Author: David Gohel [aut, cre],
   Panagiotis Skintzos [aut],
   Mike Bostock [cph] (d3.js),
@@ -87,4 +87,4 @@ Author: David Gohel [aut, cre],
   Eric Book [ctb] (hline and vline geoms)
 Maintainer: David Gohel <david.gohel@ardata.fr>
 Repository: CRAN
-Date/Publication: 2025-08-18 18:20:02 UTC
+Date/Publication: 2025-09-16 08:50:02 UTC

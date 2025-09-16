@@ -11,7 +11,7 @@ geom_errorbarh_interactive(...)
 plus any of the \link{interactive_parameters}.}
 }
 \description{
-This geometry is based on \code{\link[ggplot2:geom_errorbarh]{ggplot2::geom_errorbarh()}}.
+This geometry is based on \code{\link[ggplot2:geom_linerange]{ggplot2::geom_errorbarh()}}.
 See the documentation for those functions for more details.
 }
 \section{Details for interactive geom functions}{
@@ -46,19 +46,6 @@ g <- p +
   geom_errorbarh_interactive(aes(
     xmax = resp + se,
     xmin = resp - se,
-    tooltip = group
-  ))
-x <- girafe(ggobj = g)
-if (interactive()) {
-  print(x)
-}
-
-g <- p +
-  geom_point() +
-  geom_errorbarh_interactive(aes(
-    xmax = resp + se,
-    xmin = resp - se,
-    height = .2,
     tooltip = group
   ))
 x <- girafe(ggobj = g)
