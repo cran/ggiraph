@@ -2,14 +2,10 @@
 #' @title Create a girafe object
 #'
 #' @description Create an interactive graphic with a ggplot object
-#' to be used in a web browser. The function should replace function
-#' `ggiraph`.
+#' to be used in a web browser.
 #'
 #' @details
 #' Use `geom_zzz_interactive` to create interactive graphical elements.
-#'
-#' Difference from original functions is that some extra aesthetics are understood:
-#' the [interactive_parameters].
 #'
 #' Tooltips can be displayed when mouse is over graphical elements.
 #'
@@ -40,28 +36,31 @@
 #' @param options a list of options for girafe rendering, see
 #' [opts_tooltip()], [opts_hover()], [opts_selection()], ...
 #' @param dependencies Additional widget HTML dependencies, see [htmlwidgets::createWidget()].
+#' @param check_fonts_registered whether to check if fonts families found in
+#' the ggplot are registered with 'systemfonts'.
+#' @param check_fonts_dependencies whether to check if fonts families found in
+#' the ggplot are found in the `dependencies` list.
 #' @param ... arguments passed on to [dsvg()]
-#' @examples
-#' library(ggplot2)
+#' @example examples/girafe.R
+#' @section Managing Grouping with Interactive Aesthetics:
 #'
-#' dataset <- mtcars
-#' dataset$carname <- row.names(mtcars)
+#' Adding an interactive aesthetic like `tooltip` can sometimes alter the implicit
+#' grouping that ggplot2 performs automatically.
 #'
-#' gg_point <- ggplot(
-#'   data = dataset,
-#'   mapping = aes(
-#'     x = wt, y = qsec, color = disp,
-#'     tooltip = carname, data_id = carname
-#'   )
-#' ) +
-#'   geom_point_interactive() +
-#'   theme_minimal()
+#' In these cases, you **must explicitly** specify the `group` aesthetic to ensure
+#' correct graph rendering by clearly defining the variables that determine the
+#' grouping.
 #'
-#' x <- girafe(ggobj = gg_point)
+#' ```r
+#' mapping = ggplot2::aes(tooltip = .data_tooltip, group = interaction(factor1, factor2, ...))
+#' ```
 #'
-#' if (interactive()) {
-#'   print(x)
-#' }
+#' This precaution is necessary:
+#'
+#' - ggplot2 automatically determines grouping based on the provided aesthetics
+#' - Interactive aesthetics added by ggiraph can interfere with this logic
+#' - Explicit `group` specification prevents unexpected behavior and ensures predictable results
+#'
 #' @section Widget options:
 #' girafe animations can be customized with function [girafe_options()].
 #' Options are available to customize tooltips, hover effects, zoom effects
@@ -69,8 +68,10 @@
 #' @section Widget sizing:
 #' girafe graphics are responsive, which mean, they will be resized
 #' according to their container. There are two responsive behavior
-#' implementations: one for Shiny applications and flexdashboard documents
-#' and one for other documents (i.e. R markdown and `saveWidget`).
+#' implementations:
+#'
+#' - one for Shiny applications and flexdashboard documents,
+#' - and another one for other documents (i.e. R markdown and `saveWidget`).
 #'
 #' Graphics are created by an R graphic device (i.e pdf, png, svg here) and
 #' need arguments width and height to define a graphic region.
@@ -92,7 +93,6 @@
 #' adjusted regarding to the argument `width` and the aspect ratio.
 #' @seealso [girafe_options()], [validated_fonts()], [dsvg()]
 #' @export
-#' @importFrom uuid UUIDgenerate
 girafe <- function(
   code,
   ggobj = NULL,
@@ -101,10 +101,13 @@ girafe <- function(
   height_svg = NULL,
   options = list(),
   dependencies = NULL,
+  check_fonts_registered = FALSE,
+  check_fonts_dependencies = FALSE,
   ...
 ) {
   path <- tempfile()
 
+  # checks dims -----
   if (is.null(width_svg)) {
     width_svg <- default_width(default = 6)
   }
@@ -112,9 +115,10 @@ girafe <- function(
     height_svg <- default_height(default = 5)
   }
 
+  # prepare argument for dsvg -----
   args <- list(...)
   args$canvas_id <- args$canvas_id %||%
-    paste("svg", gsub("-", "_", UUIDgenerate()), sep = "_")
+    paste("svg", UUIDgenerate(), sep = "_")
   args$file <- path
   args$width <- width_svg
   args$height <- height_svg
@@ -127,29 +131,16 @@ girafe <- function(
   }
 
   if (!is.null(ggobj)) {
+    # check ggobj -----
     if (!inherits(ggobj, "ggplot")) {
       cli::cli_abort(c(
         "{.code ggobj} must be a {.code ggplot2} object."
       ))
     }
-
-    family_list <- list_theme_fonts(ggobj)
-    for (font in family_list) {
-      ffe <- font_family_exists(font)
-      if (!ffe) {
-        cli::cli_abort(c(
-          sprintf(
-            "Font family '%s' has not been found on your system or is not registered.",
-            font
-          ),
-          "i" = "You can use a google font with {.code gdtools::register_gfont()}.",
-          "i" = "You can use any font with {.code systemfonts::register_font()}."
-        ))
-      }
-    }
   }
 
   devlength <- length(dev.list())
+  # graphic production -----
   do.call(dsvg, args)
   tryCatch(
     {
@@ -178,6 +169,26 @@ girafe <- function(
 
   unlink(path)
 
+  # check fonts
+  family_list <- character()
+  if (check_fonts_registered || check_fonts_dependencies) {
+    family_list <- list_fonts(ggobj)
+  }
+  # check fonts -----
+  if (check_fonts_registered && !is.null(ggobj)) {
+    fonts_checking_registered(family_list = family_list)
+  } else if (check_fonts_registered && is.null(ggobj)) {
+    cli::cli_warn(
+      c("!" = "Dependencies checking can not be performed if `ggobj` is missing.")
+    )
+  }
+  if (check_fonts_dependencies && !is.null(ggobj)) {
+    fonts_checking_dependencies(dependencies = dependencies, family_list = family_list)
+  } else if (check_fonts_dependencies && is.null(ggobj)) {
+    cli::cli_warn("!" = "Dependencies checking can not be performed if `ggobj` is missing.")
+  }
+
+  # create widget -----
   createWidget(
     name = "girafe",
     x = x,
@@ -186,7 +197,6 @@ girafe <- function(
     dependencies = dependencies
   )
 }
-
 
 #' @importFrom htmlwidgets shinyRenderWidget shinyWidgetOutput sizingPolicy createWidget
 #' @import grid
@@ -291,4 +301,9 @@ run_girafe_example <- function(name = "crimes") {
   } else {
     warning("package shiny is required to be able to use the function")
   }
+}
+
+
+UUIDgenerate <- function() {
+  paste(format(as.hexmode(sample(256, 8, replace = TRUE) - 1), width = 2), collapse = "")
 }

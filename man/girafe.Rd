@@ -12,6 +12,8 @@ girafe(
   height_svg = NULL,
   options = list(),
   dependencies = NULL,
+  check_fonts_registered = FALSE,
+  check_fonts_dependencies = FALSE,
   ...
 )
 }
@@ -36,18 +38,20 @@ options \code{fig.width} and \code{fig.height} are used instead.}
 
 \item{dependencies}{Additional widget HTML dependencies, see \code{\link[htmlwidgets:createWidget]{htmlwidgets::createWidget()}}.}
 
+\item{check_fonts_registered}{whether to check if fonts families found in
+the ggplot are registered with 'systemfonts'.}
+
+\item{check_fonts_dependencies}{whether to check if fonts families found in
+the ggplot are found in the \code{dependencies} list.}
+
 \item{...}{arguments passed on to \code{\link[=dsvg]{dsvg()}}}
 }
 \description{
 Create an interactive graphic with a ggplot object
-to be used in a web browser. The function should replace function
-\code{ggiraph}.
+to be used in a web browser.
 }
 \details{
 Use \code{geom_zzz_interactive} to create interactive graphical elements.
-
-Difference from original functions is that some extra aesthetics are understood:
-the \link{interactive_parameters}.
 
 Tooltips can be displayed when mouse is over graphical elements.
 
@@ -64,6 +68,27 @@ When a zoom effect is set, "zoom activate", "zoom desactivate" and
 When selection type is set to 'multiple' (in Shiny applications), lasso
 selection and lasso anti-selections buttons are available in a toolbar.
 }
+\section{Managing Grouping with Interactive Aesthetics}{
+
+
+Adding an interactive aesthetic like \code{tooltip} can sometimes alter the implicit
+grouping that ggplot2 performs automatically.
+
+In these cases, you \strong{must explicitly} specify the \code{group} aesthetic to ensure
+correct graph rendering by clearly defining the variables that determine the
+grouping.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{mapping = ggplot2::aes(tooltip = .data_tooltip, group = interaction(factor1, factor2, ...))
+}\if{html}{\out{</div>}}
+
+This precaution is necessary:
+\itemize{
+\item ggplot2 automatically determines grouping based on the provided aesthetics
+\item Interactive aesthetics added by ggiraph can interfere with this logic
+\item Explicit \code{group} specification prevents unexpected behavior and ensures predictable results
+}
+}
+
 \section{Widget options}{
 
 girafe animations can be customized with function \code{\link[=girafe_options]{girafe_options()}}.
@@ -75,8 +100,11 @@ selection effects and toolbar.
 
 girafe graphics are responsive, which mean, they will be resized
 according to their container. There are two responsive behavior
-implementations: one for Shiny applications and flexdashboard documents
-and one for other documents (i.e. R markdown and \code{saveWidget}).
+implementations:
+\itemize{
+\item one for Shiny applications and flexdashboard documents,
+\item and another one for other documents (i.e. R markdown and \code{saveWidget}).
+}
 
 Graphics are created by an R graphic device (i.e pdf, png, svg here) and
 need arguments width and height to define a graphic region.
@@ -100,6 +128,10 @@ adjusted regarding to the argument \code{width} and the aspect ratio.
 
 \examples{
 library(ggplot2)
+library(ggiraph)
+library(gdtools)
+
+register_liberationsans()
 
 dataset <- mtcars
 dataset$carname <- row.names(mtcars)
@@ -111,14 +143,17 @@ gg_point <- ggplot(
     tooltip = carname, data_id = carname
   )
 ) +
-  geom_point_interactive() +
-  theme_minimal()
+  geom_point_interactive(hover_nearest = TRUE, size = 11/.pt) +
+  theme_minimal(base_family = "Liberation Sans", base_size = 11)
 
-x <- girafe(ggobj = gg_point)
+x <- girafe(
+  ggobj = gg_point,
+  dependencies = list(
+    liberationsansHtmlDependency()
+  )
+)
 
-if (interactive()) {
-  print(x)
-}
+x
 }
 \seealso{
 \code{\link[=girafe_options]{girafe_options()}}, \code{\link[=validated_fonts]{validated_fonts()}}, \code{\link[=dsvg]{dsvg()}}

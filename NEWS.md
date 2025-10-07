@@ -1,3 +1,32 @@
+# ggiraph 0.9.2
+
+## Feature
+
+- add interactive version of `ggbeeswarm::geom_quasirandom`, see
+`geom_quasirandom_interactive()`.
+- add `default_on` parameter to `opts_zoom()` to automatically activate pan/zoom
+mode when plot is rendered.
+- improve `opts_toolbar()` documentation and examples to better demonstrate the `hidden`
+parameter for customizing which toolbar buttons are displayed.
+- add examples with correct management of fonts (using `register_liberationsans()`).
+- add `check_fonts_registered` and `check_fonts_dependencies` arguments to `girafe()`
+to validate that fonts used in plots are properly registered and available in HTML dependencies.
+
+
+
+## Issues
+
+- fix custom tooltip for `zoom_off` state in toolbar not being applied correctly.
+- fix `geom_ribbon_interactive()` hover behavior so all ribbon parts 
+(upper, lower, fill) with same `data_id` react together.
+- improve `geom_line_interactive()` and `geom_path_interactive()` with 
+*mismatched lengths of ids* message when data have NA.
+
+## internals
+
+- refresh the process that bundle the javascript file thanks to package 'packer'.
+- id is now defined with an simple internal function copied from `shinyWidgets::genId`
+
 # ggiraph 0.9.1
 
 ## Issues
