@@ -246,7 +246,7 @@ library(ggiraph)
   )
   opts <- ggiraph:::merge_options(opts, new_opts)
   expect_true(is.list(opts) && length(opts) > 0, info = "merge_options is non-empty list")
-  expect_identical(opts, new_opts, info = "merge_options works")
+  expect_equivalent(opts, new_opts, info = "merge_options works")
 }
 
 # default_sizing_policy ----
@@ -267,12 +267,12 @@ library(ggiraph)
 # girafe_options ----
 {
   expect_error(girafe_options("foo"), info = "check x argument")
-  g <- girafe({
+  g <- girafe(code = {
     NULL
   })
   expect_identical(girafe_options(g), g, info = "no options set")
   result <- girafe_options(g, opts_zoom(1, 5))
-  expect_identical(result$x$settings$zoom, opts_zoom(1, 5), info = "zoom options set")
+  expect_equivalent(result$x$settings$zoom, opts_zoom(1, 5), info = "zoom options set")
   policy <- htmlwidgets::sizingPolicy(defaultWidth = 500, defaultHeight = 500)
   result <- girafe_options(g, policy)
   expect_identical(result$sizingPolicy, policy, info = "sizingPolicy set")

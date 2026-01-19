@@ -65,6 +65,12 @@
 #' girafe animations can be customized with function [girafe_options()].
 #' Options are available to customize tooltips, hover effects, zoom effects
 #' selection effects and toolbar.
+#'
+#' Options passed to `girafe()` are merged with defaults set via
+#' [set_girafe_defaults()]. This means you can define global styles once
+#' and override only specific parameters per plot. For example, if you set
+#' a custom tooltip CSS globally, you can still adjust `offx` and `offy`
+#' in a specific `girafe()` call without losing your CSS styling.
 #' @section Widget sizing:
 #' girafe graphics are responsive, which mean, they will be resized
 #' according to their container. There are two responsive behavior
@@ -94,8 +100,8 @@
 #' @seealso [girafe_options()], [validated_fonts()], [dsvg()]
 #' @export
 girafe <- function(
-  code,
   ggobj = NULL,
+  code,
   pointsize = 12,
   width_svg = NULL,
   height_svg = NULL,
@@ -179,13 +185,20 @@ girafe <- function(
     fonts_checking_registered(family_list = family_list)
   } else if (check_fonts_registered && is.null(ggobj)) {
     cli::cli_warn(
-      c("!" = "Dependencies checking can not be performed if `ggobj` is missing.")
+      c(
+        "!" = "Dependencies checking can not be performed if `ggobj` is missing."
+      )
     )
   }
   if (check_fonts_dependencies && !is.null(ggobj)) {
-    fonts_checking_dependencies(dependencies = dependencies, family_list = family_list)
+    fonts_checking_dependencies(
+      dependencies = dependencies,
+      family_list = family_list
+    )
   } else if (check_fonts_dependencies && is.null(ggobj)) {
-    cli::cli_warn("!" = "Dependencies checking can not be performed if `ggobj` is missing.")
+    cli::cli_warn(
+      "!" = "Dependencies checking can not be performed if `ggobj` is missing."
+    )
   }
 
   # create widget -----
@@ -305,5 +318,8 @@ run_girafe_example <- function(name = "crimes") {
 
 
 UUIDgenerate <- function() {
-  paste(format(as.hexmode(sample(256, 8, replace = TRUE) - 1), width = 2), collapse = "")
+  paste(
+    format(as.hexmode(sample(256, 8, replace = TRUE) - 1), width = 2),
+    collapse = ""
+  )
 }

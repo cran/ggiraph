@@ -140,6 +140,13 @@ opts_tooltip <- function(
     delay_out = delay_mouseout
   )
   class(x) <- "opts_tooltip"
+  # Track explicitly provided arguments for merging with defaults
+  call_args <- names(match.call())[-1]
+  # Map function arg names to list element names
+  arg_mapping <- c(delay_mouseover = "delay_over", delay_mouseout = "delay_out")
+  call_args <- ifelse(call_args %in% names(arg_mapping),
+                      arg_mapping[call_args], call_args)
+  attr(x, "explicit_args") <- call_args
   x
 }
 
@@ -205,10 +212,10 @@ opts_hover <- function(css = NULL, reactive = FALSE, nearest_distance = NULL) {
     )
   }
 
-  structure(
-    list(css = css, reactive = reactive, nearest_distance = nearest_distance),
-    class = "opts_hover"
-  )
+  x <- list(css = css, reactive = reactive, nearest_distance = nearest_distance)
+  class(x) <- "opts_hover"
+  attr(x, "explicit_args") <- names(match.call())[-1]
+  x
 }
 
 #' @export
@@ -220,7 +227,10 @@ opts_hover_inv <- function(css = NULL) {
     cls_prefix = "hover_inv_",
     name = "opts_hover_inv"
   )
-  structure(list(css = css), class = "opts_hover_inv")
+  x <- list(css = css)
+  class(x) <- "opts_hover_inv"
+  attr(x, "explicit_args") <- names(match.call())[-1]
+  x
 }
 
 #' @export
@@ -236,7 +246,10 @@ opts_hover_key <- function(css = NULL, reactive = FALSE) {
     abort("`reactive` must be a scalar logical", call = NULL)
   }
 
-  structure(list(css = css, reactive = reactive), class = "opts_hover_key")
+  x <- list(css = css, reactive = reactive)
+  class(x) <- "opts_hover_key"
+  attr(x, "explicit_args") <- names(match.call())[-1]
+  x
 }
 
 #' @export
@@ -252,7 +265,10 @@ opts_hover_theme <- function(css = NULL, reactive = FALSE) {
     abort("`reactive` must be a scalar logical", call = NULL)
   }
 
-  structure(list(css = css, reactive = reactive), class = "opts_hover_theme")
+  x <- list(css = css, reactive = reactive)
+  class(x) <- "opts_hover_theme"
+  attr(x, "explicit_args") <- names(match.call())[-1]
+  x
 }
 
 #' @title Selection effect settings
@@ -268,7 +284,12 @@ opts_hover_theme <- function(css = NULL, reactive = FALSE) {
 #' [girafe_css()], to give more control over the css for different element types.
 #' @param type selection mode ("single", "multiple", "none")
 #'  when widget is in a Shiny application.
-#' @param only_shiny disable selections if not in a shiny context.
+#' @param only_shiny disable selections when not running within a Shiny
+#' application. Defaults to `TRUE` because selection is primarily
+#' designed for Shiny interactivity, where selected elements can be
+#' captured as reactive values. Set to `FALSE` only to demonstrate
+#' the selection/lasso feature in standalone HTML pages (e.g. in
+#' documentation examples or R Markdown output).
 #' @param selected character vector, id to be selected when the graph will be
 #' initialized.
 #' @note **IMPORTANT**: When applying a `fill` style with the `css` argument,
@@ -314,15 +335,15 @@ opts_selection <- function(
     abort("`only_shiny` must be a scalar logical", call = NULL)
   }
 
-  structure(
-    list(
-      css = css,
-      type = type,
-      only_shiny = only_shiny,
-      selected = as.character(selected)
-    ),
-    class = "opts_selection"
+  x <- list(
+    css = css,
+    type = type,
+    only_shiny = only_shiny,
+    selected = as.character(selected)
   )
+  class(x) <- "opts_selection"
+  attr(x, "explicit_args") <- names(match.call())[-1]
+  x
 }
 
 #' @export
@@ -334,7 +355,10 @@ opts_selection_inv <- function(css = NULL) {
     cls_prefix = "select_inv_",
     name = "opts_selection_inv"
   )
-  structure(list(css = css), class = "opts_selection_inv")
+  x <- list(css = css)
+  class(x) <- "opts_selection_inv"
+  attr(x, "explicit_args") <- names(match.call())[-1]
+  x
 }
 
 #' @export
@@ -351,20 +375,20 @@ opts_selection_key <- function(
     cls_prefix = "select_key_",
     name = "opts_selection_key"
   )
-  type = arg_match(type, error_call = NULL)
+  type <- arg_match(type, error_call = NULL)
   if (!is_valid_logical(only_shiny)) {
     abort("`only_shiny` must be a scalar logical", call = NULL)
   }
 
-  structure(
-    list(
-      css = css,
-      type = type,
-      only_shiny = only_shiny,
-      selected = as.character(selected)
-    ),
-    class = "opts_selection_key"
+  x <- list(
+    css = css,
+    type = type,
+    only_shiny = only_shiny,
+    selected = as.character(selected)
   )
+  class(x) <- "opts_selection_key"
+  attr(x, "explicit_args") <- names(match.call())[-1]
+  x
 }
 
 #' @export
@@ -381,20 +405,20 @@ opts_selection_theme <- function(
     cls_prefix = "select_theme_",
     name = "opts_selection_theme"
   )
-  type = arg_match(type, error_call = NULL)
+  type <- arg_match(type, error_call = NULL)
   if (!is_valid_logical(only_shiny)) {
     abort("`only_shiny` must be a scalar logical", call = NULL)
   }
 
-  structure(
-    list(
-      css = css,
-      type = type,
-      only_shiny = only_shiny,
-      selected = as.character(selected)
-    ),
-    class = "opts_selection_theme"
+  x <- list(
+    css = css,
+    type = type,
+    only_shiny = only_shiny,
+    selected = as.character(selected)
   )
+  class(x) <- "opts_selection_theme"
+  attr(x, "explicit_args") <- names(match.call())[-1]
+  x
 }
 
 #' @title Zoom settings
@@ -445,6 +469,7 @@ opts_zoom <- function(min = 1, max = 1, duration = 300, default_on = FALSE) {
     default_on = default_on
   )
   class(x) <- "opts_zoom"
+  attr(x, "explicit_args") <- names(match.call())[-1]
   x
 }
 
@@ -595,6 +620,13 @@ opts_toolbar <- function(
     delay_out = delay_mouseout
   )
   class(x) <- "opts_toolbar"
+  # Track explicitly provided arguments for merging with defaults
+  call_args <- names(match.call())[-1]
+  # Map function arg names to list element names
+  arg_mapping <- c(delay_mouseover = "delay_over", delay_mouseout = "delay_out")
+  call_args <- ifelse(call_args %in% names(arg_mapping),
+                      arg_mapping[call_args], call_args)
+  attr(x, "explicit_args") <- call_args
   x
 }
 
@@ -632,6 +664,7 @@ opts_sizing <- function(rescale = TRUE, width = 1) {
 
   x <- list(rescale = rescale, width = width)
   class(x) <- "opts_sizing"
+  attr(x, "explicit_args") <- names(match.call())[-1]
   x
 }
 
@@ -679,32 +712,46 @@ girafe_options <- function(x, ...) {
   x
 }
 
+merge_single_opts <- function(default_opts, user_opts) {
+  explicit_args <- attr(user_opts, "explicit_args")
+  if (!is.null(explicit_args)) {
+    # Only merge explicitly provided arguments
+    user_opts_filtered <- as.list(user_opts)[explicit_args]
+  } else {
+    # Fallback: merge all (old behavior)
+    user_opts_filtered <- as.list(user_opts)
+  }
+  merged <- modifyList(as.list(default_opts), user_opts_filtered)
+  class(merged) <- class(default_opts)
+  merged
+}
+
 merge_options <- function(options, args) {
   for (arg in args) {
     if (inherits(arg, "opts_zoom")) {
-      options$zoom <- arg
+      options$zoom <- merge_single_opts(options$zoom, arg)
     } else if (inherits(arg, "opts_selection")) {
-      options$select <- arg
+      options$select <- merge_single_opts(options$select, arg)
     } else if (inherits(arg, "opts_selection_inv")) {
-      options$select_inv <- arg
+      options$select_inv <- merge_single_opts(options$select_inv, arg)
     } else if (inherits(arg, "opts_selection_key")) {
-      options$select_key <- arg
+      options$select_key <- merge_single_opts(options$select_key, arg)
     } else if (inherits(arg, "opts_selection_theme")) {
-      options$select_theme <- arg
+      options$select_theme <- merge_single_opts(options$select_theme, arg)
     } else if (inherits(arg, "opts_tooltip")) {
-      options$tooltip <- arg
+      options$tooltip <- merge_single_opts(options$tooltip, arg)
     } else if (inherits(arg, "opts_hover")) {
-      options$hover <- arg
+      options$hover <- merge_single_opts(options$hover, arg)
     } else if (inherits(arg, "opts_hover_key")) {
-      options$hover_key <- arg
+      options$hover_key <- merge_single_opts(options$hover_key, arg)
     } else if (inherits(arg, "opts_hover_theme")) {
-      options$hover_theme <- arg
+      options$hover_theme <- merge_single_opts(options$hover_theme, arg)
     } else if (inherits(arg, "opts_hover_inv")) {
-      options$hover_inv <- arg
+      options$hover_inv <- merge_single_opts(options$hover_inv, arg)
     } else if (inherits(arg, "opts_toolbar")) {
-      options$toolbar <- arg
+      options$toolbar <- merge_single_opts(options$toolbar, arg)
     } else if (inherits(arg, "opts_sizing")) {
-      options$sizing <- arg
+      options$sizing <- merge_single_opts(options$sizing, arg)
     }
   }
   options

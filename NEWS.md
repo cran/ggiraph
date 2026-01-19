@@ -1,3 +1,26 @@
+# ggiraph 0.9.3
+
+## Change
+
+- reorder arguments of `girafe()` with argument `ggobj` in first position.
+IT DOES NOT makes ggplot objects pipe-able with `girafe()` (unless you add
+parenthesis around your ggplot code).
+
+## Feature
+
+- options passed to `girafe()` are now merged with defaults from
+`set_girafe_defaults()` instead of replacing them entirely. This allows
+setting global styles while overriding specific parameters per plot (#328).
+
+## Issues
+
+- tooltip position is now reset to (0,0) when it disappears, fixing potential
+layout issues in flexdashboard and similar containers. (#323)
+- single quotes in attribute values (e.g. "Côte d'Ivoire") are now automatically
+escaped instead of raising an error (#329).
+- fix "Unknown or uninitialised column: `subgroup`" warning when using
+`geom_segment_interactive()` or `geom_path_interactive()` with `coord_polar()` (#344).
+
 # ggiraph 0.9.2
 
 ## Feature
@@ -26,6 +49,12 @@ to validate that fonts used in plots are properly registered and available in HT
 
 - refresh the process that bundle the javascript file thanks to package 'packer'.
 - id is now defined with an simple internal function copied from `shinyWidgets::genId`
+
+## changes
+
+- `font_family_exists()` was a duplicated function from 'gdtools', as 'gdtools' is now imported
+it makes no sense to keep the duplicate. Use `gdtools::font_family_exists()` instead of 
+`ggiraph::font_family_exists()`.
 
 # ggiraph 0.9.1
 
