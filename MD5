@@ -1,6 +1,6 @@
-5b4a9193541301e2a7df79ba185a0470 *DESCRIPTION
+60aba7ef3506bd32f60225c7c5da5ec3 *DESCRIPTION
 679f3a97abbc339f15ac4e932a69e2ba *NAMESPACE
-7372f36061de8ec3a63ed2000837973d *NEWS.md
+e533668bc5e64302daf78d72de9a477e *NEWS.md
 92762864badb0fbdf8a241621146a3f6 *R/RcppExports.R
 7ff8ed34e4d4d3c62bc8b6af95d90ebd *R/annotate_interactive.R
 547f8372f7bd206644caae119c2ddbe0 *R/annotation_raster_interactive.R
@@ -52,7 +52,7 @@ ad3d50128c859d015b3054d30fd20787 *R/geom_violin_interactive.R
 b810a6f5084937d058533feeb5228b5f *R/geom_vline_interactive.R
 a952e8ff9a622371256e61a220ec9f26 *R/ggiraph.R
 bb05316c9b1d5107881ab7d0dda19818 *R/girafe.R
-6cd5942cb213ca9686dd3373493d6bf0 *R/girafe_options.R
+ad86687e7c5125449f570f5df545c200 *R/girafe_options.R
 8afe4b4617ca7c50748a256714665e16 *R/grob_interactive.R
 f7f9fd8e26a64c6c7bfc550886012676 *R/guide_bins_interactive.R
 07dfc940358314862f592955e4fef9fa *R/guide_colourbar_interactive.R
@@ -133,9 +133,9 @@ a19a884c84cc43042f2d3d99dcf63b73 *inst/examples/shiny/maps/ui.R
 615633bd9320408ddb8c6f9fb6ddf5eb *inst/examples/shiny/modal/Readme.md
 bd20c6eac2acddf1e4a61c748b797a1a *inst/examples/shiny/modal/server.R
 14e7cacfe45eb8952459b8c7fbf95811 *inst/examples/shiny/modal/ui.R
-9feff12b973cf1c630d703ec7d9cdfc3 *inst/htmlwidgets/girafe.css
-81880349927c77dcc30f3fb7ea2b9fd0 *inst/htmlwidgets/girafe.js
-80f5cd34e146677cdc8952c901f80b8c *inst/htmlwidgets/girafe.yaml
+14a61df5d45d828c7246260a3f2812e9 *inst/htmlwidgets/girafe.css
+a53815bdd327b02a31bdeef102b1d17c *inst/htmlwidgets/girafe.js
+7e5c6820e740f08b8f9f450cbd193989 *inst/htmlwidgets/girafe.yaml
 786f20c1a422a379ef16df0139cf4375 *inst/tinytest/setup.R
 fb7c280d34b2d42c3658c8f61f27bbb0 *inst/tinytest/test-annotate_interactive.R
 7a338745c5a00e5235233147e702bff2 *inst/tinytest/test-annotation_raster_interactive.R
@@ -295,8 +295,8 @@ c85310ba805ec4e6788b1c410de4ffa6 *man/match_family.Rd
 288cc0229b1a4b5411b29de93d966965 *man/opts_hover.Rd
 4429efce18ec56d3d797489d8759e90e *man/opts_selection.Rd
 2cea3248d506226e8a8d3f6200291d7d *man/opts_sizing.Rd
-2fe58c6ef758d4a5624972b6557a38fc *man/opts_toolbar.Rd
-a89640d95b33baaaa36baa8d8b12be4b *man/opts_tooltip.Rd
+bdbb12cb5df2ed5756fd53ec00c2a437 *man/opts_toolbar.Rd
+795fc616a88cd62f5c19e98724f1cbfa *man/opts_tooltip.Rd
 d26417b9b52902de8207449796d3029d *man/opts_zoom.Rd
 bbcdf20b1ae31b8ec881a4cc47c2c215 *man/renderGirafe.Rd
 3ca09dda154aba372db833536d974db5 *man/renderggiraph.Rd
