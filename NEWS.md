@@ -1,3 +1,30 @@
+# ggiraph 0.9.5
+
+## Feature
+
+- New functions `girafe_class_add()`, `girafe_class_remove()` and
+`girafe_class_toggle()` allow programmatic manipulation of CSS classes
+on girafe SVG elements from Shiny. Elements are targeted by `data_id`,
+`key_id` or `theme_id` (#321).
+- `opts_hover()` and `opts_selection()` gain a new `linked` parameter. When
+`linked = TRUE`, hover and selection states are shared between geometry
+elements (`data-id`) and legend/guide elements (`key-id`): hovering or
+clicking a legend key highlights or selects the corresponding geometries,
+and vice versa (#330).
+
+## Changes
+
+- Mouse events replaced by Pointer Events for touch device support.
+Hover and tooltips now work on mobile via tap; the lasso selection
+tool is disabled on touch devices (#300).
+
+## Issues
+
+- fix linked hover state not clearing when cursor leaves a legend key
+without re-entering the panel area (#330).
+- fix label_interactive broken by the new V4 ggplot2 (#348)
+- fix interactive labels in binned guides when scale breaks fall outside limits (#338)
+
 # ggiraph 0.9.4
 
 - toolbar gains new button "fullscreen".
