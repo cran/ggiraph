@@ -123,7 +123,7 @@ if (requireNamespace("dplyr", quietly = TRUE)) {
         tooltip = round(mean(carat), 2),
         data_id = carat
       ),
-      size = 3
+      linewidth = 3
     )
   x <- girafe(ggobj = gg_vline1)
   if (interactive()) print(x)

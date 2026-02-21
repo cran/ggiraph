@@ -1,7 +1,6 @@
 library(tinytest)
 library(ggiraph)
 library(grid)
-library(xml2)
 source("setup.R")
 
 if (ggiraph:::get_ge_version() < 13) {

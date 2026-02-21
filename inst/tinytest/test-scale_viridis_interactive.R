@@ -1,7 +1,6 @@
 library(tinytest)
 library(ggiraph)
 library(ggplot2)
-library(xml2)
 source("setup.R")
 
 # scale_viridis_interactive ----

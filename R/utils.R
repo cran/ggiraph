@@ -1,3 +1,4 @@
+#' @importFrom MASS kde2d
 #' @importFrom rlang abort arg_match is_named %||%
 # Include generic helpers from ggplot2
 #' @include utils_ggplot2.R

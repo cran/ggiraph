@@ -65,10 +65,9 @@ if (
 
   x <- girafe(ggobj = gg_qr)
   x <- girafe_options(x = x, opts_hover(css = "fill:#FF4C3B;"))
-  if (interactive()) print(x)
-
-
-
+  if (interactive()) {
+    print(x)
+  }
 
   dat <- mtcars
   dat$name <- row.names(mtcars)

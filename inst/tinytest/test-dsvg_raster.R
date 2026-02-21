@@ -1,6 +1,5 @@
 library(tinytest)
 library(ggiraph)
-library(xml2)
 source("setup.R")
 
 image <- matrix(hcl(seq(0, 360, length.out = 50 * 50), 80, 70), nrow = 50)

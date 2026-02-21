@@ -75,6 +75,8 @@ p1 <- p +
     guide = "bins"
   )
 x <- girafe(ggobj = p1)
+
+\dontshow{if (identical(Sys.getenv("IN_PKGDOWN"), "true")) withAutoprint(\{ # examplesIf}
 x
 
 # set the keys separately
@@ -157,6 +159,7 @@ x <- girafe_options(
   opts_hover_key(girafe_css("stroke:red", text = "stroke:none;fill:red"))
 )
 x
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \link{interactive_parameters}, \code{\link[=girafe]{girafe()}}

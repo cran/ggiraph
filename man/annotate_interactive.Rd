@@ -51,10 +51,6 @@ girafe(
     liberationsansHtmlDependency()
   )
 )
-
-
-
-
 }
 \seealso{
 \code{\link[=girafe]{girafe()}}, \link{interactive_parameters}, \code{\link[=annotation_raster_interactive]{annotation_raster_interactive()}}

@@ -200,7 +200,7 @@ library(ggplot2)
 library(ggiraph)
 
 set.seed(4393)
-dsmall <- diamonds[sample(nrow(diamonds), 1000), ]
+dsmall <- diamonds[sample(nrow(diamonds), 100), ]
 p <- ggplot(dsmall, aes(x, y)) +
   stat_density_2d(
     aes(

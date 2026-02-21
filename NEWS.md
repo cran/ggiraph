@@ -1,3 +1,9 @@
+# ggiraph 0.9.6
+
+## Issues
+
+- Fix documentation and examples so that R CMD check run ok when `_R_CHECK_DEPENDS_ONLY_: true`
+
 # ggiraph 0.9.5
 
 ## Feature

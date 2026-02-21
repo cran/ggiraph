@@ -1,6 +1,5 @@
 library(tinytest)
 library(ggiraph)
-library(xml2)
 source("setup.R")
 
 # radius is given in points ----

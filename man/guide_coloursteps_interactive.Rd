@@ -74,9 +74,8 @@ p <- ggplot(dsmall, aes(x, y)) +
 p1 <- p +
   scale_fill_viridis_b_interactive(data_id = "nlevel", tooltip = "nlevel")
 x <- girafe(ggobj = p1)
-if (interactive()) {
-  print(x)
-}
+\dontshow{if (identical(Sys.getenv("IN_PKGDOWN"), "true")) withAutoprint(\{ # examplesIf}
+x
 
 
 # make the title and labels interactive
@@ -102,9 +101,8 @@ x <- girafe_options(
   x,
   opts_hover_key(girafe_css("stroke:red", text = "stroke:none;fill:red"))
 )
-if (interactive()) {
-  print(x)
-}
+x
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \link{interactive_parameters}, \code{\link[=girafe]{girafe()}}

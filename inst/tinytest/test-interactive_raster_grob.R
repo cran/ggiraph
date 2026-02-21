@@ -1,7 +1,6 @@
 library(tinytest)
 library(ggiraph)
 library(grid)
-library(xml2)
 source("setup.R")
 
 # interactive_raster_grob ----

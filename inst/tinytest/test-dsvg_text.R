@@ -1,6 +1,5 @@
 library(tinytest)
 library(ggiraph)
-library(xml2)
 source("setup.R")
 
 # cex affects strwidth ----
