@@ -11,7 +11,7 @@ geom_raster_interactive(...)
 plus any of the \link{interactive_parameters}.}
 }
 \description{
-The geometry is based on \code{\link[ggplot2:geom_tile]{ggplot2::geom_raster()}}.
+The geometry is based on \code{\link[ggplot2:geom_raster]{ggplot2::geom_raster()}}.
 See the documentation for those functions for more details.
 }
 \section{Details for interactive geom functions}{
@@ -48,7 +48,5 @@ if (interactive()) {
 }
 }
 \seealso{
-\code{\link[=girafe]{girafe()}}
-
 \code{\link[=girafe]{girafe()}}
 }

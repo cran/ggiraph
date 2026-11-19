@@ -19,7 +19,6 @@
 %   R/geom_violin_interactive.R, R/geom_vline_interactive.R,
 %   R/guide_bins_interactive.R, R/guide_colourbar_interactive.R,
 %   R/guide_coloursteps_interactive.R, R/guide_legend_interactive.R
-\docType{data}
 \name{GeomInteractive}
 \alias{GeomInteractive}
 \alias{GeomInteractiveRasterAnn}
@@ -82,5 +81,4 @@ object is responsible for rendering the data in the plot.
 See \link[ggplot2:Geom]{Geom} for more information.
 }
 
-\keyword{datasets}
 \keyword{internal}

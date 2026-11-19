@@ -77,19 +77,19 @@ An interactive scale object.
 \description{
 These scales are based on
 \code{\link[ggplot2:scale_colour_continuous]{ggplot2::scale_colour_continuous()}},
-\code{\link[ggplot2:scale_colour_continuous]{ggplot2::scale_fill_continuous()}},
-\code{\link[ggplot2:scale_grey]{ggplot2::scale_colour_grey()}},
-\code{\link[ggplot2:scale_grey]{ggplot2::scale_fill_grey()}},
-\code{\link[ggplot2:scale_hue]{ggplot2::scale_colour_hue()}},
-\code{\link[ggplot2:scale_hue]{ggplot2::scale_fill_hue()}},
-\code{\link[ggplot2:scale_colour_continuous]{ggplot2::scale_colour_binned()}},
-\code{\link[ggplot2:scale_colour_continuous]{ggplot2::scale_fill_binned()}},
+\code{\link[ggplot2:scale_fill_continuous]{ggplot2::scale_fill_continuous()}},
+\code{\link[ggplot2:scale_colour_grey]{ggplot2::scale_colour_grey()}},
+\code{\link[ggplot2:scale_fill_grey]{ggplot2::scale_fill_grey()}},
+\code{\link[ggplot2:scale_colour_hue]{ggplot2::scale_colour_hue()}},
+\code{\link[ggplot2:scale_fill_hue]{ggplot2::scale_fill_hue()}},
+\code{\link[ggplot2:scale_colour_binned]{ggplot2::scale_colour_binned()}},
+\code{\link[ggplot2:scale_fill_binned]{ggplot2::scale_fill_binned()}},
 \code{\link[ggplot2:scale_colour_discrete]{ggplot2::scale_colour_discrete()}},
-\code{\link[ggplot2:scale_colour_discrete]{ggplot2::scale_fill_discrete()}},
-\code{\link[ggplot2:scale_gradient]{ggplot2::scale_colour_date()}},
-\code{\link[ggplot2:scale_gradient]{ggplot2::scale_fill_date()}},
-\code{\link[ggplot2:scale_gradient]{ggplot2::scale_colour_datetime()}} and
-\code{\link[ggplot2:scale_gradient]{ggplot2::scale_fill_datetime()}}.
+\code{\link[ggplot2:scale_fill_discrete]{ggplot2::scale_fill_discrete()}},
+\code{\link[ggplot2:scale_colour_date]{ggplot2::scale_colour_date()}},
+\code{\link[ggplot2:scale_fill_date]{ggplot2::scale_fill_date()}},
+\code{\link[ggplot2:scale_colour_datetime]{ggplot2::scale_colour_datetime()}} and
+\code{\link[ggplot2:scale_fill_datetime]{ggplot2::scale_fill_datetime()}}.
 See the documentation for those functions for more details.
 }
 \section{Details for interactive scale and interactive guide functions}{
@@ -129,15 +129,15 @@ See the element_*_interactive section for more details.
 \seealso{
 \code{\link[=girafe]{girafe()}}
 
-Other interactive scale: 
-\code{\link{scale_alpha_interactive}()},
-\code{\link{scale_colour_brewer_interactive}()},
-\code{\link{scale_colour_steps_interactive}()},
+Other interactive scale:
+\code{\link[=scale_alpha_interactive]{scale_alpha_interactive()}},
+\code{\link[=scale_colour_brewer_interactive]{scale_colour_brewer_interactive()}},
+\code{\link[=scale_colour_steps_interactive]{scale_colour_steps_interactive()}},
 \code{\link{scale_gradient_interactive}},
-\code{\link{scale_linetype_interactive}()},
+\code{\link[=scale_linetype_interactive]{scale_linetype_interactive()}},
 \code{\link{scale_manual_interactive}},
-\code{\link{scale_shape_interactive}()},
-\code{\link{scale_size_interactive}()},
+\code{\link[=scale_shape_interactive]{scale_shape_interactive()}},
+\code{\link[=scale_size_interactive]{scale_size_interactive()}},
 \code{\link{scale_viridis_interactive}}
 }
 \concept{interactive scale}

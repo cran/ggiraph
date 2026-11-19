@@ -19,7 +19,7 @@ plus any of the \link{interactive_parameters}.}
 }
 \description{
 These geometries are based on \code{\link[ggplot2:geom_abline]{ggplot2::geom_abline()}},
-\code{\link[ggplot2:geom_abline]{ggplot2::geom_hline()}} and \code{\link[ggplot2:geom_abline]{ggplot2::geom_vline()}}.
+\code{\link[ggplot2:geom_hline]{ggplot2::geom_hline()}} and \code{\link[ggplot2:geom_vline]{ggplot2::geom_vline()}}.
 }
 \section{Details for interactive geom functions}{
 
@@ -159,9 +159,5 @@ if (interactive()) {
 }
 }
 \seealso{
-\code{\link[=girafe]{girafe()}}
-
-\code{\link[=girafe]{girafe()}}
-
 \code{\link[=girafe]{girafe()}}
 }

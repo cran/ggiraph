@@ -72,6 +72,48 @@ void dsvg_new_page(const pGEcontext gc, pDevDesc dd) {
   }
 }
 
+#if R_GE_version >= 15
+static SEXP int_values(std::initializer_list<int> values) {
+  SEXP out = Rf_allocVector(INTSXP, values.size());
+  int i = 0;
+  for (int value : values) INTEGER(out)[i++] = value;
+  return out;
+}
+
+/*
+ * Fills what dsvg can draw in the list prepared by the engine
+ * (dev.capabilities()): 1 or the supported types when supported,
+ * 0 when not.
+ */
+SEXP dsvg_capabilities(SEXP capabilities) {
+  SET_VECTOR_ELT(capabilities, R_GE_capability_patterns,
+                 int_values({R_GE_linearGradientPattern,
+                             R_GE_radialGradientPattern,
+                             R_GE_tilingPattern}));
+  SET_VECTOR_ELT(capabilities, R_GE_capability_clippingPaths,
+                 int_values({1}));
+  SET_VECTOR_ELT(capabilities, R_GE_capability_masks,
+                 int_values({R_GE_alphaMask, R_GE_luminanceMask}));
+  int n_ops = 0;
+  for (int op = R_GE_compositeClear; op <= R_GE_compositeExclusion; op++) {
+    if (dsvg_supports_operator(op)) n_ops++;
+  }
+  SEXP ops = PROTECT(Rf_allocVector(INTSXP, n_ops));
+  for (int op = R_GE_compositeClear, i = 0; op <= R_GE_compositeExclusion; op++) {
+    if (dsvg_supports_operator(op)) INTEGER(ops)[i++] = op;
+  }
+  SET_VECTOR_ELT(capabilities, R_GE_capability_compositing, ops);
+  UNPROTECT(1);
+  SET_VECTOR_ELT(capabilities, R_GE_capability_transformations,
+                 int_values({1}));
+  SET_VECTOR_ELT(capabilities, R_GE_capability_paths, int_values({1}));
+#if R_GE_version >= 16
+  SET_VECTOR_ELT(capabilities, R_GE_capability_glyphs, int_values({1}));
+#endif
+  return capabilities;
+}
+#endif // R_GE_version >= 15
+
 pDevDesc dsvg_driver_new(std::string filename,
                          double width, double height,
                          std::string canvas_id,
@@ -162,6 +204,23 @@ pDevDesc dsvg_driver_new(std::string filename,
 
   // version 14 fully supported
   dd->deviceVersion = R_GE_deviceClip;
+#endif
+
+#if R_GE_version >= 15
+  dd->defineGroup  = dsvg_define_group;
+  dd->useGroup     = dsvg_use_group;
+  dd->releaseGroup = dsvg_release_group;
+  dd->stroke       = dsvg_stroke;
+  dd->fill         = dsvg_fill;
+  dd->fillStroke   = dsvg_fill_stroke;
+  dd->capabilities = dsvg_capabilities;
+
+  dd->deviceVersion = R_GE_group;
+#endif
+
+#if R_GE_version >= 16
+  dd->glyph = dsvg_glyph;
+  dd->deviceVersion = R_GE_glyphs;
 #endif
 
   dd->deviceSpecific = new DSVG_dev(filename,

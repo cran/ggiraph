@@ -40,12 +40,12 @@ An interactive scale object.
 }
 \description{
 These scales are based on
-\code{\link[ggplot2:scale_gradient]{ggplot2::scale_colour_gradient()}},
-\code{\link[ggplot2:scale_gradient]{ggplot2::scale_fill_gradient()}},
-\code{\link[ggplot2:scale_gradient]{ggplot2::scale_colour_gradient2()}},
-\code{\link[ggplot2:scale_gradient]{ggplot2::scale_fill_gradient2()}},
-\code{\link[ggplot2:scale_gradient]{ggplot2::scale_colour_gradientn()}} and
-\code{\link[ggplot2:scale_gradient]{ggplot2::scale_fill_gradientn()}}.
+\code{\link[ggplot2:scale_colour_gradient]{ggplot2::scale_colour_gradient()}},
+\code{\link[ggplot2:scale_fill_gradient]{ggplot2::scale_fill_gradient()}},
+\code{\link[ggplot2:scale_colour_gradient2]{ggplot2::scale_colour_gradient2()}},
+\code{\link[ggplot2:scale_fill_gradient2]{ggplot2::scale_fill_gradient2()}},
+\code{\link[ggplot2:scale_colour_gradientn]{ggplot2::scale_colour_gradientn()}} and
+\code{\link[ggplot2:scale_fill_gradientn]{ggplot2::scale_fill_gradientn()}}.
 See the documentation for those functions for more details.
 }
 \section{Details for interactive scale and interactive guide functions}{
@@ -210,15 +210,15 @@ if (interactive()) {
 \seealso{
 \code{\link[=girafe]{girafe()}}
 
-Other interactive scale: 
-\code{\link{scale_alpha_interactive}()},
-\code{\link{scale_colour_brewer_interactive}()},
+Other interactive scale:
+\code{\link[=scale_alpha_interactive]{scale_alpha_interactive()}},
+\code{\link[=scale_colour_brewer_interactive]{scale_colour_brewer_interactive()}},
 \code{\link{scale_colour_interactive}},
-\code{\link{scale_colour_steps_interactive}()},
-\code{\link{scale_linetype_interactive}()},
+\code{\link[=scale_colour_steps_interactive]{scale_colour_steps_interactive()}},
+\code{\link[=scale_linetype_interactive]{scale_linetype_interactive()}},
 \code{\link{scale_manual_interactive}},
-\code{\link{scale_shape_interactive}()},
-\code{\link{scale_size_interactive}()},
+\code{\link[=scale_shape_interactive]{scale_shape_interactive()}},
+\code{\link[=scale_size_interactive]{scale_size_interactive()}},
 \code{\link{scale_viridis_interactive}}
 }
 \concept{interactive scale}

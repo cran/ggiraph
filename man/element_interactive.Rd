@@ -20,8 +20,8 @@ plus any of the \link{interactive_parameters}.}
 With these functions the user can add interactivity to various \code{\link[ggplot2:theme]{ggplot2::theme()}}
 elements.
 
-They are based on \code{\link[ggplot2:element]{ggplot2::element_rect()}},
-\code{\link[ggplot2:element]{ggplot2::element_line()}} and \code{\link[ggplot2:element]{ggplot2::element_text()}}
+They are based on \code{\link[ggplot2:element_rect]{ggplot2::element_rect()}},
+\code{\link[ggplot2:element_line]{ggplot2::element_line()}} and \code{\link[ggplot2:element_text]{ggplot2::element_text()}}
 See the documentation for those functions for more details.
 }
 \section{Details for element_*_interactive functions}{

@@ -39,12 +39,12 @@ An interactive scale object.
 }
 \description{
 These scales are based on
-\code{\link[ggplot2:scale_brewer]{ggplot2::scale_colour_brewer()}},
-\code{\link[ggplot2:scale_brewer]{ggplot2::scale_fill_brewer()}},
-\code{\link[ggplot2:scale_brewer]{ggplot2::scale_colour_distiller()}},
-\code{\link[ggplot2:scale_brewer]{ggplot2::scale_fill_distiller()}},
-\code{\link[ggplot2:scale_brewer]{ggplot2::scale_colour_fermenter()}},
-\code{\link[ggplot2:scale_brewer]{ggplot2::scale_fill_fermenter()}}.
+\code{\link[ggplot2:scale_colour_brewer]{ggplot2::scale_colour_brewer()}},
+\code{\link[ggplot2:scale_fill_brewer]{ggplot2::scale_fill_brewer()}},
+\code{\link[ggplot2:scale_colour_distiller]{ggplot2::scale_colour_distiller()}},
+\code{\link[ggplot2:scale_fill_distiller]{ggplot2::scale_fill_distiller()}},
+\code{\link[ggplot2:scale_colour_fermenter]{ggplot2::scale_colour_fermenter()}},
+\code{\link[ggplot2:scale_fill_fermenter]{ggplot2::scale_fill_fermenter()}}.
 See the documentation for those functions for more details.
 }
 \section{Details for interactive scale and interactive guide functions}{
@@ -84,15 +84,15 @@ See the element_*_interactive section for more details.
 \seealso{
 \code{\link[=girafe]{girafe()}}
 
-Other interactive scale: 
-\code{\link{scale_alpha_interactive}()},
+Other interactive scale:
+\code{\link[=scale_alpha_interactive]{scale_alpha_interactive()}},
 \code{\link{scale_colour_interactive}},
-\code{\link{scale_colour_steps_interactive}()},
+\code{\link[=scale_colour_steps_interactive]{scale_colour_steps_interactive()}},
 \code{\link{scale_gradient_interactive}},
-\code{\link{scale_linetype_interactive}()},
+\code{\link[=scale_linetype_interactive]{scale_linetype_interactive()}},
 \code{\link{scale_manual_interactive}},
-\code{\link{scale_shape_interactive}()},
-\code{\link{scale_size_interactive}()},
+\code{\link[=scale_shape_interactive]{scale_shape_interactive()}},
+\code{\link[=scale_size_interactive]{scale_size_interactive()}},
 \code{\link{scale_viridis_interactive}}
 }
 \concept{interactive scale}

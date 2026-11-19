@@ -16,7 +16,7 @@ plus any of the \link{interactive_parameters}.}
 }
 \description{
 The geometries are based on \code{\link[ggplot2:geom_histogram]{ggplot2::geom_histogram()}}
-and \code{\link[ggplot2:geom_histogram]{ggplot2::geom_freqpoly()}}.
+and \code{\link[ggplot2:geom_freqpoly]{ggplot2::geom_freqpoly()}}.
 See the documentation for those functions for more details.
 
 This interactive version is only providing a single tooltip per

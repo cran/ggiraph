@@ -25,9 +25,9 @@ An interactive scale object.
 \description{
 These scales are based on
 \code{\link[ggplot2:scale_linetype]{ggplot2::scale_linetype()}},
-\code{\link[ggplot2:scale_linetype]{ggplot2::scale_linetype_continuous()}},
-\code{\link[ggplot2:scale_linetype]{ggplot2::scale_linetype_discrete()}} and
-\code{\link[ggplot2:scale_linetype]{ggplot2::scale_linetype_binned()}}.
+\code{\link[ggplot2:scale_linetype_continuous]{ggplot2::scale_linetype_continuous()}},
+\code{\link[ggplot2:scale_linetype_discrete]{ggplot2::scale_linetype_discrete()}} and
+\code{\link[ggplot2:scale_linetype_binned]{ggplot2::scale_linetype_binned()}}.
 See the documentation for those functions for more details.
 }
 \section{Details for interactive scale and interactive guide functions}{
@@ -67,15 +67,15 @@ See the element_*_interactive section for more details.
 \seealso{
 \code{\link[=girafe]{girafe()}}
 
-Other interactive scale: 
-\code{\link{scale_alpha_interactive}()},
-\code{\link{scale_colour_brewer_interactive}()},
+Other interactive scale:
+\code{\link[=scale_alpha_interactive]{scale_alpha_interactive()}},
+\code{\link[=scale_colour_brewer_interactive]{scale_colour_brewer_interactive()}},
 \code{\link{scale_colour_interactive}},
-\code{\link{scale_colour_steps_interactive}()},
+\code{\link[=scale_colour_steps_interactive]{scale_colour_steps_interactive()}},
 \code{\link{scale_gradient_interactive}},
 \code{\link{scale_manual_interactive}},
-\code{\link{scale_shape_interactive}()},
-\code{\link{scale_size_interactive}()},
+\code{\link[=scale_shape_interactive]{scale_shape_interactive()}},
+\code{\link[=scale_size_interactive]{scale_size_interactive()}},
 \code{\link{scale_viridis_interactive}}
 }
 \concept{interactive scale}

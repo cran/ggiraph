@@ -11,7 +11,7 @@ geom_count_interactive(...)
 plus any of the \link{interactive_parameters}.}
 }
 \description{
-The geometry is based on \code{\link[ggplot2:geom_bin_2d]{ggplot2::geom_bin2d()}}.
+The geometry is based on \code{\link[ggplot2:geom_bin2d]{ggplot2::geom_bin2d()}}.
 See the documentation for those functions for more details.
 }
 \section{Details for interactive geom functions}{

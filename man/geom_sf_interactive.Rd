@@ -17,8 +17,8 @@ geom_sf_text_interactive(...)
 plus any of the \link{interactive_parameters}.}
 }
 \description{
-These geometries are based on \code{\link[ggplot2:ggsf]{ggplot2::geom_sf()}}, \code{\link[ggplot2:ggsf]{ggplot2::geom_sf_label()}}
-and \code{\link[ggplot2:ggsf]{ggplot2::geom_sf_text()}}. See the documentation for those functions for
+These geometries are based on \code{\link[ggplot2:geom_sf]{ggplot2::geom_sf()}}, \code{\link[ggplot2:geom_sf_label]{ggplot2::geom_sf_label()}}
+and \code{\link[ggplot2:geom_sf_text]{ggplot2::geom_sf_text()}}. See the documentation for those functions for
 more details.
 }
 \section{Details for interactive geom functions}{

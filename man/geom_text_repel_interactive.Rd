@@ -14,7 +14,7 @@ geom_label_repel_interactive(...)
 plus any of the \link{interactive_parameters}.}
 }
 \description{
-The geometries are based on \code{\link[ggrepel:geom_text_repel]{ggrepel::geom_text_repel()}} and \code{\link[ggrepel:geom_text_repel]{ggrepel::geom_label_repel()}}.
+The geometries are based on \code{\link[ggrepel:geom_text_repel]{ggrepel::geom_text_repel()}} and \code{\link[ggrepel:geom_label_repel]{ggrepel::geom_label_repel()}}.
 See the documentation for those functions for more details.
 }
 \note{

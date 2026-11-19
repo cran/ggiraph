@@ -22,8 +22,8 @@ geom_pointrange_interactive(...)
 plus any of the \link{interactive_parameters}.}
 }
 \description{
-These geometries are based on \code{\link[ggplot2:geom_linerange]{ggplot2::geom_crossbar()}}, \code{\link[ggplot2:geom_linerange]{ggplot2::geom_errorbar()}},
-\code{\link[ggplot2:geom_linerange]{ggplot2::geom_linerange()}} and \code{\link[ggplot2:geom_linerange]{ggplot2::geom_pointrange()}}.
+These geometries are based on \code{\link[ggplot2:geom_crossbar]{ggplot2::geom_crossbar()}}, \code{\link[ggplot2:geom_errorbar]{ggplot2::geom_errorbar()}},
+\code{\link[ggplot2:geom_linerange]{ggplot2::geom_linerange()}} and \code{\link[ggplot2:geom_pointrange]{ggplot2::geom_pointrange()}}.
 See the documentation for those functions for more details.
 }
 \section{Details for interactive geom functions}{

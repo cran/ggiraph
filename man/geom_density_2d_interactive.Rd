@@ -16,7 +16,7 @@ geom_density_2d_filled_interactive(...)
 plus any of the \link{interactive_parameters}.}
 }
 \description{
-The geometries are based on \code{\link[ggplot2:geom_density_2d]{ggplot2::geom_density_2d()}} and \code{\link[ggplot2:geom_density_2d]{ggplot2::geom_density_2d_filled()}}.
+The geometries are based on \code{\link[ggplot2:geom_density_2d]{ggplot2::geom_density_2d()}} and \code{\link[ggplot2:geom_density_2d_filled]{ggplot2::geom_density_2d_filled()}}.
 See the documentation for those functions for more details.
 }
 \section{Details for interactive geom functions}{

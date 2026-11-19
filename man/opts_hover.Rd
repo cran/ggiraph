@@ -73,15 +73,15 @@ if( interactive() ) print(x)
 \seealso{
 \code{\link[=girafe_css]{girafe_css()}}, \code{\link[=girafe_css_bicolor]{girafe_css_bicolor()}}
 
-Other girafe animation options: 
-\code{\link{girafe_defaults}()},
-\code{\link{girafe_options}()},
-\code{\link{init_girafe_defaults}()},
-\code{\link{opts_selection}()},
-\code{\link{opts_sizing}()},
-\code{\link{opts_toolbar}()},
-\code{\link{opts_tooltip}()},
-\code{\link{opts_zoom}()},
-\code{\link{set_girafe_defaults}()}
+Other girafe animation options:
+\code{\link[=girafe_defaults]{girafe_defaults()}},
+\code{\link[=girafe_options]{girafe_options()}},
+\code{\link[=init_girafe_defaults]{init_girafe_defaults()}},
+\code{\link[=opts_selection]{opts_selection()}},
+\code{\link[=opts_sizing]{opts_sizing()}},
+\code{\link[=opts_toolbar]{opts_toolbar()}},
+\code{\link[=opts_tooltip]{opts_tooltip()}},
+\code{\link[=opts_zoom]{opts_zoom()}},
+\code{\link[=set_girafe_defaults]{set_girafe_defaults()}}
 }
 \concept{girafe animation options}

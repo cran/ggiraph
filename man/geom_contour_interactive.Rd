@@ -15,7 +15,7 @@ plus any of the \link{interactive_parameters}.}
 }
 \description{
 These geometries are based on \code{\link[ggplot2:geom_contour]{ggplot2::geom_contour()}}
-and \code{\link[ggplot2:geom_contour]{ggplot2::geom_contour_filled()}}.
+and \code{\link[ggplot2:geom_contour_filled]{ggplot2::geom_contour_filled()}}.
 See the documentation for those functions for more details.
 }
 \section{Details for interactive geom functions}{

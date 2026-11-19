@@ -15,7 +15,7 @@ geom_tile_interactive(...)
 plus any of the \link{interactive_parameters}.}
 }
 \description{
-These geometries are based on \code{\link[ggplot2:geom_tile]{ggplot2::geom_rect()}} and \code{\link[ggplot2:geom_tile]{ggplot2::geom_tile()}}.
+These geometries are based on \code{\link[ggplot2:geom_rect]{ggplot2::geom_rect()}} and \code{\link[ggplot2:geom_tile]{ggplot2::geom_tile()}}.
 See the documentation for those functions for more details.
 }
 \note{

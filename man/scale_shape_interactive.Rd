@@ -28,10 +28,10 @@ An interactive scale object.
 \description{
 These scales are based on
 \code{\link[ggplot2:scale_shape]{ggplot2::scale_shape()}},
-\code{\link[ggplot2:scale_shape]{ggplot2::scale_shape_continuous()}},
-\code{\link[ggplot2:scale_shape]{ggplot2::scale_shape_discrete()}},
-\code{\link[ggplot2:scale_shape]{ggplot2::scale_shape_binned()}} and
-\code{\link[ggplot2:scale_shape]{ggplot2::scale_shape_ordinal()}}.
+\code{\link[ggplot2:scale_shape_continuous]{ggplot2::scale_shape_continuous()}},
+\code{\link[ggplot2:scale_shape_discrete]{ggplot2::scale_shape_discrete()}},
+\code{\link[ggplot2:scale_shape_binned]{ggplot2::scale_shape_binned()}} and
+\code{\link[ggplot2:scale_shape_ordinal]{ggplot2::scale_shape_ordinal()}}.
 See the documentation for those functions for more details.
 }
 \section{Details for interactive scale and interactive guide functions}{
@@ -71,15 +71,15 @@ See the element_*_interactive section for more details.
 \seealso{
 \code{\link[=girafe]{girafe()}}
 
-Other interactive scale: 
-\code{\link{scale_alpha_interactive}()},
-\code{\link{scale_colour_brewer_interactive}()},
+Other interactive scale:
+\code{\link[=scale_alpha_interactive]{scale_alpha_interactive()}},
+\code{\link[=scale_colour_brewer_interactive]{scale_colour_brewer_interactive()}},
 \code{\link{scale_colour_interactive}},
-\code{\link{scale_colour_steps_interactive}()},
+\code{\link[=scale_colour_steps_interactive]{scale_colour_steps_interactive()}},
 \code{\link{scale_gradient_interactive}},
-\code{\link{scale_linetype_interactive}()},
+\code{\link[=scale_linetype_interactive]{scale_linetype_interactive()}},
 \code{\link{scale_manual_interactive}},
-\code{\link{scale_size_interactive}()},
+\code{\link[=scale_size_interactive]{scale_size_interactive()}},
 \code{\link{scale_viridis_interactive}}
 }
 \concept{interactive scale}

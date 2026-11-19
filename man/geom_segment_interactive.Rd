@@ -15,7 +15,7 @@ geom_segment_interactive(...)
 plus any of the \link{interactive_parameters}.}
 }
 \description{
-The geometries are based on \code{\link[ggplot2:geom_segment]{ggplot2::geom_segment()}} and \code{\link[ggplot2:geom_segment]{ggplot2::geom_curve()}}.
+The geometries are based on \code{\link[ggplot2:geom_segment]{ggplot2::geom_segment()}} and \code{\link[ggplot2:geom_curve]{ggplot2::geom_curve()}}.
 See the documentation for those functions for more details.
 }
 \section{Details for interactive geom functions}{

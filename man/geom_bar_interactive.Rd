@@ -16,7 +16,7 @@ plus any of the \link{interactive_parameters}.}
 }
 \description{
 The geometries are based on \code{\link[ggplot2:geom_bar]{ggplot2::geom_bar()}}
-and \code{\link[ggplot2:geom_bar]{ggplot2::geom_col()}}.
+and \code{\link[ggplot2:geom_col]{ggplot2::geom_col()}}.
 See the documentation for those functions for more details.
 }
 \section{Details for interactive geom functions}{

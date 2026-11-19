@@ -18,7 +18,7 @@ plus any of the \link{interactive_parameters}.}
 }
 \description{
 These geometries are based on \code{\link[ggplot2:geom_path]{ggplot2::geom_path()}},
-\code{\link[ggplot2:geom_path]{ggplot2::geom_line()}} and \code{\link[ggplot2:geom_path]{ggplot2::geom_step()}}.
+\code{\link[ggplot2:geom_line]{ggplot2::geom_line()}} and \code{\link[ggplot2:geom_step]{ggplot2::geom_step()}}.
 See the documentation for those functions for more details.
 }
 \section{Details for interactive geom functions}{
